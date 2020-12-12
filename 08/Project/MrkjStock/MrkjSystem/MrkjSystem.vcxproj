@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0B2643B8-D7C0-4A05-9C02-09D1D4B0A8D7}</ProjectGuid>
+    <RootNamespace>MrkjSystem</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <Keyword>MFCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CandlestickSerie.h" />
+    <ClInclude Include="CApplication.h" />
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="CRange.h" />
+    <ClInclude Include="CursorTip.h" />
+    <ClInclude Include="CWorkbook.h" />
+    <ClInclude Include="CWorkbooks.h" />
+    <ClInclude Include="CWorksheet.h" />
+    <ClInclude Include="CWorksheets.h" />
+    <ClInclude Include="DayDataEntry.h" />
+    <ClInclude Include="DialogAbout.h" />
+    <ClInclude Include="DialogCalc.h" />
+    <ClInclude Include="DialogCalc01.h" />
+    <ClInclude Include="DialogCalc02.h" />
+    <ClInclude Include="DialogCalc03.h" />
+    <ClInclude Include="DialogCalc04.h" />
+    <ClInclude Include="DialogCalc05.h" />
+    <ClInclude Include="DialogDataImpExp.h" />
+    <ClInclude Include="DialogDataKind.h" />
+    <ClInclude Include="DialogDataMaintenance.h" />
+    <ClInclude Include="DialogFilterKind.h" />
+    <ClInclude Include="DialogHistorySub01.h" />
+    <ClInclude Include="DialogHistorySub02.h" />
+    <ClInclude Include="DialogHostoryData.h" />
+    <ClInclude Include="DialogHuShen.h" />
+    <ClInclude Include="DialogKeybdQuery.h" />
+    <ClInclude Include="DialogKindSelect.h" />
+    <ClInclude Include="DialogLogin.h" />
+    <ClInclude Include="DialogRealtimeData.h" />
+    <ClInclude Include="DialogScreenShot.h" />
+    <ClInclude Include="DialogSetting.h" />
+    <ClInclude Include="DialogStockFilter.h" />
+    <ClInclude Include="DrawBuySellPanel.h" />
+    <ClInclude Include="DrawKLineImagePanel.h" />
+    <ClInclude Include="HorizontalAxis.h" />
+    <ClInclude Include="HttpDataEntry.h" />
+    <ClInclude Include="HttpDataSource.h" />
+    <ClInclude Include="HttpHelper.h" />
+    <ClInclude Include="KLineElement.h" />
+    <ClInclude Include="LeftTopLabel.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="MMListCtrl.h" />
+    <ClInclude Include="MRKJDatabase.h" />
+    <ClInclude Include="MrkjSystem.h" />
+    <ClInclude Include="MrkjSystemDlg.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ScreenTools.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="StockChart.h" />
+    <ClInclude Include="StringHelper.h" />
+    <ClInclude Include="TableFiles.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Tools.h" />
+    <ClInclude Include="VerticalAxis.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CandlestickSerie.cpp" />
+    <ClCompile Include="CursorTip.cpp" />
+    <ClCompile Include="DayDataEntry.cpp" />
+    <ClCompile Include="DialogAbout.cpp" />
+    <ClCompile Include="DialogCalc.cpp" />
+    <ClCompile Include="DialogCalc01.cpp" />
+    <ClCompile Include="DialogCalc02.cpp" />
+    <ClCompile Include="DialogCalc03.cpp" />
+    <ClCompile Include="DialogCalc04.cpp" />
+    <ClCompile Include="DialogCalc05.cpp" />
+    <ClCompile Include="DialogDataImpExp.cpp" />
+    <ClCompile Include="DialogDataKind.cpp" />
+    <ClCompile Include="DialogDataMaintenance.cpp" />
+    <ClCompile Include="DialogFilterKind.cpp" />
+    <ClCompile Include="DialogHistorySub01.cpp" />
+    <ClCompile Include="DialogHistorySub02.cpp" />
+    <ClCompile Include="DialogHostoryData.cpp" />
+    <ClCompile Include="DialogHuShen.cpp" />
+    <ClCompile Include="DialogKeybdQuery.cpp" />
+    <ClCompile Include="DialogKindSelect.cpp" />
+    <ClCompile Include="DialogLogin.cpp" />
+    <ClCompile Include="DialogRealtimeData.cpp" />
+    <ClCompile Include="DialogScreenShot.cpp" />
+    <ClCompile Include="DialogSetting.cpp" />
+    <ClCompile Include="DialogStockFilter.cpp" />
+    <ClCompile Include="DrawBuySellPanel.cpp" />
+    <ClCompile Include="DrawKLineImagePanel.cpp" />
+    <ClCompile Include="HorizontalAxis.cpp" />
+    <ClCompile Include="HttpDataEntry.cpp" />
+    <ClCompile Include="HttpDataSource.cpp" />
+    <ClCompile Include="HttpHelper.cpp" />
+    <ClCompile Include="LeftTopLabel.cpp" />
+    <ClCompile Include="MMListCtrl.cpp" />
+    <ClCompile Include="MRKJDatabase.cpp" />
+    <ClCompile Include="MrkjSystem.cpp" />
+    <ClCompile Include="MrkjSystemDlg.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="StockChart.cpp" />
+    <ClCompile Include="TableFiles.cpp" />
+    <ClCompile Include="VerticalAxis.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MrkjSystem.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\MrkjSystem.rc2" />
+    <None Include="res\shot.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\1111.bmp" />
+    <Image Include="res\About.bmp" />
+    <Image Include="res\BackgroundBrush.bmp" />
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bitmap_calc.bmp" />
+    <Image Include="res\bitmap_k.bmp" />
+    <Image Include="res\icon1.ico" />
+    <Image Include="res\kind.bmp" />
+    <Image Include="res\KindIcon.png" />
+    <Image Include="res\MainDlgBackgroud.bmp" />
+    <Image Include="res\MrkjSystem.ico" />
+    <Image Include="res\shot.ico" />
+    <Image Include="res\stock.bmp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="MrkjSystem.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

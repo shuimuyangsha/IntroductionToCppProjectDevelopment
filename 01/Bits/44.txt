@@ -1,0 +1,46 @@
+
+// 设置输出窗口的句柄
+void CGame::SetHandle(HWND hWnd)
+{
+    m_hWnd = hWnd;
+}
+ 
+// 进入游戏帧
+bool CGame::EnterFrame(DWORD dwTime)
+{
+    GameRunLogic();										// 调用逻辑处理函数
+    GameRunDraw();										// 调用绘图函数
+    return false;
+}
+ 
+// 处理鼠标移动事件
+void CGame::OnMouseMove(UINT nFlags, CPoint point)
+{
+    // 选择阶段
+    if (m_eStep == EGameTypeMenu) {
+        m_menuSelect.OnMouseMove(nFlags, point); 		// 选择游戏类型
+    }
+    else {
+        m_menuBackup.OnMouseMove(nFlags, point); 		// 返回主菜单
+    }
+}
+ 
+// 处理左键抬起事件
+void CGame::OnLButtonUp(UINT nFlags, CPoint point)
+{
+    // 选择阶段
+    if (m_eStep == EGameTypeMenu) {
+        m_menuSelect.OnLButtonUp(nFlags, point); 		// 选择游戏类型
+    }
+    else {
+        m_menuBackup.OnLButtonUp(nFlags, point); 		// 返回主菜单
+    }
+}
+ 
+// 设置当前游戏所处的阶段
+// 并根据步聚 初始化
+void CGame::SetStep(CGame::EGameType step)
+{
+    m_eStep = step;
+    GameInit();											// 调用初始化函数
+}

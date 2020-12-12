@@ -1,0 +1,5 @@
+
+struct ADAPTER_INFO {
+    ADAPTER_STATUS nStatus;
+    NAME_BUFFER    nBuffer;
+};

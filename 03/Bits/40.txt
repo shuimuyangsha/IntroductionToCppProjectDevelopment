@@ -1,0 +1,50 @@
+    {
+        HDC hdc = ::GetDC(g_hwnd); 					// 获得设备
+        std::shared_ptr<HDC__> dc(hdc, [](auto hdc) {	// 不使用时自动释放
+            ::ReleaseDC(g_hwnd, hdc);					// 释放设备
+        });
+        MapArray[s_n]->DrawPeas(hdc);					// 画豆子
+        MapArray[s_n]->DrawMap(hdc);					// 画地图
+
+        // 画敌人及自动运动
+        {
+            e1->action();								// 敌军一的行为函数
+            e1->DrawBlank(hdc);						// 画敌军一的空白
+            e1->Draw(hdc);							// 画敌军一的主体部分
+ 
+            e2->action();								// 敌军一的行为函数
+            e2->DrawBlank(hdc); 						// 画敌军一的空白
+            e2->Draw(hdc); 							// 画敌军一的主体部分
+ 
+            e3->action();								// 敌军一的行为函数
+            e3->DrawBlank(hdc); 						// 画敌军一的空白
+            e3->Draw(hdc); 							// 画敌军一的主体部分
+ 
+            e4->action();								// 敌军一的行为函数
+            e4->DrawBlank(hdc); 						// 画敌军一的空白
+            e4->Draw(hdc); 							// 画敌军一的主体部分
+        }
+ 
+        {
+            // 画自己
+            g_me->DrawBlank(hdc);
+            g_me->Draw(hdc);
+            // 自己向前移动
+            g_me->action();
+ 
+            // 获取按键 : 控制自己的方向
+            if(GetAsyncKeyState(VK_DOWN) & 0x8000) {	// 检测到下方向键按下
+                g_me->SetTwCommand(DOWN);				// 设置下一步的移动方向为向下
+            }
+            if(GetAsyncKeyState(VK_LEFT) & 0x8000) {	// 检测到左方向键按下
+                g_me->SetTwCommand(LEFT); 				// 设置下一步的移动方向为向左
+            }
+            if(GetAsyncKeyState(VK_RIGHT) & 0x8000) {	// 检测到右方向键按下
+                g_me->SetTwCommand(RIGHT); 			// 设置下一步的移动方向为向右
+            }
+            if(GetAsyncKeyState(VK_UP) & 0x8000) {		// 检测到上方向键按下
+                g_me->SetTwCommand(UP); 				// 设置下一步的移动方向为向上
+            }
+        }
+    }
+}

@@ -1,0 +1,5 @@
+m_map.Draw(gh); 					// 画出地图
+m_player01.Draw(gh); 				// 画坦克(玩家一)
+for(auto &blt : m_lstBullets) {	// 画子弹(所有存在于地图上的子弹)
+    blt.Draw(gh);
+}

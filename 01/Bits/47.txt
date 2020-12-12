@@ -1,0 +1,115 @@
+
+// 游戏绘图
+void CGame::GameRunDraw()
+{
+    HDC hdc = ::GetDC(m_hWnd);							// 设备:图片要画到这上面
+    CRect rc; 											// 客户区的大小
+    GetClientRect(m_hWnd, &rc);
+ 
+    CDC *dc = CClientDC::FromHandle(hdc);
+ 
+    CDC m_dcMemory; 										// 双缓冲绘图用
+    CBitmap bmp;
+    bmp.CreateCompatibleBitmap(dc, rc.Width(), rc.Height());
+    m_dcMemory.CreateCompatibleDC(dc);
+    CBitmap *pOldBitmap = m_dcMemory.SelectObject(&bmp);
+ 
+    Graphics gh(m_dcMemory.GetSafeHdc());				// 构造对象
+    gh.Clear(Color::White); 								// 清除背景
+    gh.ResetClip();
+ 
+    (this->*m_drawFunc[m_eStep])(gh); 					// 画入内存
+
+    ::BitBlt(hdc, 0, 0, rc.Width(), rc.Height(), 		// 拷贝到屏幕
+        m_dcMemory.GetSafeHdc(), 0, 0, SRCCOPY);
+    ::ReleaseDC(m_hWnd, hdc); 							// 释放
+    return;
+}
+ 
+// 选择阶段
+void CGame::GameRunDrawOnMenu(Graphics &gh)
+{
+    m_menuSelect.Draw(gh);
+}
+ 
+//单人对电脑 : 菜单阶段
+void CGame::GameRunDrawOnOne2BotMenu(Graphics &gh)
+{
+    m_menu.Draw(gh); 									// 画背景
+
+    m_keymenu01.Draw(gh); 								// 画菜单
+}
+ 
+//单人对电脑
+void CGame::GameRunDrawOnOne2Bot(Graphics &gh)
+{
+    m_menuBackup.Draw(gh); 								// 画菜单
+    m_map.Draw(gh); 										// 画墙
+
+    m_player01.Draw(gh); 								// 画玩家一
+
+    m_bot.Draw(gh); 										// 画机器人
+
+    for (auto b : m_lstBullets) { 						// 画子弹 :  己经发射的
+        b.Draw(gh);
+    }
+ 
+    DrawFps(gh); 										// 输出 : FPS
+}
+ 
+//单人对电脑 结束
+void CGame::GameRunDrawOnOne2BotEnd(Graphics &gh)
+{
+    m_menuBackup.Draw(gh); 								// 菜单
+    m_map.Draw(gh); 										// 墙
+    m_player01.Draw(gh); 								// 玩家
+    m_bot.Draw(gh); 										// 机器人
+
+    DrawFps(gh); 										// 输出 : FPS
+
+    if (m_player01.IsBombEnd() || m_bot.IsBombEnd()) { 	// 判断游戏整体结束
+        m_eStep = EGameTypeMenu;							// 设置为菜单状态
+    }
+}
+ 
+// 双人对战 : 菜单阶段
+void CGame::GameRunDrawOnOne2OneMenu(Graphics &gh)
+{
+    m_menu.Draw(gh); 									// 画菜单背景
+    m_keymenu01.Draw(gh); 								// 画菜单项一
+    m_keymenu02.Draw(gh); 								// 画菜单项二
+}
+ 
+// 双人对战
+void CGame::GameRunDrawOnOne2One(Graphics &gh)
+{
+    m_menuBackup.Draw(gh); 								// 画菜单
+
+    m_map.Draw(gh); 										// 画墙
+
+    m_player01.Draw(gh); 								// 画玩家一
+    m_player02.Draw(gh); 								// 画玩家二
+
+    for (auto b : m_lstBullets) { 						// 画子弹 :  己经发射的
+        b.Draw(gh);
+    }
+ 
+    DrawFps(gh); 											// 输出 : FPS
+}
+ 
+// 双人对战 结束
+void CGame::GameRunDrawOnOne2OneEnd(Graphics &gh)
+{
+    m_menuBackup.Draw(gh); 									// 菜单
+    m_map.Draw(gh); 											// 墙
+    m_player01.Draw(gh); 									// 玩家一
+    m_player02.Draw(gh); 									// 玩家二
+    for (auto b : m_lstBullets) { 							// 画子弹 :  己经发射的
+        b.Draw(gh);
+    }
+    DrawFps(gh);	 											// 输出 : FPS
+
+    if (m_player01.IsBombEnd() || m_player02.IsBombEnd()) { // 判断游戏整体结束
+        m_eStep = EGameTypeMenu;								// 设置游戏状态为菜单状态
+    }
+}

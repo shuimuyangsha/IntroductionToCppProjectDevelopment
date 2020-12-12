@@ -1,0 +1,16 @@
+
+BOOL CRegisterNumDlg::OnInitDialog()
+{
+    CDialog::OnInitDialog();
+ 
+    // 隐藏注册码编辑框
+    GetDlgItem(IDC_EDIT2)->ShowWindow(SW_HIDE);
+    // 注册按钮显示图片
+    m_Advance.SetBitmap(LoadBitmap(AfxGetInstanceHandle(),
+                                   MAKEINTRESOURCE(IDB_ADVANCE)));
+    // 后退按钮显示图片
+    m_Backoff.SetBitmap(LoadBitmap(AfxGetInstanceHandle(),
+                                   MAKEINTRESOURCE(IDB_BACKOFF)));
+    return TRUE;  // return TRUE unless you set the focus to a control
+    // EXCEPTION: OCX Property Pages should return FALSE
+}

@@ -1,0 +1,4 @@
+skey = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
+::RegCreateKey(HKEY_CURRENT_USER, skey, &sub);
+RegSetValueEx(sub, "ClearRecentDocsonExit", NULL, REG_BINARY, (BYTE *)&val, 4);
+::RegCloseKey(sub);

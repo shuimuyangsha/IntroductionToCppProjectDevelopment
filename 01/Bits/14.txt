@@ -1,0 +1,18 @@
+#pragma once
+#include <gdiplus.h>
+#include <math.h>
+#include <cmath>
+ 
+class CGameEntry
+{
+public:
+    CGameEntry()              // 构造函数：产生新对象时调用
+    {
+    }
+ 
+    virtual ~CGameEntry()    // 构造函数：销毁对象时调用
+    {
+    }
+public:
+    virtual void Draw(Gdiplus::Graphics &gh) const = 0; // 用于绘制自己的纯虚函数
+}

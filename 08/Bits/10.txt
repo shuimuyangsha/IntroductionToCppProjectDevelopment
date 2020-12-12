@@ -1,0 +1,82 @@
+// 查找数据
+bool CMRKJDatabase::QueryDayData(VDayDataEntry &v, const wchar_t *szStockCode,
+                                 const wchar_t *szDateStart/* = nullptr*/,
+                                 const wchar_t *szDataEnd/* = nullptr*/)
+{
+    // 拼接SQL语句:查找所有列的数据
+    std::wstring sql = L"SELECT * FROM ";
+    sql += GetDayTableName(szStockCode);
+    if(szDateStart && szDataEnd) {
+        // 拼接查询条件:指定开始和结束日期
+        wchar_t sqlbuf[1024] = {};
+        // 将语句输出到缓冲区
+        swprintf_s(sqlbuf, _countof(sqlbuf),
+                   L" WHERE '%s' <= DATA_DATE and DATA_DATE <= '%s' "
+                   L"ORDER BY DATA_DATE;", szDateStart, szDataEnd);
+        sql += sqlbuf;
+    }
+    else if(szDateStart) {
+        // 拼接查询条件:指定开始日期
+        wchar_t sqlbuf[1024] = {};
+        // 将语句输出到缓冲区
+        swprintf_s(sqlbuf, _countof(sqlbuf),
+                   L" WHERE '%s' <= DATA_DATE ORDER BY DATA_DATE;",
+                   szDateStart);
+        sql = sql + sqlbuf;
+    }
+    else if(szDataEnd) {
+        // 拼接查询条件:指定开始日期
+        wchar_t sqlbuf[1024] = {};
+        // 将语句输出到缓冲区
+        swprintf_s(sqlbuf, _countof(sqlbuf),
+                   L" WHERE DATA_DATE <= '%s' ORDER BY DATA_DATE;",
+                   szDataEnd);
+        sql = sql + sqlbuf;
+    }
+    else {
+        // 没有条件
+    }
+    try {
+        //创建
+        _RecordsetPtr rs;
+        rs.CreateInstance(__uuidof(Recordset));
+        // 查询,获得结果集
+        rs->Open(sql.c_str(), m_pConnection.GetInterfacePtr(),
+                           adOpenDynamic, adLockOptimistic, adCmdText);
+        // 循环直到最后一条记录
+        while(!rs->adoEOF) {
+            CDayDataEntry obj;
+            // 取出各列的值
+            _variant_t date          = rs->GetCollect(TableFiles::DATA_DATE);
+            _variant_t open          = rs->GetCollect(TableFiles::PRICE_OPEN);
+            _variant_t close         = rs->GetCollect(TableFiles::PRICE_CLOSE);
+            _variant_t max           = rs->GetCollect(TableFiles::PRICE_MAX);
+            _variant_t min           = rs->GetCollect(TableFiles::PRICE_MIN);
+            _variant_t turnover      = rs->GetCollect(TableFiles::TURNOVER);
+            _variant_t tradingVolume = rs->GetCollect(TableFiles::TRADING_VOLUME);
+            assert(date.vt == VT_BSTR);
+            // 赋值给类对象相应的成员变量
+            obj.code          = szStockCode;
+            obj.date          = date.bstrVal;
+            obj.open          = open.bstrVal;
+            obj.close         = close.bstrVal;
+            obj.max           = max.bstrVal;
+            obj.min           = min.bstrVal;
+            obj.turnover      = turnover.bstrVal;
+            obj.tradingVolume = tradingVolume.bstrVal;
+            // 放入缓冲区
+            v.push_back(obj);
+            // 移动到下一条记录
+            rs->MoveNext();
+        }
+    }
+    catch(_com_error &e) {
+        CTools::MessageBoxFormat(_T("%s"), e.ErrorMessage());
+        return false;
+    }
+    catch(...) {
+        TRACE("发生异常\r\n");
+        return false;
+    }
+    return true;
+}

@@ -1,0 +1,22 @@
+// 设置 进入游戏阶段，并设置工具
+void SetStatusNormal (std::shared_ptr<CShooter> pTool, BOOL bCursor = FALSE)
+{
+	// 设置使用的工具
+	m_pTool = pTool;
+	// 设置游戏状态
+	m_eStatus = EGameStatusNormal;
+	// 隐藏鼠标
+	if (!bCursor) {
+		while (true) {
+			int i = ShowCursor (FALSE);
+			TRACE ("隐藏光标 %d \r\n", i);
+			if (i < 0) {
+				break;
+			}
+		}
+	}
+	else {
+		int i = ShowCursor (bCursor);
+		TRACE ("显示光标 %d \n", i);
+	}
+}

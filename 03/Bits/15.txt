@@ -1,0 +1,5 @@
+#include "stdafx.h"
+#include "GMap.h"
+ 
+int GMap::LD = 36;								// 墙的宽度
+int GMap::PD = 3;								// 豆子的直径

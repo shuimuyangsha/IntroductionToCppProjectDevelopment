@@ -1,0 +1,61 @@
+// 双击树
+void CECSClientDlg::OnDblclkAclist(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    NM_TREEVIEW *pNMTreeView = (NM_TREEVIEW *)pNMHDR;
+    HTREEITEM hItem = m_ACList.GetSelectedItem();
+    HTREEITEM hRoot = m_ACList.GetRootItem();
+    if(hItem != NULL) {
+        // 对于帐户节点来说，低字节为0，高字节表示帐户ID
+        DWORD dwData = m_ACList.GetItemData(hItem);
+        int ID = HIWORD(dwData);
+        int lowID = LOWORD(dwData);
+        // 对于当前登陆的帐户，不在发送数据的范围内，即不能够向自己发送数据
+        if((lowID == SEX_MAN || lowID == SEX_WOMAN) &&
+           ID != 0 && ID != m_nLoginUser) {
+            CSendDlg *pDlg = NULL;
+            POSITION pos = NULL;
+            if(SearchSendDlg(ID, pos) == FALSE) {
+                pDlg = new CSendDlg();
+                // 关联对话框的目标ID
+                pDlg->m_UserID = ID;
+                pDlg->Create(IDD_SENDDLG_DIALOG);
+                m_pSdDlgList.AddTail(pDlg);
+            }
+            else if(pDlg == NULL && pos != NULL) {
+                pDlg = (CSendDlg *)m_pSdDlgList.GetAt(pos);
+            }
+            if(pDlg != NULL) {
+                // 添加对方帐户ID
+ 
+                CString csID;
+                csID.Format("%d", ID);
+                pDlg->m_DesID.ResetContent();   // 清空数据
+ 
+                pDlg->m_DesID.AddString(csID);
+                pDlg->m_DesID.SetCurSel(0);
+                CString csName = m_ACList.GetItemText(hItem);
+                // 添加对方帐户名
+                pDlg->m_DesName.ResetContent(); // 清空数据
+                pDlg->m_DesName.AddString(csName);
+                pDlg->m_DesName.SetCurSel(0);
+ 
+                // 添加本地帐户ID和名称
+                CString csLocalID;
+                csLocalID.Format("%d", m_nLoginUser);
+                pDlg->m_LocalID.SetWindowText(csLocalID);
+                CString csLocalName = "";
+                BOOL bRet = FindUserName(m_nLoginUser, csLocalName);
+                if(bRet) {
+                    pDlg->m_LocalName.SetWindowText(csLocalName);
+                }
+                // 显示窗口
+                pDlg->ShowWindow(SW_SHOW);
+ 
+                // 在其他发送窗口之上显示当前发送窗口
+                pDlg->SetWindowPos(&wndTop, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+            }
+        }
+    }
+    *pResult = 0;
+}
+ 

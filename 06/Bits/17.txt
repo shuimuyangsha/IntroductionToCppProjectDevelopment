@@ -1,0 +1,2 @@
+skey = "Software\\Microsoft\\Internet Explorer\\TypedURLs";
+::RegDeleteKey(HKEY_CURRENT_USER, skey);

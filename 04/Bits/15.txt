@@ -1,0 +1,27 @@
+// 设置 可以自动收集阳光，金钱
+void CDialogMain::OnBnClickedButtonAutoCollect()
+{
+    const DWORD dwBaseAddr = 0x0043158F;
+ 
+    CString str;
+    GetDlgItemText(IDC_BUTTON_AUTO_COLLECT, str);
+    if(str == _T("自动收集阳光金钱")) {
+        // 判断是否单击阳光，金钱，
+        {
+            const unsigned char code[] = { 0x74, 0x08 };	// 要写入的字节码 
+            WriteCode(dwBaseAddr, code, _countof(code));	// 写入代码
+        }
+         // 设置按钮上的文字，以提示玩家当前是自动收集阳金钱状态
+        SetDlgItemText(IDC_BUTTON_AUTO_COLLECT, _T("自动收集(恢复)"));
+    }
+    else {
+        // 判断是否单击阳光，金钱，
+        {
+            const unsigned char code[] = { 0x75, 0x08 };	// 原来的字节码
+            WriteCode(dwBaseAddr, code, _countof(code)); 	// 写入代码
+        }
+        // 设置按钮上的文字，以提示玩家当前不是自动收集阳金钱状态
+        SetDlgItemText(IDC_BUTTON_AUTO_COLLECT, _T("自动收集阳光金钱"));
+    }
+}
+ 

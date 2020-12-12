@@ -1,0 +1,4 @@
+// 初始化 游戏对象 : 向本窗口绘图
+m_pGame = std::make_shared<CGame>(GetSafeHwnd(), 0.0f, 0.0f, float(w), float(y));
+// 启动定时器，游戏帧
+SetTimer(1, 0, nullptr);

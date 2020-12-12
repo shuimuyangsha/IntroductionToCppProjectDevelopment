@@ -1,0 +1,6 @@
+
+BOOL CSysOptimizeDlg::OnNcActivate(BOOL bActive)
+{
+    OnPaint();
+    return CDialog::OnNcActivate(bActive);
+}

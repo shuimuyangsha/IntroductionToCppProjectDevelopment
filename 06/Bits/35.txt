@@ -1,0 +1,48 @@
+void CLitterDlg::FileDelete(CString FilePath)
+{
+    CString num, str, Name, FileName;
+    CFileFind file;
+    if(FilePath.Right(1) != "\\") {
+        FilePath += "\\";
+    }
+    BOOL bf;
+    for(int i = 0; i < 25; i++) {
+        num.Format("%d", i + 1);
+        char ischeck[2];
+        // 获得选中垃圾文件
+        GetPrivateProfileString("垃圾文件类型", num, "", ischeck,
+                                2, "./litterfile.ini");
+        str = ischeck;
+        if(str == "1") {
+            num.Format("%d", i + 31);
+            char text[8];
+            // 获得垃圾文件类型
+            GetPrivateProfileString("垃圾文件类型", num, "", text,
+                                    8, "./litterfile.ini");
+            FileName = text;
+            Name = FilePath + FileName;
+            bf = file.FindFile(Name); 							// 查找文件
+            while(bf) {
+                bf = file.FindNextFile();
+                if(!file.IsDots() && !file.IsDirectory()) { 	// 如果是垃圾文件
+                    DeleteFile(file.GetFilePath());			// 删除垃圾文件
+                    m_List.InsertString(m_List.GetCount(), FilePath);
+                }
+            }
+        }
+    }
+    FilePath += "*.*";
+    bf = file.FindFile(FilePath); 							// 查找内容包括目录
+    while(bf) {
+        bf = file.FindNextFile(); 							// 查找下一个文件
+        if(file.IsDots()) {
+            continue;
+        }
+        else if(file.IsDirectory()) {							// 如果是目录
+            FilePath = file.GetFilePath();
+            // 是目录时,继续递归调用函数删除该目录下的文件
+            FileDelete(FilePath);
+        }
+    }
+}
+ 

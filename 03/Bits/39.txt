@@ -1,0 +1,8 @@
+ 
+    // 判断时间,否则画得太快
+    if(GetTickCount() - dwLastTime >= 40) {
+        dwLastTime = GetTickCount();						// 记住本次的时间
+    }
+    else {
+        continue; 										// 时间不到,本次不进行绘画
+    }

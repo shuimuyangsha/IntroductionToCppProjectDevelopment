@@ -1,0 +1,32 @@
+// 画矩型测试
+{
+    HDC hdc = ::GetDC(g_hwnd);
+    {
+        // 创建画笔
+        HPEN pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+        // 选择画笔
+        HPEN oldPen = (HPEN)SelectObject(hdc, pen);
+        // 画矩型(空心)
+        Rectangle(hdc, 100, 200, 300, 500);
+        // 恢复画笔
+        SelectObject(hdc, oldPen);
+        DeleteObject(pen);
+    }
+ 
+    {
+        // 创建画笔
+        HBRUSH bBrush = CreateSolidBrush(RGB(0, 0, 255));
+        // 填充 矩型
+        RECT rect;
+        rect.left = 50;
+        rect.top = 270;
+        rect.right = 150;
+        rect.bottom = 370;
+        FillRect(hdc, &rect, bBrush);
+        DeleteObject(bBrush);
+    }
+ 
+    ::ReleaseDC(g_hwnd, hdc);
+    // 暂停1豪秒,不然画得太快,看清
+    Sleep(1);
+}

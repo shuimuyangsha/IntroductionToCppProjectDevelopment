@@ -1,0 +1,17 @@
+void CSysOptimizeDlg::DestroyWindowBox(int num)
+{
+    switch(num) {                           // 判断销毁的模块
+        case 1:                             // 控制面板操作模块
+            m_pContralDlg->DestroyWindow(); // 销毁对话框
+            break;
+        case 2:                             // 磁盘空间整理模块
+            m_pDiskDlg->DestroyWindow();    // 销毁对话框
+            break;
+        case 3:                             // 垃圾文件整理模块
+            m_pLitterDlg->DestroyWindow();  // 销毁对话框
+            break;
+        case 4:                             // 系统任务管理模块
+            m_pTaskDlg->ShowWindow(FALSE);  // 隐藏对话框
+            break;
+    }
+}

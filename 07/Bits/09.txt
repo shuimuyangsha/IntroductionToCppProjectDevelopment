@@ -1,0 +1,2 @@
+#import "C:\\WINDOWS\\system32\\msxml6.dll"
+using namespace MSXML2;

@@ -1,0 +1,11 @@
+/****下面代码演示 屏幕截图功能的用法****/
+{
+    {
+        // 截图部分屏幕,并保存到文件中
+        RECT r{0, 0, 100, 300};
+        HBITMAP hBmp = CScreenTools::CopyScreenToBitmap(&r);
+        // 保存背景图
+        CScreenTools::SaveBitmapToFile(hBmp, _T("C:\\桌面破坏王截图测试.bmp"));
+    }
+}
+/****演示完毕****/

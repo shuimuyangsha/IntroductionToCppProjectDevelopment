@@ -1,0 +1,8 @@
+// 第三关
+class Stage_3 : public GMap
+{
+private:
+    bool static initData[MAPLENTH][MAPLENTH]; 	// 地图数据
+public:
+    Stage_3();
+};

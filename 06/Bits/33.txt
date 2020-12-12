@@ -1,0 +1,21 @@
+BOOL CLitterDlg::OnInitDialog()
+{
+    CDialog::OnInitDialog();
+ 
+    DWORD size;
+    size = ::GetLogicalDriveStrings(0, NULL);               // 获得驱动器盘符
+    if(size != 0) {
+        HANDLE heap = ::GetProcessHeap();
+        LPSTR lp = (LPSTR)HeapAlloc(heap, HEAP_ZERO_MEMORY, size * sizeof(TCHAR));
+        ::GetLogicalDriveStrings(size * sizeof(TCHAR), lp); // 获得下一个驱动器盘符
+        while(*lp != 0) {
+            UINT res = ::GetDriveType(lp);                  // 获得驱动器类型
+            if(res = DRIVE_FIXED) {                         // 是固定硬盘
+                m_Combo.AddString(lp);                      // 记录驱动器盘符
+            }
+            lp = _tcschr(lp, 0) + 1;
+        }
+    }
+    GetDlgItem(IDC_BUTSTOP)->EnableWindow(FALSE);           // 停止按钮不可用
+    return TRUE;
+}

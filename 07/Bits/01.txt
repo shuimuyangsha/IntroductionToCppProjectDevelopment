@@ -1,0 +1,4 @@
+#import "C:\\Program Files\\Common Files\\System\\ado\\msado15.dll" \
+	rename_namespace ("ADODB") \
+rename("EOF","ADOEOF")
+using namespace ADODB;

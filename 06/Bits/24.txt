@@ -1,0 +1,8 @@
+void CSysOptimizeDlg::OnClose()
+{
+    if(m_Num != 0) {
+        DestroyWindowBox(m_Num);    					// 销毁当前显示的模块
+    }
+    m_pTaskDlg->DestroyWindow();    					// 销毁系统任务管理模块
+    CDialog::OnClose();             					// 退出程序
+}

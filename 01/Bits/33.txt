@@ -1,0 +1,4 @@
+CGame::CGame()
+{
+    GameInitOne2Bot(); // 初始化人机对战游戏
+}

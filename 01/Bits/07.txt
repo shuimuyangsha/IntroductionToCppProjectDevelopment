@@ -1,0 +1,2 @@
+SetTimer(ETimerIdGameLoop, 0, NULL);			// 启动定时器 每次都会进入游戏帧
+m_game.SetHandle(GetSafeHwnd());				// 设置游戏主窗口句柄

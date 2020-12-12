@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Register", "Register\Register.vcxproj", "{4459EA04-1727-4B9C-8F50-47DF4FF1A012}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateReg", "CreateReg\CreateReg.vcxproj", "{7EFEA868-B3AD-4030-8773-0C270E3506AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+		Template|x86 = Template|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4459EA04-1727-4B9C-8F50-47DF4FF1A012}.Debug|x86.ActiveCfg = Debug|Win32
+		{4459EA04-1727-4B9C-8F50-47DF4FF1A012}.Debug|x86.Build.0 = Debug|Win32
+		{4459EA04-1727-4B9C-8F50-47DF4FF1A012}.Release|x86.ActiveCfg = Release|Win32
+		{4459EA04-1727-4B9C-8F50-47DF4FF1A012}.Release|x86.Build.0 = Release|Win32
+		{4459EA04-1727-4B9C-8F50-47DF4FF1A012}.Template|x86.ActiveCfg = Release|Win32
+		{4459EA04-1727-4B9C-8F50-47DF4FF1A012}.Template|x86.Build.0 = Release|Win32
+		{7EFEA868-B3AD-4030-8773-0C270E3506AD}.Debug|x86.ActiveCfg = Debug|Win32
+		{7EFEA868-B3AD-4030-8773-0C270E3506AD}.Debug|x86.Build.0 = Debug|Win32
+		{7EFEA868-B3AD-4030-8773-0C270E3506AD}.Release|x86.ActiveCfg = Release|Win32
+		{7EFEA868-B3AD-4030-8773-0C270E3506AD}.Release|x86.Build.0 = Release|Win32
+		{7EFEA868-B3AD-4030-8773-0C270E3506AD}.Template|x86.ActiveCfg = Template|Win32
+		{7EFEA868-B3AD-4030-8773-0C270E3506AD}.Template|x86.Build.0 = Template|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

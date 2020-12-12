@@ -1,0 +1,23 @@
+// 游戏初始化 : 单人对电脑
+bool CGame::GameInitOne2Bot()
+{
+    {
+        m_map.LoadMap();// 载入地图
+        // 玩家一
+        {
+            m_player01 = CPlayer(0, 0, _T("tank_player1.png"));
+            PointF ptCenter;
+            if(!m_map.FindRandomPosition(ptCenter)) {
+                AfxMessageBox(_T("调整Player01位置失败"));
+            }
+            else {
+                 // 设置玩家一的中心点，让玩家一处于地图格子的正中间位置
+                m_player01.SetCenterPoint(ptCenter);    
+            }
+        }
+ 
+        // 子弹
+        m_lstBullets.clear();
+    }
+    return true;
+}

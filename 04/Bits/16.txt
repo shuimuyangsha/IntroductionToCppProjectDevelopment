@@ -1,0 +1,20 @@
+// 设置 僵尸全部出动
+void CDialogMain::OnBnClickedButtonAllZombies()
+{
+    const DWORD dwBaseAddr = 0x00413FD9;
+    CString str;
+    GetDlgItemText(IDC_BUTTON_ALL_ZOMBIES, str);
+    if(str == _T("僵尸全部出动")) {
+        {
+            const unsigned char code[] = { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
+            WriteCode(dwBaseAddr, code, _countof(code));
+        }
+        SetDlgItemText(IDC_BUTTON_ALL_ZOMBIES, _T("僵尸全部出动(恢复)"));
+    }
+    else {
+        {
+            const unsigned char code[] = { 0x0F, 0x85, 0x0D, 0x01, 0x00, 0x00 };
+            WriteCode(dwBaseAddr, code, _countof(code));
+        }
+        SetDlgItemText(IDC_BUTTON_ALL_ZOMBIES, _T("僵尸全部出动"));
+    }

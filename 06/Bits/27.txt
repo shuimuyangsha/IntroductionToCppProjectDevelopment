@@ -1,0 +1,85 @@
+//Internet选项按钮
+void CContralDlg::OnButinternet()
+{
+    //打开 IE 的设置窗口
+    ::ShellExecute(NULL, "OPEN", "rundll32.exe",
+                   "shell32.dll Control_RunDLL inetcpl.cpl", NULL, SW_SHOW);
+}
+//声音按钮
+void CContralDlg::OnButmmsys()
+{
+    //打开 声音的设置窗口
+    ::ShellExecute(NULL, "OPEN", "rundll32.exe",
+                   "shell32.dll Control_RunDLL mmsys.cpl @1", NULL, SW_SHOW);
+}
+//时间和日期按钮
+void CContralDlg::OnButtimedate()
+{
+    //启动日期和时间设置
+    ::ShellExecute(NULL, "OPEN", "rundll32.exe",
+                   "shell32.dll Control_RunDLL timedate.cpl", NULL, SW_SHOW);
+}
+//显示按钮
+void CContralDlg::OnButdesk()
+{
+    //启动显示设置面板
+    ::ShellExecute(NULL, "OPEN", "rundll32.exe",
+                   "shell32.dll Control_RunDLL desk.cpl", NULL, SW_SHOW);
+}
+//辅助选项按钮
+void CContralDlg::OnButaccess()
+{
+    //启动辅助选项
+    ::ShellExecute(NULL, "OPEN", "rundll32.exe",
+                   "shell32.dll Control_RunDLL access.cpl", NULL, SW_SHOW);
+}
+//鼠标按钮
+void CContralDlg::OnButmouse()
+{
+    //打开鼠标设置
+    ::ShellExecute(NULL, "OPEN", "rundll32.exe",
+                   "shell32.dll Control_RunDLL main.cpl @0", NULL, SW_SHOW);
+}
+//键盘按钮
+void CContralDlg::OnButkeyboard()
+{
+    //启动键盘设置
+    ::ShellExecute(NULL, "OPEN", "rundll32.exe",
+                   "shell32.dll Control_RunDLL main.cpl @1", NULL, SW_SHOW);
+}
+//区域按钮
+void CContralDlg::OnButintl()
+{
+    //打开区域设置
+    ::ShellExecute(NULL, "OPEN", "rundll32.exe",
+                   "shell32.dll Control_RunDLL intl.cpl", NULL, SW_SHOW);
+}
+//添加/删除程序按钮
+void CContralDlg::OnButappwiz()
+{
+    //启动添加软件设置
+    ::ShellExecute(NULL, "OPEN", "rundll32.exe",
+                   "shell32.dll Control_RunDLL appwiz.cpl", NULL, SW_SHOW);
+}
+//添加硬件按钮
+void CContralDlg::OnButhdwwiz()
+{
+    //启动添加硬件设置
+    ::ShellExecute(NULL, "OPEN", "rundll32.exe",
+                   "shell32.dll Control_RunDLL hdwwiz.cpl", NULL, SW_SHOW);
+}
+//系统按钮
+void CContralDlg::OnButsysdm()
+{
+    //打开系统设置
+    ::ShellExecute(NULL, "OPEN", "rundll32.exe",
+                   "shell32.dll Control_RunDLL sysdm.cpl", NULL, SW_SHOW);
+}
+//计算机管理按钮
+void CContralDlg::OnButmodem()
+{
+    //启动计算机管理设置
+    ::ShellExecute(NULL, "OPEN", "compmgmt.msc",
+                   "shell32.dll Control_RunDLL compmgmt.cpl", NULL, SW_SHOW);
+}
+ 

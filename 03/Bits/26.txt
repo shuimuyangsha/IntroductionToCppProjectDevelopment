@@ -1,0 +1,20 @@
+
+class PacMan : public GObject 				// 玩家对象
+{
+protected:
+    virtual void AchiveCtrl();				// 重写虚函数
+ 
+public:
+    POINT GetPos();
+    bool IsOver();							// 游戏是否结束
+    bool IsWin();							// 玩家是否赢得游戏
+    void Draw(HDC &hdc);						// 负责绘制自己
+    void SetTwCommand(TWARDS command);			// 设置玩家下一步指令
+    PacMan(int x, int y) : GObject(x, y)		// 构造函数，产生新对象时调用
+    {
+        this->m_nSpeed = PLAYERSPEED;			// 设置玩家速度
+        m_cmd = m_dir = LEFT;					// 设置
+    }
+    void action();							// 玩家的动作函数
+    void SetOver();							// 设置游戏结束函数
+};

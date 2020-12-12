@@ -1,0 +1,49 @@
+// 增加数据
+bool CMRKJDatabase::AddDayData(const CDayDataEntry &data)
+{
+    using namespace std;
+    assert(!data.code.empty());
+    // data.code + "r" = 表名
+    const wstring wstrTableName = GetDayTableName(data.code);
+    // 拼接 SQL语句
+    const wstring sql = L"Select * from " + wstrTableName + L";";
+    try {
+        // 创建
+        _RecordsetPtr rs;
+        rs.CreateInstance(__uuidof(Recordset));
+        // 打开记录集
+        rs->Open(sql.c_str(), m_pConnection.GetInterfacePtr(),
+                 adOpenStatic, adLockOptimistic, adCmdText);
+        // 移动到最后
+        if(!rs->adoEOF) {
+            rs->MoveLast();
+        }
+        // 增加记录
+        rs->AddNew();
+        // 设置各个列的值
+        rs->PutCollect(TableFiles::DATA_DATE, _variant_t(data.date.c_str()));
+        rs->PutCollect(TableFiles::PRICE_OPEN, _variant_t(data.open.c_str()));
+        rs->PutCollect(TableFiles::PRICE_CLOSE, _variant_t(data.close.c_str()));
+        rs->PutCollect(TableFiles::PRICE_MAX, _variant_t(data.max.c_str()));
+        rs->PutCollect(TableFiles::PRICE_MIN, _variant_t(data.min.c_str()));
+        rs->PutCollect(TableFiles::TURNOVER, _variant_t(data.turnover.c_str()));
+        rs->PutCollect(TableFiles::TRADING_VOLUME,
+                       _variant_t(data.tradingVolume.c_str()));
+        // 更新
+        rs->Update();
+        // 关闭记录集
+        rs->Close();
+        // 把记录集设置为穴,防止后面误用
+        rs = nullptr;
+    }
+    catch(_com_error &e) {
+        CTools::MessageBoxFormat(_T("%s"), e.ErrorMessage());
+        return false;
+    }
+    catch(...) {
+        TRACE("发生异常\r\n");
+        return false;
+    }
+    return true;
+}
+ 

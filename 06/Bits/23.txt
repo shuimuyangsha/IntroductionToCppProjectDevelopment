@@ -1,0 +1,19 @@
+// 控制面板操作
+void CSysOptimizeDlg::OnStacontral()
+{
+    if(m_Num != 0) {
+        DestroyWindowBox(m_Num);                        // 销毁当前打开的模块
+    }
+    CreateDialogBox(1);                                 // 显示控制面板操作模块
+    CRect rect, rc;
+    GetDlgItem(IDC_STACONTRAL)->GetClientRect(&rect);   // 获得控件的客户区域
+    GetDlgItem(IDC_STACONTRAL)->MapWindowPoints(this,   // 设置窗体中的位置
+            rect);
+    m_Select.GetClientRect(&rc);
+    m_Select.MoveWindow(rect.left - 20,                 // 移动选中效果图片控件
+                        rect.top - 6,
+                        rc.Width(),
+                        rc.Height(), TRUE);
+    m_Select.ShowWindow(SW_SHOW);                       // 显示选中效果图片控件
+    Invalidate();                                       // 使窗体无效(重绘窗体)
+}

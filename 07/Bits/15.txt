@@ -1,0 +1,33 @@
+// 删除帐户信息
+void CAccountDlg::OnBtDelete()
+{
+    CString csUserID;
+    m_UserID.GetWindowText(csUserID);
+    if(!csUserID.IsEmpty()) {
+        if(MessageBox("确实要删除当前帐户信息吗?", "提示", MB_YESNO) == IDYES) {
+            CString csSQL;
+            csSQL.Format("Delete From tb_Account where AccountID = %d", atoi(csUserID));
+            try {
+                HTREEITEM hItem = m_DPList.GetSelectedItem();
+                if(hItem != NULL) {
+                    DWORD dwData = m_DPList.GetItemData(hItem);
+                    int ID = LOWORD(dwData);
+                    if(ID == 0) {    // 再次确认当前节点是帐户信息
+                        m_DBMng.m_pConnect->Execute((_bstr_t)csSQL, 0, adCmdText);
+                        m_DPList.DeleteItem(hItem);
+                        MessageBox("操作成功!", "提示");
+                    }
+                    else {
+                        MessageBox("当前节点信息与删除信息不匹配!", "提示");
+                    }
+                }
+            }
+            catch(...) {
+                MessageBox("操作失败!", "提示");
+            }
+        }
+    }
+    else {
+        MessageBox("请在列表中选择删除的帐户信息!", "提示");
+    }
+}

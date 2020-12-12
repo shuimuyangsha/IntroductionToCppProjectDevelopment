@@ -1,0 +1,61 @@
+void CAccountDlg::OnBtadd()
+{
+    CString csAcID, csAcName, csSex, csDepart, csDepartID, csPassword, csHanderShip;
+    m_AccountID.GetWindowText(csAcID);
+    m_AccountName.GetWindowText(csAcName);
+    m_Depart.GetWindowText(csDepart);
+    m_DepartID.GetWindowText(csDepartID);
+    m_Password.GetWindowText(csPassword);
+    m_HanderShip.GetWindowText(csHanderShip);
+    m_Sex.GetWindowText(csSex);
+    // 验证信息的完整性
+    if(csAcID.IsEmpty() || csAcName.IsEmpty() || csSex.IsEmpty() || csDepart.IsEmpty()
+       || csDepartID.IsEmpty() || csPassword.IsEmpty() || csHanderShip.IsEmpty()) {
+        MessageBox("帐户信息不能为空!", "提示");
+        return;
+    }
+    if(atoi(csAcID) > 300000) {
+        MessageBox("帐户不能大于30000!", "提示");
+        return;
+    }
+    // 判断帐号是否存在
+    CString csSQL;
+    csSQL.Format("select AccountID from tb_Account where AccountID = %d",
+                 atoi(csAcID));
+    _RecordsetPtr pRecord = m_DBMng.m_pConnect->Execute(
+                                "select * from GetNewDepartID", 0, adCmdText);
+    if(pRecord->ADOEOF != pRecord->BOF) {
+        MessageBox("该帐户已存在!", "提示");
+        return;
+    }
+ 
+ 
+    // 保存数据
+    csSQL.Format("Insert into tb_Account "
+                 "(AccountID,ECSName,[Password],Sex, DepartID,DepartName,HeaderShip)"
+                 " values (%d,'%s','%s','%s',%d,'%s','%s')",
+                 atoi(csAcID), csAcName, csPassword, csSex,
+                 atoi(csDepartID), csDepart, csHanderShip);
+    try {
+        m_DBMng.m_pConnect->Execute((_bstr_t)csSQL, 0, adCmdText);
+        HTREEITEM hItem = m_DPList.GetSelectedItem();
+        HTREEITEM hInsert;
+        // 根据性别决定图片
+        if(csSex == "男") {
+            hInsert = m_DPList.InsertItem(csAcName, 1, 1, hItem);
+        }
+        else {
+            hInsert = m_DPList.InsertItem(csAcName, 2, 2, hItem);
+        }
+        if(hInsert != NULL) {
+            // 关联数据
+            DWORD dwData = MAKELRESULT(0, atoi(csAcID));
+            m_DPList.SetItemData(hInsert, dwData);
+        }
+        ClearAcInfo();
+        MessageBox("操作成功!", "提示");
+    }
+    catch(_com_error &e) {
+        MessageBox("操作失败!", "提示");
+    }
+}

@@ -1,0 +1,11 @@
+#define PI 3.14159265357f
+ 
+typedef struct PathNode {
+    int x;
+    int y;
+} PathNode;
+ 
+typedef std::vector<PathNode> VPath;
+ 
+// 删除内存的宏 
+#define SAFE_DEL_PTR(ptr) if((ptr) != nullptr){delete ptr;ptr= nullptr;}

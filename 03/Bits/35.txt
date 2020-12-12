@@ -1,0 +1,16 @@
+// 参数不再使用了
+UNREFERENCED_PARAMETER(hPrevInstance);
+UNREFERENCED_PARAMETER(lpCmdLine);
+ 
+// 初始化全局字符串
+LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+LoadStringW(hInstance, IDC_PACMAN, szWindowClass, MAX_LOADSTRING);
+// 注册窗口类
+MyRegisterClass(hInstance);
+ 
+// 执行应用程序初始化:
+if(!InitInstance(hInstance, nCmdShow)) {
+    return FALSE;
+}
+ 
+HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_PACMAN));

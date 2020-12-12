@@ -1,0 +1,21 @@
+
+CString CCreateRegDlg::GetDiskNum()
+{
+    DWORD ser;
+    char namebuf[128];
+    char filebuf[128];
+    //获取C盘的序列号
+    ::GetVolumeInformation("c:\\",   // 欲获取信息的磁盘的根路径
+                           namebuf,  // 用于装载磁盘名的缓冲区
+                           128,      // 上面缓冲区的大小
+                           &ser,     // 用于装载磁盘序列号的变量
+                           0,        // 用于装载文件名每一部分的长度
+                           0,        // 标志位
+                           filebuf,  // 用于装载文件系统的名称
+                           128       // 上面缓冲区的大小
+                          );
+    CString DiskID;
+    DiskID.Format("%08X", ser); 		// 格式化成字符串
+    return DiskID.Mid(3, 3); 			// 返回第3个开始的3个字符
+}
+ 

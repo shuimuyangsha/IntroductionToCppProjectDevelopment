@@ -1,0 +1,8 @@
+//第二关
+class Stage_2 : public GMap
+{
+private:
+    bool static initData[MAPLENTH][MAPLENTH]; 	// 地图数据
+public:
+    Stage_2();
+};

@@ -1,0 +1,16 @@
+// 画线测试
+{
+    HDC hdc = ::GetDC(g_hwnd);
+    // 创建画笔
+    HPEN pen = CreatePen(PS_SOLID, 2, RGB(rand() % 256, rand() % 256, rand() % 256));
+    // 选择画笔
+    HPEN oldPen = (HPEN)SelectObject(hdc, pen);
+    MoveToEx(hdc, rand() % WLENTH, rand() % WHIGHT, NULL);
+    LineTo(hdc, rand() % WLENTH, rand() % WHIGHT);
+ 
+    // 恢复画笔
+    SelectObject(hdc, oldPen);
+    ::ReleaseDC(g_hwnd, hdc);
+    // 暂停1豪秒,不然画得太快,看清
+    Sleep(1);
+}

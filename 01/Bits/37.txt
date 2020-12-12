@@ -1,0 +1,34 @@
+
+class CGame
+{
+public:
+    CGame();
+    ~CGame();
+ 
+    // 设置输出窗口的句柄
+    void SetHandle(HWND hWnd);
+ 
+    // 进入游戏帧
+    bool EnterFrame(DWORD dwTime);
+ 
+    // 处理鼠标移动事件
+    void OnMouseMove(UINT nFlags, CPoint point);
+ 
+    // 处理左键抬起事件
+    void OnLButtonUp(UINT nFlags, CPoint point);
+ 
+    // 当前游戏所处的阶段
+    enum EGameType {
+        EGameTypeMenu = 0,		// 选择阶段
+        EGameTypeOne2BotMenu,	// 单人对电脑 菜单阶段
+        EGameTypeOne2Bot,		// 单人对电脑
+        EGameTypeOne2BotEnd,		// 单人对电脑 结束
+        EGameTypeOne2OneMenu,	// 双人对战 菜单阶段
+        EGameTypeOne2One,		// 双人对战
+        EGameTypeOne2OneEnd,		// 双人对战 结束
+        EGameTypeCount,			// = 5
+    };
+ 
+    // 设置当前游戏所处的阶段,并根据步聚 初始化
+    void SetStep(CGame::EGameType step);
+

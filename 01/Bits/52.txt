@@ -1,0 +1,14 @@
+/*内容来自MainFrm.cpp文件*/
+
+void CMainFrame::OnMouseMove(UINT nFlags, CPoint point)
+{
+    m_game.OnMouseMove(nFlags, point); 					// 直接把鼠标消息转给 CGame对象
+    CFrameWnd::OnMouseMove(nFlags, point);
+}
+ 
+ 
+void CMainFrame::OnLButtonUp(UINT nFlags, CPoint point)
+{
+    m_game.OnLButtonUp(nFlags, point); 				// 直接把鼠标消息转给 CGame对象
+    CFrameWnd::OnLButtonUp(nFlags, point);
+}

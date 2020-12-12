@@ -1,0 +1,18 @@
+/* 代码来自 pvz.cpp 文件 */
+
+void __stdcall SetHook()
+{
+    // 游戏窗口句柄
+    HWND hWndGame;
+    hWndGame = ::FindWindow(NULL, GAME_WIN_NAME);
+ 
+    // 获取 游戏进程ID和窗口线程ID
+    DWORD dwProcessId, dwThreadId;
+    dwThreadId = ::GetWindowThreadProcessId(hWndGame, &dwProcessId);
+ 
+    // 安装钩子
+    g_hHook = ::SetWindowsHookEx(WH_KEYBOARD,  					// 键盘钩子
+                                 KeyboardProc,  					// 钩子过程
+                                 GetModuleHandle(_T("pvz.dll")),	// 钩子函数所在的模块
+                                 dwThreadId); 						// 游戏窗口线程ID
+}

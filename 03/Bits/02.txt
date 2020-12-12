@@ -1,0 +1,6 @@
+using namespace std;
+ 
+#define WLENTH 700  // 高
+#define WHIGHT 740  // 宽
+#define STAGE_COUNT 3 // 一共三关
+static HWND g_hwnd; // 游戏窗口句柄

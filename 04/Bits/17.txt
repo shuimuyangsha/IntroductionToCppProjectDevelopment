@@ -1,0 +1,25 @@
+// 设置 可以重叠种植
+void CDialogMain::OnBnClickedButtonAnywhere()
+{
+    const DWORD dwBaseAddr = 0x0040FE2F;
+ 
+    CString str;
+    GetDlgItemText(IDC_BUTTON_ANYWHERE, str);
+    if(str == _T("重叠种植")) {
+        // 是否可以放置植物
+        {
+            const unsigned char code[] = { 0xE9, 0x20, 0x09, 0x00, 0x00, 0x90 };
+            WriteCode(dwBaseAddr, code, _countof(code));
+        }
+        SetDlgItemText(IDC_BUTTON_ANYWHERE, _T("重叠种植(恢复)"));
+    }
+    else {
+        // 是否可以放置植物
+        {
+            const unsigned char code[] = { 0x0F, 0x84, 0x1F, 0x09, 0x00, 0x00 };
+            WriteCode(dwBaseAddr, code, _countof(code));
+        }
+        SetDlgItemText(IDC_BUTTON_ANYWHERE, _T("重叠种植"));
+    }
+}
+ 

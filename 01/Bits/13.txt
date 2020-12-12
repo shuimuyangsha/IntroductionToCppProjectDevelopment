@@ -1,0 +1,13 @@
+/*下一行的注释一定要写,否则后面插入代码时,找不到位置*/
+// 画出一幅图片
+{
+    // 获得 游戏窗口大小
+    CRect rc;
+    GetClientRect(m_hWnd, rc);
+ 
+    // 载入要绘制的图片
+    Gdiplus::Image * img = Image::FromFile(_T("menu_background.png"));
+ 
+    //画出图片
+    gh.DrawImage(img, rc.left, rc.top, rc.Width(), rc.Height());
+}

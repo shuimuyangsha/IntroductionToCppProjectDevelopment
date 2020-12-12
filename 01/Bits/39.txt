@@ -1,0 +1,32 @@
+/* 游戏逻辑处理:
+    1. 维护子弹状态
+    2. 维护 机器人AI的自动移动,自动发射子弹
+    3. 维护 玩家 坦克的状态
+    以测检测包括： 撞墙，子弹命中坦克...*/
+void GameRunLogic();
+ 
+void GameRunLogicOnMenu();				// 游戏逻辑处理 : 选择阶段
+
+void GameRunLogicOnOne2BotMenu();			// 游戏逻辑处理 : 单人对电脑 菜单阶段
+
+void GameRunLogicOnOne2Bot();				// 游戏逻辑处理 : 单人对电脑
+
+void GameRunLogicOnOne2BotEnd();			// 游戏逻辑处理 : 单人对电脑 结束
+
+void GameRunLogicOnOne2OneMenu();			// 游戏逻辑处理 : 双人对战 菜单阶段
+
+void GameRunLogicOnOne2One();				// 游戏逻辑处理 : 双人对战
+
+void GameRunLogicOnOne2OneEnd();			// 游戏逻辑处理 : 双人对战 结束
+
+// 把上述方法放入数组，方便调用
+void(CGame::*m_logicFunc[EGameTypeCount])() = {
+    &CGame::GameRunLogicOnMenu,         	// 选择阶段
+    &CGame::GameRunLogicOnOne2BotMenu, 	// 人机对战按键提示
+    &CGame::GameRunLogicOnOne2Bot,      	// 单人对电脑
+    &CGame::GameRunLogicOnOne2BotEnd,   	// 单人对电脑 结束
+    &CGame::GameRunLogicOnOne2OneMenu,  	// 双人对战按键提示
+    &CGame::GameRunLogicOnOne2One,      	// 双人对战
+    &CGame::GameRunLogicOnOne2OneEnd    	// 双人对战 结束
+};
+

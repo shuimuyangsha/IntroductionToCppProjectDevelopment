@@ -1,0 +1,24 @@
+// 当前的关卡
+int s_n = 0; // [0, 1, 2]
+// 地图
+GMap *MapArray[STAGE_COUNT] = { new Stage_1(), new Stage_2(), new Stage_3() };
+ 
+// 玩家对象
+// 自己
+auto g_me = std::make_shared<PacMan>(P_ROW, P_ARRAY);
+// 设定四个敌人对象
+auto e1 = std::make_shared<RedOne>(E_ROW, E_ARRAY);			// 红色敌军对象
+auto e2 = std::make_shared<RedOne>(E_ROW, E_ARRAY);			// 红色敌军对象
+auto e3 = std::make_shared<BlueOne>(E_ROW, E_ARRAY);			// 蓝色敌军对象
+auto e4 = std::make_shared<YellowOne>(E_ROW, E_ARRAY);			// 黄色敌军对象
+ 
+ 
+// 关卡
+GObject::pStage = MapArray[s_n]; 								// 初始化为第一关地图
+ 
+// 设定玩家
+Enermy::player = g_me;										// 用一个指针指向玩家对象
+ 
+MSG msg;
+ 
+DWORD dwLastTime = 0;

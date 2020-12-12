@@ -1,0 +1,19 @@
+BOOL CContralDlg::OnInitDialog()
+{
+    CDialog::OnInitDialog();
+    m_Internet.SetImageIndex(0);            // Internet选项按钮显示图标
+    m_Mmsys.SetImageIndex(1);               // 声音按钮显示图标
+    m_Timedate.SetImageIndex(2);            // 时间和日期按钮显示图标
+    m_Desk.SetImageIndex(3);                // 显示按钮显示图标
+    m_Access.SetImageIndex(4);              // 辅助选项按钮显示图标
+    m_Mouse.SetImageIndex(5);               // 鼠标按钮显示图标
+    m_Keyboard.SetImageIndex(6);            // 键盘按钮显示图标
+    m_Intl.SetImageIndex(7);                // 区域按钮显示图标
+    m_Appwiz.SetImageIndex(8);              // 添加/删除程序按钮显示图标
+    m_Hdwwiz.SetImageIndex(9);              // 添加硬件按钮显示图标
+    m_Sysdm.SetImageIndex(10);              // 系统按钮显示图标
+    m_Computer.SetImageIndex(11);           // 计算机管理按钮显示图标
+ 
+    return TRUE;
+}
+ 

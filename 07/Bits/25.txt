@@ -1,0 +1,19 @@
+// 选择图片 按钮事件
+void CSendDlg::OnSendImg()
+{
+    CFileDialog flDlg(TRUE, "", "", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, 
+                        "图片文件|*.bmp;*.gif;*.jpg;*.jpeg;*.ico;||", this);
+    if(flDlg.DoModal() == IDOK) {
+        CString csFile = flDlg.GetPathName();
+        IRichEditOle *lpRichOle = m_SendEdit.GetIRichEditOle();
+        if(lpRichOle != NULL) {
+            InsertImage(lpRichOle, csFile);
+            lpRichOle->Release();
+            lpRichOle = NULL;
+        }
+    }
+    // 防止发送窗口中的对象被选中
+    m_ShowEdit.SetSel(-1, 0);
+    m_ShowEdit.Invalidate();
+}
+ 

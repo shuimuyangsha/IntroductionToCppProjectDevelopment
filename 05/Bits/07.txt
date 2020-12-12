@@ -1,0 +1,13 @@
+HKEY key;
+CString skey = "Software\\mingrisoft";
+long iret = RegOpenKeyEx(HKEY_CURRENT_USER, skey,
+                         REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, &key);
+if(iret == 0) {
+    CString str;
+    GetDlgItem(IDC_STATICTIME)->GetWindowText(str);
+    CString num;
+    int run = atoi(str.Mid(12, str.GetLength() - 14));
+    num.Format("%d", run - 1);
+    RegSetValueEx(key, "tryout", 0, REG_SZ, (BYTE *)num.GetBuffer(0)
+                  , num.GetLength());
+}

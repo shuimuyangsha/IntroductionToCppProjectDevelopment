@@ -1,0 +1,30 @@
+/* 游戏绘图处理
+    负责 绘画 游戏中的对象
+    */
+ void GameRunDraw();
+ 
+ void GameRunDrawOnMenu(Graphics &gh); 		// 游戏绘图处理 : 选择阶段
+
+ void GameRunDrawOnOne2BotMenu(Graphics &gh); 	// 游戏绘图处理 : 单人对电脑 菜单阶段
+
+ void GameRunDrawOnOne2Bot(Graphics &gh); 		// 游戏绘图处理 : 单人对电脑
+
+ void GameRunDrawOnOne2BotEnd(Graphics &gh); 	// 游戏绘图处理 : 单人对电脑 结束
+
+ void GameRunDrawOnOne2OneMenu(Graphics &gh); 	// 游戏绘图处理 : 双人对战 菜单阶段
+
+ void GameRunDrawOnOne2One(Graphics &gh); 		// 游戏绘图处理 : 双人对战
+
+ void GameRunDrawOnOne2OneEnd(Graphics &gh); 	// 游戏绘图处理 : 双人对战 结束
+
+ // 把上述方法放入数组，方便调用
+ void(CGame::*m_drawFunc[EGameTypeCount])(Graphics &) = {
+     &CGame::GameRunDrawOnMenu, 				// 选择阶段
+     &CGame::GameRunDrawOnOne2BotMenu, 		// 人机对战阶段
+     &CGame::GameRunDrawOnOne2Bot, 			// 单人对电脑
+     &CGame::GameRunDrawOnOne2BotEnd, 			// 单人对电脑 结束
+     &CGame::GameRunDrawOnOne2OneMenu, 		// 双人对战阶段
+     &CGame::GameRunDrawOnOne2One, 			// 双人对战
+     &CGame::GameRunDrawOnOne2OneEnd 			// 双人对战 结束
+ };
+

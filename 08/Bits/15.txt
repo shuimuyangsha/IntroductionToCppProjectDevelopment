@@ -1,0 +1,79 @@
+BOOL CDialogStockFilter::DoFilter(BOOL bFilter)
+{
+    if(bFilter) {
+        // 清空上次选股的结果
+        m_vFilterStocks.clear();
+ 
+        // 进度条放到初始位置
+        m_process.SetPos(0);
+ 
+        // 缩短一下命名空间,方便使用
+        namespace t = filter_tread;
+ 
+        // 取得条件：全部与？ or 全部或
+        t::query_condition.bAndOr = (((CButton *)GetDlgItem(IDC_RADIO_ADN))->GetCheck() == BST_CHECKED);
+ 
+        // 取得所有条件公式，并解析出来
+        {
+            auto &tmp = t::query_condition;
+            tmp.vFuncs.clear();
+            for(int index = 0; index < m_listFilters.GetCount(); ++index) {
+                CString str;
+                m_listFilters.GetText(index, str);
+                // 拆分字符串
+                int iStart = 0;
+                // 函数名
+                CString s = str.Tokenize(_T(" ()"), iStart);
+                assert(!s.IsEmpty());
+                t::SFunc fun;
+                fun.strFunc = s;
+ 
+                // 参数
+                s = str.Tokenize(_T(" ()"), iStart);
+                for(; !s.IsEmpty(); s = str.Tokenize(_T(" ()"), iStart)) {
+                    fun.vParams.push_back(s);
+                }
+                // 存起来
+                t::query_condition.vFuncs.push_back(fun);
+            }
+ 
+            if(tmp.vFuncs.empty()) {
+                AfxMessageBox(_T("请至少选择一个选股公式"));
+                return FALSE;
+            }
+        }
+ 
+        // 获得日期区间
+        {
+            COleDateTime dtStart, dtEnd;
+            m_dtStart.GetTime(dtStart);
+            m_dtEnd.GetTime(dtEnd);
+            // 获取日期字符串
+            t::query_condition.strDateStart = dtStart.Format(_T("%Y/%m/%d"));
+            t::query_condition.strDateEnd = dtEnd.Format(_T("%Y/%m/%d"));
+        }
+ 
+        // 获取选股范围
+        {
+            t::query_condition.vKinds.clear();
+            GetKinds(t::query_condition.vKinds);
+            if(t::query_condition.vKinds.empty()) {
+                AfxMessageBox(_T("请选择选股范围"));
+                return FALSE;
+            }
+        }
+ 
+        // 标志正在选股
+        m_bFilter = bFilter;
+        // 启动线程
+        filter_tread::Start(this);
+        return TRUE;
+    }
+    else {
+        // 停止选股线程
+        filter_tread::Stop();
+    }
+ 
+    return m_bFilter;
+}
+ 

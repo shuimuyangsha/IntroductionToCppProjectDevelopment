@@ -1,0 +1,6 @@
+static const std::wstring DAY_NAME_PREFIX;
+//获得表名
+std::wstring GetDayTableName(const std::wstring &code)
+{
+    return DAY_NAME_PREFIX + code;		// 表名为 T_R_股票代码
+}

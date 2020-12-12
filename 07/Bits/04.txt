@@ -1,0 +1,3 @@
+CString sql = "select * from tb_Department where ParentID = 0";
+m_pRecord = m_pConnect->Execute("select * from tb_Department where ParentID = 0", 
+                                   0, adCmdText);

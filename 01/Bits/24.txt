@@ -1,0 +1,7 @@
+CPlayer m_player01{100, 100, _T("tank_player1.png")}; // 两个玩家对象
+
+CPlayer m_player02{200, 100, _T("tank_player2.png")}; // 玩家对象2: 双人对战时才会用到
+
+CBot m_bot{300, 200, _T("tank_bot.png")};              // 一个电脑: 人机对战时用到
+
+std::list<CBullet> m_lstBullets;                        // 存在于地图场景中的 子弹对象数组

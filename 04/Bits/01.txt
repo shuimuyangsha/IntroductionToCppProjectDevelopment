@@ -1,0 +1,24 @@
+// 获得某位置的值物
+static DWORD GetHitPlants(int row, int col)
+{
+    int a = row, b = col;
+    DWORD dwArr[10] = {0};
+    __asm {
+        pushfd;                                // 保存所有的标志寄存器
+        pushad;                                // 保存所有的通用寄存器
+ 
+        push b;                                // 把行压栈
+        push a;                                // 把列压栈
+        mov edx, 0x6A9EC0;                    // 把值传给edx寄存器
+        mov edx, dword ptr[edx];             // 取出该处的值,传给edx奇存器
+        mov edx, dword ptr[edx + 0x768];    // 取出该处加偏移0x768处的值,传给edx奇存器
+        mov esi, edx;
+        lea ebx, dwArr; 
+        mov eax, 0x0040D2A0;
+        call eax;                              // 调用 0x0040D2A0处的子函数
+ 
+        popad;                                 // 保存所有的通用寄存器
+        popfd;                                 // 保存所有的通用寄存器
+    };
+    return dwArr[3];
+}

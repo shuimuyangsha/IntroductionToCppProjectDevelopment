@@ -1,0 +1,23 @@
+// 从xml文件中加载信息
+void CECSClientDlg::LoadOrgFromFile(BSTR csFileName)
+{
+    m_pXMLDoc->load(csFileName);
+    MSXML2::IXMLDOMElementPtr childNode ;
+ 
+    // 删除所有树节点
+    m_ACList.DeleteAllItems();
+    //查找根节点
+    childNode = m_pXMLDoc->selectSingleNode("// ITEM[@部门ID = 0]");
+    // 遍历节点
+    while(childNode != NULL) {
+        // 递归调用
+        FindSubNode(childNode, TVI_ROOT);
+        childNode = childNode->GetnextSibling();
+    }
+    // 获得根节点
+    HTREEITEM hRoot = m_ACList.GetRootItem();
+    // 展开
+    m_ACList.Expand(hRoot, TVE_EXPAND);
+    // 设置用户状态
+    SetUserState(m_nLoginUser, 1);
+}

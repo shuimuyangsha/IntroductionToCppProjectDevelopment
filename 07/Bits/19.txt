@@ -1,0 +1,39 @@
+// 读取Ini文件，判断是否为自动登陆
+CECSClientApp *pApp = (CECSClientApp *)AfxGetApp();
+char chName[MAX_PATH] = {0};
+strcpy(chName, pApp->m_chFullPath);
+strcat(chName, "\\Config\\");
+// 创建目录
+ 
+CreateDirectory(chName, NULL);
+strcat(chName, "Login.ini");
+CFileFind flFind;
+if(flFind.FindFile(chName)) {
+ 
+    // 读取Ini文件
+    char csIP[MAX_PATH] = {0};
+    char csPort[MAX_PATH] = {0};
+    char csUserID[MAX_PATH] = {0};
+    char chPass[MAX_PATH] = {0};
+    GetPrivateProfileString("登陆信息", "自动登陆", "", csIP, MAX_PATH, chName);
+    // 自动登陆
+    if(strcmp(csIP, "1") == 0) {
+        // 读取自动登陆信息
+        GetPrivateProfileString("登陆信息", "帐户ID", "", csUserID, MAX_PATH, chName);
+        GetPrivateProfileString("登陆信息", "登陆口令", "", (char *)chPass, MAX_PATH, chName);
+        GetPrivateProfileString("登陆信息", "服务器IP", "", csIP, MAX_PATH, chName);
+        GetPrivateProfileString("登陆信息", "端口号", "", csPort, MAX_PATH, chName);
+ 
+        // 赋值给本类中的变量
+        m_UserID.SetWindowText(csUserID);
+        m_PassWord.SetWindowText(chPass);
+        m_SvrIP.SetWindowText(csIP);
+        m_SvrPort.SetWindowText(csPort);
+ 
+        CButton *pCheckBox = (CButton *)GetDlgItem(IDC_CHK_AUTOLOGIN);
+        pCheckBox->SetCheck(1);
+        // 调用登陆功能，进行登陆
+        OnBtLogin();
+    }
+}
+flFind.Close();

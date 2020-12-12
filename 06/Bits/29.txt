@@ -1,0 +1,8 @@
+void CDiskDlg::OnCheckll()
+{
+    int allcheck = m_CheckAll.GetCheck();                    // 获得全选复选框的状态
+    for(int i = 0; i < m_Grid.GetItemCount(); i++) {         // 根据列表数据个数循环
+        auto *check = (CButton *)GetDlgItem(IDC_CHECK2 + i); // 获得复选框指针
+        check->SetCheck(allcheck);                           // 设置复选框状态
+    }
+}

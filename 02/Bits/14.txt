@@ -1,0 +1,13 @@
+BOOL CDesktopToysDlg::PreTranslateMessage(MSG *pMsg)
+{
+    // 按下 'ESC'键时
+    if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_ESCAPE) {
+        if(m_pGame->OnESC()) {
+            return TRUE;
+        }
+        else {
+            // 继续本窗口处理,退出,游戏结束
+        }
+    }
+    return CDialogEx::PreTranslateMessage(pMsg);
+}

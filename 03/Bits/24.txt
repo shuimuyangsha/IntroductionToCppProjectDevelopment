@@ -1,0 +1,27 @@
+// 当前的关卡
+int s_n = 0; // [0, 1, 2]
+// 地图
+GMap *MapArray[STAGE_COUNT] = { new Stage_1(), new Stage_2(), new Stage_3() };
+ 
+MSG msg;
+ 
+// 主消息循环:
+bool bRunning = true;
+while(bRunning && s_n < STAGE_COUNT) {
+    // 获取消息
+    if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+        if(msg.message == WM_QUIT) {				// WM_QUIT消息，退出循环。
+            break;
+        }
+        TranslateMessage(&msg);					// 翻译消息
+        DispatchMessage(&msg);					// 分发消息
+    }
+    HDC hdc = ::GetDC(g_hwnd);
+    {
+        MapArray[s_n]->DrawPeas(hdc); 				// 画豆子
+        MapArray[s_n]->DrawMap(hdc); 				// 画地图
+    }
+    ::ReleaseDC(g_hwnd, hdc);						// 释放设备资源
+}
+ 
+return (int) msg.wParam;

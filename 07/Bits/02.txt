@@ -1,0 +1,3 @@
+_ConnectionPtr m_pConnect;
+_CommandPtr    m_pCommand;
+_RecordsetPtr  m_pRecord;

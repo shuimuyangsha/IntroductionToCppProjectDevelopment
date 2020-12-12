@@ -1,0 +1,9 @@
+void CLitterDlg::DeleteLitterFile()
+{
+    CString path;
+    m_Combo.GetWindowText(path);        					// 获取磁盘
+    FileDelete(path);
+    ::TerminateThread(m_hThread, 0);    					// 终止线程
+    GetDlgItem(IDC_BUTBEGIN)->EnableWindow(TRUE); 			// 开始按钮可用
+    GetDlgItem(IDC_BUTSTOP)->EnableWindow(FALSE); 			// 停止按钮不可用
+}

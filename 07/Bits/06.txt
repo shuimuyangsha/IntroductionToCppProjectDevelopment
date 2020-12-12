@@ -1,0 +1,41 @@
+// 初始化数据库
+m_DataMgn.InitDatabase();
+ 
+// 获得本地IP
+char chName[MAX_PATH] = {0};
+gethostname(chName, MAX_PATH);
+hostent *phost = gethostbyname(chName);
+char *chIP = inet_ntoa(*(in_addr *)phost->h_addr_list[0]);
+ 
+// 指定端口号
+BOOL bRet = m_ServerSock.Create(12346, SOCK_STREAM, chIP);
+ 
+// 设置 socket 属性
+char chDisable = 1;
+setsockopt(m_ServerSock.m_hSocket, IPPROTO_TCP, TCP_NODELAY, 
+            &chDisable, sizeof(chDisable));
+BOOL bEnable = TRUE;
+m_ServerSock.SetSockOpt(SO_OOBINLINE, &bEnable , sizeof(BOOL));
+ 
+// 网络通信socket开始进行监听
+bRet = m_ServerSock.Listen(MAXNUM);
+ 
+// 文件端口号
+bRet = m_FileSock.Create(601, SOCK_STREAM, chIP);
+setsockopt(m_FileSock.m_hSocket, IPPROTO_TCP, TCP_NODELAY, &chDisable, sizeof(chDisable));
+ 
+int nSize = PACKAGESIZE;
+m_FileSock.SetSockOpt(SO_SNDBUF, &nSize, sizeof(nSize));
+m_FileSock.SetSockOpt(SO_RCVBUF, &nSize, sizeof(nSize));
+ 
+DWORD dwEnable = 1;
+m_FileSock.IOCtl(FIONBIO, &dwEnable);
+m_ServerSock.IOCtl(FIONBIO, &dwEnable);
+ 
+// 文件socket开始进行监听
+bRet = m_FileSock.Listen(MAXNUM);
+ 
+// 启动定时器 : 定时向客户端发送网络状态测试信息
+SetTimer(1, 2000, NULL);
+// 启动定时器 : 广播用户在线消息
+SetTimer(2, 2000, NULL)

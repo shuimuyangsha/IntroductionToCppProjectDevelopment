@@ -1,0 +1,5 @@
+m_pConnect.CreateInstance("ADODB.Connection");
+m_pCommand.CreateInstance("ADODB.Command");
+m_pRecord.CreateInstance("ADODB.Recordset");
+m_pConnect->ConnectionString = m_ConnectStr.AllocSysString();
+m_pConnect->Open("", "", "", -1);

@@ -1,0 +1,7 @@
+// 检查子弹是否击中坦克 :  击中要使坦克爆炸(子弹可不用移除了，因为游戏都结束了)
+for (auto &blt : m_lstBullets) {    
+    if (m_player01.IsHitted(blt)) {  // 如果玩家一被击中
+        m_player01.Bomb();            // 使玩家一“自爆”
+    }
+    break;
+}

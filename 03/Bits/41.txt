@@ -1,0 +1,10 @@
+// 如果游戏结束
+if(g_me->IsOver()) {
+    MessageBoxA(NULL, "出师未捷", "吃豆子提示", MB_OK);
+}
+// 否则,提示赢得游戏
+else {
+    MessageBoxA(NULL, "恭喜您赢得了胜利\r\n确定后游戏退出", "吃豆子提示", MB_OK);
+}
+ 
+return (int) msg.wParam;

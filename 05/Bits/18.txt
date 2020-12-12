@@ -1,0 +1,47 @@
+
+void CRegisterNumDlg::OnAdvance()
+{
+    // TODO: Add your control notification handler code here
+    UpdateData(TRUE);
+	// 判断用户名和注册破是否输入了
+    if(m_Name.IsEmpty() || m_strRegisterCode.IsEmpty()) {
+        MessageBox("用户名或注册码错误！");
+        return;
+    }
+ 
+	// 打开注册表相关键值
+    HKEY key;
+    char data[32];
+    DWORD size = 32;
+    DWORD type = REG_SZ;
+    CString skey = "Software\\mingrisoft";
+    long iret = RegOpenKeyEx(HKEY_CURRENT_USER, skey,
+                             REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, &key);
+	// 打开成功
+    if(iret == 0) {
+        CString value;
+		// 查询
+        iret = RegQueryValueEx(key, "regnum", 0, &type, (BYTE *)data, &size);
+        CString text = data; // AAA-OJQWQWEQGFOJEQWMNWWM
+		// 查找其中的 '-'
+        int index = text.Find("-");
+        CString strCode = m_strRegisterCode;
+		// 删除其中的'-'
+        strCode.Replace(_T("-"), _T(""));
+        if(iret == 0) {
+			// 判断是否相等
+            if(text.Mid(0, index) == m_Name && text.Mid(1 + index) == strCode) {
+                Flag = TRUE;
+                RegSetValueEx(key, "isreg", 0, REG_SZ, (BYTE *)"1", 1);
+            }
+            else {
+                MessageBox("用户名或注册码错误！");
+                return;
+            }
+        }
+        else {
+            RegSetValueEx(key, "regnum", 0, REG_SZ, (BYTE *)"0", 1);
+        }
+    }
+    CDialog::OnOK();
+}

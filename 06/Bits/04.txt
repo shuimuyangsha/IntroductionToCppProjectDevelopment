@@ -1,0 +1,8 @@
+// 标题文本颜色
+m_CapitonColor = RGB(0, 0, 255);
+// 标题文本
+m_Caption = "365系统加速器";
+//标题文本字体
+m_CaptionFont.CreateFont(14, 10, 0, 3, 600, 0, 0, 0, ANSI_CHARSET,
+                         OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+                         DEFAULT_QUALITY, FF_ROMAN, "宋体");

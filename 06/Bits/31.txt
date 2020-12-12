@@ -1,0 +1,24 @@
+void CDiskDlg::DelFolder(CString path)
+{
+    CFileFind file;
+    if(path.Right(1) != "\\") {							// 如果最后一个不是 ‘\’
+        path += "\\*.*";									// 将其替换为 \.*
+    }
+    BOOL bf;
+    bf = file.FindFile(path);                      		// 查找文件
+    while(bf) {
+        bf = file.FindNextFile();                  		// 查找下一个文件
+        if(!file.IsDots() && !file.IsDirectory()) {		// 是文件时直接删除
+            DeleteFile(file.GetFilePath());        		// 删除文件
+        }
+        else if(file.IsDots()) {
+            continue;										// 跳过本次循环
+        }
+        else if(file.IsDirectory()) {						// 如果是文件夹
+            path = file.GetFilePath();             		// 获得目录路径
+            // 是目录时,继续递归调用函数删除该目录下的文件
+            DelFolder(path);
+            RemoveDirectory(path);                 		// 目录为空后删除目录
+        }
+    }
+}

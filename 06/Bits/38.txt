@@ -1,0 +1,19 @@
+BOOL CTaskDlg::OnInitDialog()
+{
+    CDialog::OnInitDialog();
+ 
+    m_Menu.LoadMenu(IDR_MENU1);         // 加载菜单资源
+    m_Menu.ChangeMenuItem(&m_Menu);
+    m_Tab.InsertItem(0, "进程");        // 设置标签页
+    m_Tab.InsertItem(1, "窗口");		　// 设置标签页
+ 
+    m_Grid.SetExtendedStyle(			　// 设置列表控件的控展风格
+        LVS_EX_FLATSB                   // 扁平风格滚动条
+        | LVS_EX_FULLROWSELECT          // 允许整行选中
+        | LVS_EX_HEADERDRAGDROP         // 允许标题拖拽
+        | LVS_EX_ONECLICKACTIVATE       // 高亮显示
+        | LVS_EX_GRIDLINES              // 画出网格线
+    );
+    ShowList(0);						　// 显示数据
+    return TRUE;
+}

@@ -1,0 +1,22 @@
+
+//定义一个密钥数组，值可以随便定义
+CString code[16] = {"ah", "tm", "ib", "nw", "rt", "vx", "zc", "gf",
+                    "pn", "xq", "fc", "oj", "wm", "eq", "np", "qw"
+                   };
+CString reg, stred;
+int num;
+stred = GetCPUNum() + GetDiskNum() + GetMacAddress();	// 把系统信息拼接起来
+stred.MakeLower();
+// 根据十六进制数字从密钥数组中选择字符串
+for(int i = 0; i < 10; i++) { 
+    char p = stred.GetAt(i);							// 相当于 取第i个字符
+    if(p >= 'a' && p <= 'f') {						// 如果字符为 abcdef			
+        num = p - 'a' + 10;							// - ‘a’ + 10 转化成数字值
+    }
+    else {
+        num = p - '0';								// 如果是数字，则 – ‘0’ 转化为整数组
+    }
+    CString tmp = code[num];							// 取密钥数组中的一个元素
+    reg += tmp;										// 追加到字符串后面，最后形成注册码
+}
+reg.MakeUpper();										// 将最终结果转化为大写字母

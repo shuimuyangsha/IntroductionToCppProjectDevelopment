@@ -1,0 +1,13 @@
+void CSysOptimizeDlg::OnMouseMove(UINT nFlags, CPoint point)
+{
+    if(m_IsDrawForm == FALSE) {             // 按钮具有热点效果
+        if(m_ButtonState == bsMin) {		// 是最小化按钮
+            DrawDialog(fMinButton);			// 重绘最小化按钮
+        }
+        else if(m_ButtonState == bsClose) { // 是关闭按钮
+            DrawDialog(fCloseButton);		// 重绘关闭按钮
+        }
+    }
+    m_ButtonState = bsNone;
+    CDialog::OnMouseMove(nFlags, point);
+}

@@ -1,0 +1,3 @@
+MSXML2::IXMLDOMDocumentPtr pXMLDoc;
+hr = pXMLDoc.CreateInstance(__uuidof(DOMDocument30));
+pXMLDoc->createComment((_bstr_t)chFileName);

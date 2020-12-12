@@ -1,0 +1,4 @@
+while(!m_DBMng.m_pRecord->ADOEOF) {
+    // 获得数据库表中 DepartName 字段的内容
+    name = m_pRecord->GetFields()->GetItem("DepartName")->Value;
+}

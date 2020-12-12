@@ -1,0 +1,11 @@
+
+CGame::CGame()
+{
+    m_menuSelect.m_pParent = this;						// 设置菜单选择项指向当前对象
+    m_menuBackup.m_pParent = this;						// 设置菜单背景项指向当前对象
+}
+ 
+CGame::~CGame()
+{
+}
+

@@ -1,0 +1,11 @@
+/****下面代码演示 屏幕截图功能的用法****/
+{
+    {
+        // 截图部分屏幕
+        RECT r{0, 0, 100, 300}; // 截图的大小
+        HBITMAP hBmp = CScreenTools::CopyScreenToBitmap(&r);
+        // 转化为 Bitmap* 类型,因为下面行输出要用到
+        bmp = Bitmap::FromHBITMAP(hBmp, NULL);
+    }
+}
+/****演示完毕****/

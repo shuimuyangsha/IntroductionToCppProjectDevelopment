@@ -1,0 +1,34 @@
+// 删除数据: 删除某支股票指定日期的数据
+bool CMRKJDatabase::DelDayData(const std::wstring &strStockCode, const std::wstring &date)
+{
+    using namespace std;
+    const wstring wstrTableName = GetDayTableName(strStockCode);
+    const wstring sql = L"SELECT * FROM " + wstrTableName +
+                        L" WHERE DATA_DATE = '" + date + L"';";
+    try {
+        //创建
+        _RecordsetPtr m_pRecordset;
+        m_pRecordset.CreateInstance(__uuidof(Recordset));
+        // 打开记录集
+        m_pRecordset->Open(sql.c_str(), m_pConnection.GetInterfacePtr(),
+                           adOpenStatic, adLockOptimistic, adCmdText);
+        // 判 断是否到了结果集的尾部
+        if(!m_pRecordset->adoEOF) {
+            // 删除数据
+            m_pRecordset->Delete(adAffectCurrent);
+            // 更新,此处保存了上面的删除操作
+            m_pRecordset->Update();
+        }
+        // 关闭
+        m_pRecordset->Close();
+    }
+    catch(_com_error &e) {
+        CTools::MessageBoxFormat(_T("%s"), e.ErrorMessage());
+        return false;
+    }
+    catch(...) {
+        TRACE("发生异常\r\n");
+        return false;
+    }
+    return true;
+}

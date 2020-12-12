@@ -1,0 +1,7 @@
+// 创建窗口
+HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW
+                          , 0 // 在屏幕中的位置 x
+                          , 0 // 在屏幕中的位置 y
+                          , WLENTH // 宽
+                          , WHIGHT // 高
+                          , nullptr, nullptr, hInstance, nullptr);

@@ -1,0 +1,35 @@
+/* 代码来自 pvz.cpp 文件 */
+
+LRESULT WINAPI KeyboardProc(int code, WPARAM wParam, LPARAM lParam)
+{
+    // 当 "HOME"键抬起时，弹出窗口
+    if(code == HC_ACTION && wParam == VK_HOME && GetKeyState(VK_HOME) < 0) {
+        if(!g_pDlg) {
+            // 新建辅助窗口
+            g_pDlg = new CDialogMain;
+            g_pDlg->Create(IDD_DIALOG1);
+ 
+            // 判断游戏是否全屏，如果不是全屏，移到外挂窗口到游戏窗口右侧
+            // 否则提示用户去掉‘全屏’设置
+            HWND hWndGame = ::FindWindow(NULL, GAME_WIN_NAME);
+            if(!IsFullScreenWindow(hWndGame)) {
+                // 移动游戏窗口到左上角
+                ::SetWindowPos(hWndGame, HWND_TOP, 0+10, 0+10, -1, -1, SWP_NOSIZE);
+                RECT rcGame;
+                ::GetWindowRect(hWndGame, &rcGame);// 获得游戏窗口的大小和位置
+                // 移动辅助窗口到游戏窗口右侧
+                ::SetWindowPos(g_pDlg->GetSafeHwnd(), HWND_TOP, rcGame.right + 0, 10,
+                               -1, -1, SWP_NOSIZE);
+            }
+            else {
+                AfxMessageBox(_T("请去掉 游戏 ‘全屏’ 设置"));
+            }
+        }
+        g_pDlg->ShowWindow(SW_SHOW);				// 显示 修改器窗口
+        return 0;
+    }
+    else {
+         // 调用该函数，把消息继续向下传递，不然游戏无法正常运行
+        return CallNextHookEx(NULL, code, wParam, lParam); 
+    }
+}

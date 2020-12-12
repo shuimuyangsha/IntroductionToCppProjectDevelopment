@@ -1,0 +1,29 @@
+CString CCreateRegDlg::GetCPUNum()
+{
+    //获取CPU序列号
+    unsigned long s1, s2;
+    char sel;
+    sel = '1';
+    CString CPUID1, CPUID2;
+    __asm{
+        mov eax, 01h // 传入功能号
+        xor edx, edx // 清空结果,执行cpuid指令之后.结果会放在edx,eax中
+        cpuid        // 执行指令,获取结果
+        mov s1, edx  // 读取结果
+        mov s2, eax  // 读取结果
+    }
+    CPUID1.Format("%08X%08X", s1, s2);
+    __asm{
+        mov eax, 03h // 传入功能号
+        xor ecx, ecx // 清空结果,执行cpuid指令之后.结果会放在edx,eax中
+        xor edx, edx // 同上
+        cpuid        // 执行指令
+        mov s1, edx  // 读取结果
+        mov s2, ecx  // 读取结果
+    }
+    CPUID2.Format("%08X%08X", s1, s2);
+ 
+    // 拼接结果
+    CString CpuID = CPUID1 + CPUID2;
+    return CpuID.Mid(5, 3); // 从拼接的结果中取出一段,作为返回结果
+}

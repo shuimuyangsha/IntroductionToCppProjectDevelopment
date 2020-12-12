@@ -1,0 +1,28 @@
+CWnd *pWnd = AfxGetMainWnd()->GetWindow(GW_HWNDFIRST);
+int i = 0;
+CString cstrCap;
+// 遍历窗口
+while(pWnd) {
+    // 窗口可见,并且是顶层窗口
+    if(pWnd->IsWindowVisible() && !pWnd->GetOwner()) {
+        pWnd->GetWindowText(cstrCap);
+        if(! cstrCap.IsEmpty()) {
+            m_Grid.InsertItem(i, cstrCap);
+            if(IsHungAppWindow(pWnd->m_hWnd)) {
+                m_Grid.SetItemText(i, 1, "不响应");
+            }
+            else {
+                m_Grid.SetItemText(i, 1, "正在运行");
+            }
+            //
+            DWORD dwProcessId;
+            GetWindowThreadProcessId(pWnd->GetSafeHwnd(), &dwProcessId);
+            CString str;
+            str.Format(_T("%d"), dwProcessId);
+            m_Grid.SetItemText(i, 2, str.GetString());
+            i++;
+        }
+    }
+    // 搜索下一个窗口
+    pWnd = pWnd->GetWindow(GW_HWNDNEXT);
+}

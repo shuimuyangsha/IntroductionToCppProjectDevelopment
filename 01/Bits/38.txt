@@ -1,0 +1,34 @@
+private:
+    // 窗口
+    HWND m_hWnd;
+ 
+    /* 游戏初始化
+    生成 游戏对象，初始化地图，对象位置等
+    */
+    bool GameInit();
+ 
+    bool GameInitMenu();				// 游戏初始化 : 选择阶段
+
+    bool GameInitOne2BotMenu(); 		// 游戏初始化 : 单人对电脑 菜单阶段
+
+    bool GameInitOne2Bot();			// 游戏初始化 : 单人对电脑
+
+    bool GameInitOne2BotEnd();		// 游戏初始化 : 单人对电脑 结束
+
+    bool GameInitOne2OneMenu();		// 游戏初始化 : 双人对战 菜单阶段
+
+    bool GameInitOne2One();			// 游戏初始化 : 双人对战
+
+    bool GameInitOne2OneEnd();		// 游戏初始化 : 双人对战 结束
+
+    // 把上述方法放入数组，方便调用
+    bool (CGame::*m_initFunc[EGameTypeCount])() = {
+        &CGame::GameInitMenu,        	// 选择阶段
+        &CGame::GameInitOne2BotMenu, 	// 单人对电脑键盘提示
+        &CGame::GameInitOne2Bot,     	// 单人对电脑
+        &CGame::GameInitOne2BotEnd,  	// 单人对电脑 结束
+        &CGame::GameInitOne2OneMenu, 	// 双人对战键盘提示
+        &CGame::GameInitOne2One,      	// 双人对战
+        &CGame::GameInitOne2OneEnd   	// 双人对战 结束
+    };
+

@@ -1,0 +1,156 @@
+// 发送数据 : 按钮事件
+void CSendDlg::OnBtSend()
+{
+    // 获取文本
+    CString csText;
+    m_SendEdit.GetWindowText(csText);
+ 
+    // 如果窗口中包含只包含图像，则文本为" "，在用户接收时不显示文本，
+    // 只显示对方的编号/时间等信息
+    if(csText.IsEmpty()) {
+        return;
+    }
+ 
+    // 获取用户ID
+    CString csUserID;
+    m_DesID.GetWindowText(csUserID);
+    if(csUserID.IsEmpty()) {
+        return;
+    }
+ 
+    // 调用主窗口中的套接字发送数据
+    // 获取本程的主窗口
+    CECSClientDlg *pDlg = (CECSClientDlg *)AfxGetMainWnd();
+    // 没发送的消息
+    CMessage cmSendInfo;
+    cmSendInfo.m_nMsgType = MT_SENDDATA;
+    cmSendInfo.m_nSrcID = pDlg->m_nLoginUser;
+    cmSendInfo.m_nSubType = ST_TEXT;
+    cmSendInfo.m_nAccountID[0] = atoi(csUserID);    // 设置目标用户
+    strncpy(cmSendInfo.m_chContent, csText, csText.GetLength());
+ 
+    // 发送文本数据
+    pDlg->m_ClientSock.Send(&cmSendInfo, sizeof(CMessage));
+ 
+    // 向显示窗口中添加数据
+    // 先添加用户信息
+    CString csUsrInfo, csName;
+    m_LocalID.GetWindowText(csUsrInfo);
+    m_LocalName.GetWindowText(csName);
+    csUsrInfo += "(";
+    csUsrInfo += csName;
+    csUsrInfo += ") ";
+    CString csTime;
+    CTime ctNow = CTime::GetCurrentTime();
+    csTime = ctNow.Format("%H:%M:%S");
+    csUsrInfo += csTime;
+    m_ShowEdit.SetSel(-1, -1);
+    CHARFORMAT cf;
+    memset(&cf, 0, sizeof(CHARFORMAT));
+    BOOL m_bSelect = (m_ShowEdit.GetSelectionType() != SEL_EMPTY) ? TRUE : FALSE;
+    if(m_bSelect) {
+        m_ShowEdit.GetSelectionCharFormat(cf);
+    }
+    else {
+        m_ShowEdit.GetDefaultCharFormat(cf);
+    }
+ 
+    // 判断是否选择了内容
+    cf.dwMask = CFM_COLOR;
+    cf.dwEffects = CFE_BOLD;
+    cf.crTextColor = RGB(0, 0, 255);
+    if(m_bSelect) {
+        m_ShowEdit.SetSelectionCharFormat(cf);
+    }
+    else {
+        m_ShowEdit.SetWordCharFormat(cf);
+    }
+ 
+    m_ShowEdit.ReplaceSel(csUsrInfo);
+ 
+    m_ShowEdit.SetSel(-1, -1);
+    m_ShowEdit.GetDefaultCharFormat(cf);
+    m_ShowEdit.SetSelectionCharFormat(cf);
+ 
+    m_ShowEdit.ReplaceSel("\n");
+    m_ShowEdit.SetSel(-1, -1);
+    m_ShowEdit.ReplaceSel(csText);
+ 
+ 
+    // 如果包含图像信息，将图像添加到显示窗口中
+    IRichEditOle *pRichOle = m_SendEdit.GetIRichEditOle();
+    LONG lNum = 0;
+    if(pRichOle != NULL) {
+        lNum = pRichOle->GetObjectCount();
+        IRichEditOle *pShowEditOle = m_ShowEdit.GetIRichEditOle();
+        IOleClientSite *lpOleClientSite = NULL;
+        if(lNum != 0) {
+            m_ShowEdit.SetSel(-1, -1);
+        }
+        for(LONG i = 0; i < lNum; i++) {
+ 
+            if(pShowEditOle != NULL) {
+                pShowEditOle->GetClientSite(&lpOleClientSite);
+            }
+ 
+            REOBJECT reObject;
+            ZeroMemory(&reObject, sizeof(REOBJECT)); // 初始化一对象
+ 
+            reObject.cbStruct = sizeof(REOBJECT);
+ 
+            pRichOle->GetObject(i, &reObject, REO_GETOBJ_ALL_INTERFACES);
+            if(lpOleClientSite != NULL) {
+                reObject.polesite = lpOleClientSite ;
+                reObject.cp = REO_CP_SELECTION; // REO_IOB_SELECTION;
+ 
+                reObject.dwFlags = reObject.dwFlags | REO_BLANK;
+ 
+                GIFLib::ICGifPtr lpAnimator = NULL;
+                reObject.poleobj->QueryInterface(GIFLib::IID_ICGif, (void **)&lpAnimator);
+                if(lpAnimator != NULL) {
+                    // 获取对象关联的文件名称
+ 
+                    char chFullName[MAX_PATH] = {0};
+                    strcpy(chFullName, (char *)lpAnimator->GetFileName());
+                    m_csFullName = chFullName;
+                    CString csTmp = ExtractFilePath(m_csFullName);
+                    strcpy(chFileName, csTmp);
+                    // 向服务器发送图像数据
+                    OnSendImage();
+                }
+ 
+                reObject.poleobj->SetClientSite(NULL);
+                reObject.poleobj->SetClientSite(lpOleClientSite);
+                pShowEditOle->InsertObject(&reObject);
+ 
+                m_ShowEdit.RedrawWindow();          // 刷新窗体
+ 
+                OleSetContainedObject(reObject.poleobj, TRUE);
+                lpOleClientSite->SaveObject();
+                reObject.pstg->Release();
+                reObject.poleobj->Release();
+            }
+        }
+        pRichOle->Release();
+        if(pShowEditOle != NULL) {
+            pShowEditOle->Release();
+        }
+        if(lpOleClientSite != NULL) {
+            lpOleClientSite->Release();
+        }
+        pRichOle = NULL;
+        if(lNum != 0) {
+            m_ShowEdit.SetSel(-1, -1);
+            m_ShowEdit.ReplaceSel("\n");
+        }
+    }
+    if(lNum == 0) { // 没有图像插入
+        m_ShowEdit.SetSel(-1, -1);
+        m_ShowEdit.ReplaceSel("\n");
+    }
+ 
+    // 清空发送消息框的内容
+    m_SendEdit.SetWindowText("");
+    m_SendEdit.Clear();
+}
+ 

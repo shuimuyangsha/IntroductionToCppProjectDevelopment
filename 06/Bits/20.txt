@@ -1,0 +1,14 @@
+// 片段来自CSysOptimizeDlg::OnInitDialog()函数
+// 初始化
+m_Num = 0;
+m_pTaskDlg = new CTaskDlg;
+m_pTaskDlg->Create(IDD_TASK_DIALOG, this);		// 创建系统任务管理模块
+m_Select.ShowWindow(SW_HIDE);					// 隐藏选中效果图片
+SetWindowText("365系统加速器");				// 设置主窗体标题
+CBitmap bitmap;									
+bitmap.LoadBitmap(IDB_MINBT);					// 加载最小化按钮位图
+BITMAPINFO bInfo;
+bitmap.GetObject(sizeof(bInfo), &bInfo);		// 获得图片信息
+m_ButtonWidth = bInfo.bmiHeader.biWidth;		// 位图宽度	
+m_ButtonHeight = bInfo.bmiHeader.biHeight;		// 位图高度
+bitmap.DeleteObject();

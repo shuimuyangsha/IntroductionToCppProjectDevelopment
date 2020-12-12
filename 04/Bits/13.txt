@@ -1,0 +1,29 @@
+// 铲除植物
+static void RemovePlant(int row, int col)
+{
+    __try {
+        DWORD dwBase = GetHitPlants(row, col);
+        if(dwBase) {
+            __asm {
+                pushfd; 					// 保存所有的标志寄存器
+                pushad; 					// 保存所有的通用寄存器
+ 
+                mov ebp, dwBase;
+                push ebp;
+                mov eax, 0x004679B0;
+                call eax;					// 调用子函数
+ 
+                popad; 					// 还原所有的通用寄存器
+                popfd; 					// 还原所有的标志寄存器
+ 
+            }
+        }
+        else {
+            // 指定位置没有植物，什么也不做
+        }
+    }
+    __except(EXCEPTION_EXECUTE_HANDLER) {
+ 
+    }
+}
+ 

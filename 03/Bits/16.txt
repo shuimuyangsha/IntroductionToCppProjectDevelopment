@@ -1,0 +1,6 @@
+//敌我双方出现位置没有豆子出现
+void GMap::InitOP()
+{
+    peaMapData[E_ROW][E_ARRAY] = false;			// 敌方位置没有豆子
+    peaMapData[P_ROW][P_ARRAY] = false;			// 玩家位置没有豆子
+}

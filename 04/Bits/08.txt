@@ -1,0 +1,13 @@
+/* 代码来自 MemoryCheatDlg.cpp 文件*/
+
+// 注入游戏
+void CMemoryCheatDlg::OnBnClickedButtonPlantInject()
+{
+    auto h = LoadLibrary(_T("pvz.dll"));				// 载入DLL模块
+    typedef void(__stdcall * PFun)();					// 定义 SetHook类型的函数指针
+    PFun SetHook = (PFun) GetProcAddress(h, "SetHook");// 获得 SetHook函数的地址
+    if(SetHook) {									// 如果获得成功
+        SetHook();									// 调用该函数
+    }
+    FreeLibrary(h);									// 释放载入的DLL模块，本程序中不再使用
+}

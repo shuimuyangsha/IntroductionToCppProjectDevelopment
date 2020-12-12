@@ -1,0 +1,14 @@
+
+void CTaskDlg::OnRclickList1(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    int pos = m_Grid.GetSelectionMark();
+    CPoint point;
+    GetCursorPos(&point);
+    CMenu *pPopup = m_Menu.GetSubMenu(0);
+    CRect rc;
+    rc.top = point.x;
+    rc.left = point.y;
+    pPopup->TrackPopupMenu(TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_VERTICAL,
+                           rc.top, rc.left, this, &rc);
+    *pResult = 0;
+}

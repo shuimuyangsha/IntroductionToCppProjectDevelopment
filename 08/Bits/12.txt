@@ -1,0 +1,5 @@
+void CDialogLogin::OnBnClickedButtonCancel()
+{
+    // 调用该方法,可以退出CDialog窗口
+    OnCancel();
+}

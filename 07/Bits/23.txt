@@ -1,0 +1,12 @@
+BOOL CSendDlg::OnInitDialog()
+{
+    CDialog::OnInitDialog();
+    SetTimer(1, 800, NULL);
+    return TRUE;
+}
+void CSendDlg::OnTimer(UINT nIDEvent)
+{
+    m_ShowEdit.Invalidate();
+    m_SendEdit.Invalidate();
+    CDialog::OnTimer(nIDEvent);
+}

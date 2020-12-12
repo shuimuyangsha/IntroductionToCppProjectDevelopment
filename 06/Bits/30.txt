@@ -1,0 +1,74 @@
+void CDiskDlg::ClearDisk(int num)
+{
+    LPINTERNET_CACHE_ENTRY_INFO pEntry = NULL;
+    HANDLE hDir = NULL;
+    HANDLE hTemp = NULL;
+    unsigned long size = 4096;
+    int i = 0;
+    BOOL isEnd = FALSE;                     					// 记录是否结束
+    BOOL ret = TRUE;                        					// 记录是否成功
+    HKEY sub;
+    DWORD val = 0x00000001;                 					// 注册表键值
+    CString skey;
+    char buffer[128];                       					// 保存系统目录路径
+    CString syspath;                        					// 保存临时文件夹路径
+    switch(num) {                           					// 判断清除的项目
+        case 0:                             					// 清空回收站
+            GetWindowLong(m_hWnd, 0);
+            SHEmptyRecycleBin(m_hWnd, NULL, SHERB_NOCONFIRMATION
+                              || SHERB_NOPROGRESSUI
+                              || SHERB_NOSOUND);
+            break;
+        case 1:                             					// 清空Internet临时文件
+            do {
+                pEntry = (LPINTERNET_CACHE_ENTRY_INFO) new char[4096];
+                pEntry->dwStructSize = 4096;
+                if(hDir == NULL) {
+                    hDir =  FindFirstUrlCacheEntry(NULL, pEntry, &size);
+                    if(hDir) {
+                        DeleteUrlCacheEntry(pEntry->lpszSourceUrlName);
+                    }
+                }
+                else {
+                    ret = FindNextUrlCacheEntry(hDir, pEntry, &size);
+                    if(ret) {
+                        DeleteUrlCacheEntry(pEntry->lpszSourceUrlName);
+                    }
+                }
+                if(ret) {
+                    while(ret) {
+                        ret = FindNextUrlCacheEntry(hDir, pEntry, &size);
+                        if(ret) {
+                            DeleteUrlCacheEntry(pEntry->lpszSourceUrlName);
+                        }
+                    }
+                }
+                else {
+                    isEnd = TRUE;
+                }
+                delete []pEntry;
+            }
+            while(!isEnd);
+            FindCloseUrlCache(hDir);
+            break;
+        case 2:                             					// 清空Windows临时文件夹
+            ::GetSystemDirectory(buffer, 128);					// 获取系统文件夹
+            syspath = buffer;
+            syspath.Replace("system32", "temp");				// 替换为临时文件夹
+            DelFolder(syspath);								// 删除文件夹
+            RemoveDirectory(syspath);       					// 目录为空时删除目录
+            break;
+        case 3:                             					// 清空文件打开记录
+        case 5:                             					// 清空运行记录
+            skey = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
+            ::RegCreateKey(HKEY_CURRENT_USER, skey, &sub);		// 创建
+            RegSetValueEx(sub, "ClearRecentDocsonExit", NULL, REG_BINARY, (BYTE*)&val, 4);
+            ::RegCloseKey(sub);								// 关闭注册表项句柄
+            break;
+        case 4:                             					// 清空IE地址栏中的记录
+            skey = "Software\\Microsoft\\Internet Explorer\\TypedURLs";
+            ::RegDeleteKey(HKEY_CURRENT_USER, skey);			// 删除键
+            break;
+    }
+}
+ 

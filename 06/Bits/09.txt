@@ -1,0 +1,14 @@
+void CSysOptimizeDlg::OnNcLButtonDown(UINT nHitTest, CPoint point)
+{
+    switch(m_ButtonState) {					// 判断按钮状态
+        case bsClose: {						// 关闭按钮
+            OnCancel();						// 关闭窗口
+        }
+        break;
+        case bsMin: {						    // 最小化按钮	
+            ShowWindow(SW_SHOWMINIMIZED);	    // 最小化窗体
+        }
+        break;
+    }
+    CDialog::OnNcLButtonDown(nHitTest, point);
+}

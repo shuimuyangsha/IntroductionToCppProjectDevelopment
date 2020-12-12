@@ -1,0 +1,4 @@
+// 画出继续变动的对象:不变动的己绘入背景图片中
+for (auto &ptr : m_vMarks) {
+    ptr->Draw (gh);
+}

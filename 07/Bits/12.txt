@@ -1,0 +1,10 @@
+// 载入文件
+m_pXMLDoc->load ((unsigned short*)(_bstr_t)szFileName);
+// 读取节点
+IXMLDOMElementPtr childNode;
+childNode = m_pXMLDoc->selectSingleNode ("//ITEM[@部门ID = 0]");
+VARIANT varVal;
+CString strValue = "";
+// 获取属性
+varVal = pParentNode->getAttribute ("部门ID");
+strValue = (char*)(_bstr_t)varVal;

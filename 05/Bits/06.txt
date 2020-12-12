@@ -1,0 +1,26 @@
+HKEY key;
+char data[4];
+DWORD size = 4;
+DWORD type = REG_SZ;
+CString skey = "Software\\mingrisoft";						
+LSTATUS iret = RegOpenKeyEx(HKEY_CURRENT_USER, skey,
+                            REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, &key);
+if(iret == 0) {
+    CString value;
+    iret = RegQueryValueEx(key, "tryout", 0, &type, (BYTE *)data, &size);
+    if(iret == 0) {
+        if(data != 0) {
+            CString strTime;
+            strTime.Format("你还可以使用%s次", data);
+            GetDlgItem(IDC_STATICTIME)->SetWindowText(strTime);
+        }
+        else {
+            GetDlgItem(IDC_RADIO2)->EnableWindow(FALSE);
+            GetDlgItem(IDC_STATICTIME)->SetWindowText("你已经不可以再试用本软件了！");
+        }
+    }
+    else {
+        RegSetValueEx(key, "tryout", 0, REG_SZ, (BYTE *)"30", 2);
+        OnCancel();
+    }
+}

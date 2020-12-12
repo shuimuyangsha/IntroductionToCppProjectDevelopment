@@ -1,0 +1,9 @@
+void CLitterDlg::OnButbegin()
+{
+    GetDlgItem(IDC_BUTSTOP)->EnableWindow(TRUE);
+    GetDlgItem(IDC_BUTBEGIN)->EnableWindow(FALSE);		// 使按钮不可用
+    ResetEvent(m_hThread);							// 重置信号量
+    DWORD threadID;
+    // 启动新线程，并传入当前类作为参数
+    m_hThread = ::CreateThread(NULL, 0, &ThreadsProc, (LPVOID)this, 0, &threadID);
+}

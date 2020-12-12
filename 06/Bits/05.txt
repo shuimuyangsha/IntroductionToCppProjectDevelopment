@@ -1,0 +1,18 @@
+// 绘制窗体标题文本
+void CSysOptimizeDlg::DrawCaption()
+{
+    // 标题文本不为空
+    if(!m_Caption.IsEmpty()) {
+        CDC *pDC = GetWindowDC();               // 获得窗口设备上下文
+        pDC->SetBkMode(TRANSPARENT);            // 设置背景透明
+        pDC->SetTextColor(m_CapitonColor);      // 设置文本颜色
+        pDC->SetTextAlign(TA_CENTER);           // 居中显示
+        CRect rect;
+        GetClientRect(rect);                    // 获得窗口客户区域
+        pDC->SelectObject(&m_CaptionFont);      // 设置字体
+        pDC->TextOut(rect.Width() / 2,          // 绘制文本
+                     m_CaptionHeight / 3 + 2,
+                     m_Caption);
+        ReleaseDC(pDC);                         // 释放设备上下文
+    }
+}

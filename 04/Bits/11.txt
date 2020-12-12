@@ -1,0 +1,20 @@
+// 设置 金线数量
+void CDialogMain::OnBnClickedButtonGold()
+{
+    UpdateData(TRUE);						// 更新控件上的值到关联的变量
+    DWORD dwValue = m_dwGold;				// 暂存金钱的值
+    UpdateData(FALSE);
+ 
+ 
+    // 金钱数量内存地址:
+    // [[0x006A9EC0] + 0x82C] + 0x28
+ 
+    DWORD dwTemp;
+    dwTemp = *(DWORD *)0x006A9EC0;		// 取出一级地址中的值
+    dwTemp = *(DWORD *)(0x82C + dwTemp);	// 偏移0x768之后，再取出该地址处的值
+    // 内存地址
+    DWORD dwAddr = 0x28 + dwTemp;			// 这是当前金钱值的“临时”地址
+ 
+    *(DWORD *)(dwAddr) = dwValue; 			// 写入新的金钱数量
+}
+ 

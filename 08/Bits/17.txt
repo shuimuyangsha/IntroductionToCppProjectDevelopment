@@ -1,0 +1,29 @@
+void CDialogHistorySub02::UpdateKLine(const CString &strCode,
+                                      const CString &strDateStart,
+                                      const CString &strDateEnd)
+{
+    using namespace std;
+    // 取数据
+    CMRKJDatabase::TupleStockInfo info;
+    // 从数据库中取股票信息,如名字等.
+    if(!DB.QueryStockInfoByCode(info, strCode)) {
+        CTools::MessageBoxFormat(_T("没有股票信息[%s]"), strCode.GetString());
+        return;
+    }
+ 
+    // 查询日线数据
+    VDayDataEntry v;
+    if(!DB.QueryDayData(v, strCode, strDateStart, strDateEnd)) {
+        CTools::MessageBoxFormat(_T("股票没有数据[%s]"), strCode.GetString());
+        return;
+    }
+    // 如果没有数据,进行提示
+    if(v.empty()) {
+        CTools::MessageBoxFormat(_T("股票没有数据[%s]"), strCode.GetString());
+        return;
+    }
+    // 将数据传给报表控件
+    m_stockChart.ReSetData(info, v);
+    // 并更新
+    InvalidateRect(NULL);
+}

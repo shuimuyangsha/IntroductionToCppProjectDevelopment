@@ -1,0 +1,36 @@
+#pragma once
+ 
+#include "stdafx.h"
+#include <functional>
+class ScopeGuard
+{
+public:
+    explicit ScopeGuard(std::function<void()> onExitScope)	// 构造函数
+        : onExitScope_(onExitScope), dismissed_(false)		// 初始化列表
+    { }
+ 
+    ~ScopeGuard()
+    {
+        if(!dismissed_) {									// 判断是面进行释说释源的动作
+            onExitScope_();
+        }
+    }
+ 
+    void Dismiss()							// 调用此函数,则不进行释放动作
+    {
+        dismissed_ = true;
+    }
+ 
+private:
+    std::function<void()> onExitScope_;
+    bool dismissed_;
+ 
+private: 
+    ScopeGuard(ScopeGuard const &);			// 去掉拷造构造函数
+    ScopeGuard &operator=(ScopeGuard const &);	// 去掉赋值操作符
+};
+#define SCOPEGUARD_LINENAME_CAT(name, line) name##line
+#define SCOPEGUARD_LINENAME(name, line) SCOPEGUARD_LINENAME_CAT(name, line)
+ 
+#define ON_SCOPE_EXIT(callback) ScopeGuard SCOPEGUARD_LINENAME(EXIT, __LINE__)(callback)
+ 

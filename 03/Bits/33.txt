@@ -1,0 +1,35 @@
+//BlueOne成员定义
+ 
+void BlueOne::Draw(HDC &hdc)
+{
+    Enermy::Draw(hdc);
+}
+ 
+void BlueOne::MakeDecision(bool b)
+{
+ 
+    const int DR = this->m_nRow - player->GetRow();
+    const int DA = this->m_nArray - player->GetArray();
+    if(!b && DR == 0) {
+        if(DA <= BLUE_ALERT && DA > 0) {  // 玩家在左侧边警戒范围s
+            m_cmd = LEFT;                   // 向左移动
+            return;
+        }
+        if(DA < 0 && DA >= -BLUE_ALERT) {  // 右侧警戒范围
+            m_cmd = RIGHT;                   // 向右移动
+            return;
+        }
+    }
+    if(!b && DA == 0) {
+        if(DR <= BLUE_ALERT && DR > 0) {   // 下方警戒范围
+            m_cmd = UP;                      // 向上移动
+            return;
+        }
+        if(DR < 0 && DR >= -BLUE_ALERT) {  // 上方警戒范围
+            m_cmd = DOWN;                    // 向下移动
+            return;
+        }
+    }
+ 
+    RedOne::MakeDecision(b);  //不在追踪模式时RED行为相同
+}

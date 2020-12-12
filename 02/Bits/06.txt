@@ -1,0 +1,16 @@
+// 引入C++标准库
+#include <memory>
+#include <vector>
+#include <list>
+#include <map>
+#include <algorithm>
+#include <string>
+ 
+#include <assert.h>
+ 
+using namespace std;
+ 
+#include <gdiplus.h> 						// 引入 GDIPlus,包含头文件
+#include <gdipluseffects.h>
+#pragma comment(lib, "Gdiplus.lib")		// 链接 GDIPlus库
+using namespace Gdiplus;

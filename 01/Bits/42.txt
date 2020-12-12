@@ -1,0 +1,24 @@
+private:
+    int m_fps{ 0 }; 						// 记录 游戏每秒多少帧
+
+    EGameType m_eStep{ EGameTypeMenu }; 	// 当前阶段:菜单选择阶段
+
+    CPlayer m_player01; 					// 两个玩家对象
+
+    CPlayer m_player02; 					// 玩家对象2: 双人对战时才会用到
+
+    CBot m_bot; 							// 一个电脑: 人机对战时用到
+
+    std::list<CBullet> m_lstBullets; 		// 存在于地图场景中的 子弹对象数组
+
+    CGameMap m_map{ 10, 10, 780, 580 }; 	// 地图对象
+
+    CGameMenuPanel m_menuSelect; 			// 开始菜单
+
+    CGameMenuBackground m_menu; 			// 开始菜单背景图
+
+    CGameMenuPanel2 m_menuBackup; 			// 返回菜单
+
+    CKeyMenuPlayer01 m_keymenu01; 			// 提示按键的菜单
+    CKeyMenuPlayer02 m_keymenu02;
+};  // 注意：此处有分号

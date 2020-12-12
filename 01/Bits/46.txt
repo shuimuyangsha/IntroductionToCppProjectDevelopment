@@ -1,0 +1,276 @@
+
+/* 游戏逻辑处理:
+1. 维护子弹状态
+2. 维护 机器人AI的自动移动,自动发射子弹
+3. 维护 玩家 坦克的状态
+以测检测包括： 撞墙，子弹命中坦克...*/
+void CGame::GameRunLogic()
+{
+    // 根据不同阶段调用不同的处理方法
+    (this->*m_logicFunc[m_eStep])();
+}
+ 
+// 游戏逻辑处理 : 选择阶段
+void CGame::GameRunLogicOnMenu()
+{
+    // 什么也不做，还没开始游戏
+}
+ 
+// 游戏逻辑处理 : 单人对电脑 菜单阶段
+void CGame::GameRunLogicOnOne2BotMenu()
+{
+    if (KEYDOWN('M')) { 				// 如果按下了M键，停止动画状态
+        m_keymenu01.SetStop();
+    }
+ 
+    if (m_keymenu01.GetStop()) { 		// 如果都按下了，正式开始游戏
+        SetStep(EGameTypeOne2Bot);
+    }
+}
+ 
+// 游戏逻辑处理 : 单人对电脑
+void CGame::GameRunLogicOnOne2Bot()
+{
+    // 状态维护
+    // 移动除列表中无效的子弹,并给相应的坦克增加子弹
+    RemoveTimeoutBullets();
+ 
+    // 检查子弹是否击中坦克 :  击中要使坦克爆炸(子弹可不用移除了，
+    // 因为游戏都结束了)
+    for (auto &blt : m_lstBullets) {
+        if (m_bot.IsHitted(blt)) {			// 击中机器人
+            m_bot.Bomb();						// 机器人爆炸
+            m_eStep = EGameTypeOne2BotEnd; 	// 游戏结束
+            blt.SetActive(false);				// 使子弹不再有效
+        }
+        if (m_player01.IsHitted(blt)) { 		// 击中玩家一
+            m_player01.Bomb();				// 玩家一爆炸
+            m_eStep = EGameTypeOne2BotEnd; 	// 游戏结束
+            blt.SetActive(false);				// 使子弹不再有效
+        }
+        break;
+    }
+ 
+    ProcessHitBullets();  					// 子弹运动维护
+
+    AI();									// 使机器人自动攻击玩家
+ 
+    //按键处理
+    {
+        if (KEYDOWN(VK_LEFT)) {				// 左方向键按下
+            m_player01.RotateLeft();			// 玩家一向左旋转
+        }
+        if (KEYDOWN(VK_RIGHT)) {				// 右方向键按下
+            m_player01.RotateRight();			// 玩家一向右旋转
+        }
+        if (KEYDOWN(VK_UP)) {					// 上方向键按下
+            // 坦克撞墙检测试	
+            {
+                if (m_map.IsHitTheWall(m_player01, true)) {		// 如果撞墙了
+                    m_player01.ChangeDirection(true);			// 改变坦克方向
+                }
+                else {
+                    m_player01.Forward();						// 没撞墙继续向前进
+                }
+            }
+        }
+        if (KEYDOWN(VK_DOWN)) {								// 下方向键按下
+        		// 坦克撞墙检测试
+        		{
+             	if (m_map.IsHitTheWall(m_player01, false)) {	// 如果撞墙了
+             		m_player01.ChangeDirection(true);		  	// 改变坦克方向
+             	}
+             	else {
+             		m_player01.Backward();				  	// 没撞墙继续向前进
+             	}
+        		}
+        }
+        if (KEYDOWN('M')) {									// M键按下
+            CBullet blt;
+            if (m_player01.Fire(blt)) {						// 发射子弹
+                m_lstBullets.push_back(blt);					// 加入到地图列表中
+            }
+        }
+        if (KEYDOWN('I')) {						// 按下键盘上面的I键，机器人步进(测试功能)
+            // 机器人，玩家 所在的位置
+            int startX, startY, targetX, targetY;
+            if (!m_map.FindObjPosition(m_bot, startX, startY) || 
+                !m_map.FindObjPosition(m_player01, targetX, targetY)) {
+                return;
+            }
+            float fDirNext = 0; //机器人下一步的方向
+            if (!m_map.FindNextDirection(&fDirNext, startX, startY, 
+                targetX, targetY)) {
+                return;
+            }
+             //获取机器人坦克的中心点
+            PointF ptTankCenter = m_bot.GetCenterPoint();
+            PointF ptAreaCenter = m_map.GetElementAreaCenter(startX, startY);
+            RectF rc(ptAreaCenter.X - 5, ptAreaCenter.Y - 5, 10, 10);
+ 
+ 
+            if (!rc.Contains(ptTankCenter)) { 		// 判断 坦克是否己经走到了中心点位置了
+                m_bot.Forward(); 					// 没有到达中心点，继续前进
+                return;
+            }
+            else {
+                m_bot.SetDirection(fDirNext);		// 设置机器人的方向			
+                m_bot.Forward();					// 机器人前进
+            }
+        }
+    }
+ 
+}
+ 
+// 游戏逻辑处理 : 单人对电脑 结束
+void CGame::GameRunLogicOnOne2BotEnd()
+{
+    //按键处理
+    // 不再接受按键
+ 
+ 
+    // 状态维护
+    // 移动除列表中无效的子弹,并给相应的坦克增加子弹
+    RemoveTimeoutBullets(); 
+ 
+ 
+    // 子弹是否撞上墙 : 如果撞上了，改变方向等等
+    ProcessHitBullets();
+}
+ 
+// 游戏逻辑处理 : 双人对战 菜单阶段
+void CGame::GameRunLogicOnOne2OneMenu()	
+{
+    if (KEYDOWN('M')) { 									// 如果按下了M键，停止动画状态
+        m_keymenu01.SetStop();
+    }
+    if (KEYDOWN('Q')) { 									// 如果按下了Q键，停止动画状态
+        m_keymenu02.SetStop();
+    }
+ 
+    if (m_keymenu01.GetStop() && m_keymenu02.GetStop()) { 	// 如果都按下了，正式开始游戏
+        SetStep(EGameTypeOne2One);
+    }
+}
+ 
+// 游戏逻辑处理 : 双人对战
+void CGame::GameRunLogicOnOne2One()
+{
+    //按键处理
+    {
+        if (KEYDOWN(VK_LEFT)) { 								// 左方向键按下
+            m_player01.RotateLeft();							// 玩家向左旋转
+        }
+        if (KEYDOWN(VK_RIGHT)) {								// 右方向键按下
+            m_player01.RotateRight();							// 玩家一向右旋转
+        }
+        if (KEYDOWN(VK_UP)) {									// 上方向键按下
+            // 坦克撞墙检测试
+            {
+                if (m_map.IsHitTheWall(m_player01, true)) {		// 判断玩家一是否撞墙
+                    m_player01.ChangeDirection(true);			// 撞墙，玩家一改变方向
+                }
+                else {
+                    m_player01.Forward();						// 玩家一没撞墙，继续前进
+                }
+            }
+        }
+        if (KEYDOWN(VK_DOWN)) {								// 下方向键按下
+            {
+                // 坦克撞墙检测试
+                {
+                    if (m_map.IsHitTheWall(m_player01, false)) {// 判断是否撞墙
+                        m_player01.ChangeDirection(false);
+                    }
+                    else {
+                        m_player01.Backward();
+                    }
+                }
+            }
+        }
+        if (KEYDOWN('M')) {								// 开火键M按下
+            CBullet blt;
+            if (m_player01.Fire(blt)) {					// 调用玩家一开火函数
+                m_lstBullets.push_back(blt);				// 把发射的子弹存入子弹数组
+            }					
+        }
+        // 玩家二
+        if (KEYDOWN('A')) {								// A键按下
+            m_player02.RotateLeft();						// 玩家二向左旋至
+        }
+        if (KEYDOWN('D')) {								// D键按下
+            m_player02.RotateRight();						// 玩家二向右旋转
+        }
+        if (KEYDOWN('W')) {								// W键按下
+            // 坦克撞墙检测试
+            {
+                if (m_map.IsHitTheWall(m_player02, true)) {// 判断玩家二是否撞墙
+                    m_player02.ChangeDirection(true);		// 玩家二改变方向
+                }
+                else {
+                    m_player02.Forward();					// 玩家二继续向前进
+                }
+            }
+        }
+        if (KEYDOWN('S')) {								// S键按按下
+            {
+                // 坦克撞墙检测试
+                {
+                    if (m_map.IsHitTheWall(m_player02, false)) {// 判断玩家二是否撞墙
+                        m_player02.ChangeDirection(false);	// 玩家二改变方向
+                    }
+                    else {
+                        m_player02.Backward();				// 玩家二继续向前
+                    }
+                }
+            }
+        }
+        if (KEYDOWN('Q')) {								// Q键按下，开火键
+            CBullet blt;
+            if (m_player02.Fire(blt)) {					// 调用玩家二开火函数
+                m_lstBullets.push_back(blt);				// 把发射的子弹存入子弹数组
+            }
+        }
+        if (KEYDOWN('Z')) {								// 调试用的代码，正式工程无效
+            if (m_map.IsCanKillTarget(m_player01, m_player02)) {
+                AfxMessageBox(_T("可以打到"));
+            }
+        }
+    }
+ 
+    // 先判断状态
+    // 移动除列表中无效的子弹,并给相应的坦克增加子弹
+    RemoveTimeoutBullets();
+ 
+    // 检查子弹是否击中坦克 :  击中要使坦克爆炸(子弹可不用移除了，因为游戏都结束了)
+    for (auto &blt : m_lstBullets) {
+        if (!blt.IsActive()) {
+            continue;
+        }
+        if (m_player01.IsHitted(blt)) {	// 击中玩家一
+            m_player01.Bomb();			// 玩家一爆炸
+            m_eStep = EGameTypeOne2OneEnd;// 游戏结束
+            blt.SetActive(false);
+        }
+        if (m_player02.IsHitted(blt)) { 	// 击中玩家二
+            m_player02.Bomb();			// 玩家二爆炸
+            m_eStep = EGameTypeOne2OneEnd;// 游戏结束
+            blt.SetActive(false);
+        }
+    }
+ 
+    ProcessHitBullets();					// 子弹撞墙处理
+}
+ 
+// 游戏逻辑处理 : 双人对战 结束
+void CGame::GameRunLogicOnOne2OneEnd()
+{
+    //按键处理
+    // 不需要按键处理
+ 
+    RemoveTimeoutBullets();				// 移动除列表中无效的子弹,并给相应的坦克增加子弹
+
+    ProcessHitBullets();					// 子弹撞墙处理
+}
+ 
+////////////////////////////////////////////////////////////////////////////////

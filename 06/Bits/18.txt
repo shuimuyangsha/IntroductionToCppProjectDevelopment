@@ -1,0 +1,6 @@
+void CContralDlg::OnButinternet()
+{
+    // 打开 IE 的设置窗口
+    ::ShellExecute(NULL, "OPEN", "rundll32.exe",
+                   "shell32.dll Control_RunDLL inetcpl.cpl", NULL, SW_SHOW);
+}

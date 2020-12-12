@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="DB">
+      <UniqueIdentifier>{d8e385dd-414b-40cf-83b2-d2c940960179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Log">
+      <UniqueIdentifier>{e9bf5db0-2f29-434a-af39-aa13923bc4a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Excel">
+      <UniqueIdentifier>{5ea27c68-0a5f-46bc-a54a-9a823ffc1171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{0381aded-f565-4080-9d13-bb18abe66efd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Forms">
+      <UniqueIdentifier>{225ffef3-ad71-4ad9-97d7-10c871497077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{d42e8ce4-7452-4d7f-8d8c-0f1f6d96310d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="chart">
+      <UniqueIdentifier>{ac5fb4d7-0aba-477c-8f1b-8ceae8ef09c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BuySellPanel">
+      <UniqueIdentifier>{7de7f2e3-07cc-4c08-b89c-ba20e299a648}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="http">
+      <UniqueIdentifier>{0936302e-27f0-40ca-be51-a6d5c6cc1c06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="主对话框">
+      <UniqueIdentifier>{e88ebe5f-c76a-474e-977f-f55732aa62d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="主程序">
+      <UniqueIdentifier>{0df36deb-6fc9-4ff0-8205-a73aa2d80d8a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DayDataEntry.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="MRKJDatabase.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="TableFiles.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="CWorksheets.h">
+      <Filter>Excel</Filter>
+    </ClInclude>
+    <ClInclude Include="CWorksheet.h">
+      <Filter>Excel</Filter>
+    </ClInclude>
+    <ClInclude Include="CWorkbooks.h">
+      <Filter>Excel</Filter>
+    </ClInclude>
+    <ClInclude Include="CWorkbook.h">
+      <Filter>Excel</Filter>
+    </ClInclude>
+    <ClInclude Include="CApplication.h">
+      <Filter>Excel</Filter>
+    </ClInclude>
+    <ClInclude Include="CRange.h">
+      <Filter>Excel</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogAbout.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogCalc.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogCalc01.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogCalc02.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogCalc03.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogCalc04.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogCalc05.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogDataImpExp.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogDataKind.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogDataMaintenance.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogHostoryData.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogKindSelect.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogRealtimeData.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogSetting.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="StringHelper.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="CandlestickSerie.h">
+      <Filter>chart</Filter>
+    </ClInclude>
+    <ClInclude Include="CursorTip.h">
+      <Filter>chart</Filter>
+    </ClInclude>
+    <ClInclude Include="HorizontalAxis.h">
+      <Filter>chart</Filter>
+    </ClInclude>
+    <ClInclude Include="LeftTopLabel.h">
+      <Filter>chart</Filter>
+    </ClInclude>
+    <ClInclude Include="StockChart.h">
+      <Filter>chart</Filter>
+    </ClInclude>
+    <ClInclude Include="VerticalAxis.h">
+      <Filter>chart</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogHistorySub02.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogHistorySub01.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawBuySellPanel.h">
+      <Filter>BuySellPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawKLineImagePanel.h">
+      <Filter>BuySellPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="KLineElement.h">
+      <Filter>BuySellPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpDataEntry.h">
+      <Filter>http</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpDataSource.h">
+      <Filter>http</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpHelper.h">
+      <Filter>http</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogKeybdQuery.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScreenShot.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogLogin.h">
+      <Filter>Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="MrkjSystemDlg.h">
+      <Filter>主对话框</Filter>
+    </ClInclude>
+    <ClInclude Include="MrkjSystem.h">
+      <Filter>主程序</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenTools.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogHuShen.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MMListCtrl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogStockFilter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogFilterKind.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DayDataEntry.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
+    <ClCompile Include="MRKJDatabase.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
+    <ClCompile Include="TableFiles.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogAbout.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogCalc.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogCalc01.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogCalc02.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogCalc03.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogCalc04.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogCalc05.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogDataImpExp.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogDataKind.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogDataMaintenance.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogHostoryData.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogKindSelect.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogRealtimeData.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogSetting.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="CandlestickSerie.cpp">
+      <Filter>chart</Filter>
+    </ClCompile>
+    <ClCompile Include="CursorTip.cpp">
+      <Filter>chart</Filter>
+    </ClCompile>
+    <ClCompile Include="HorizontalAxis.cpp">
+      <Filter>chart</Filter>
+    </ClCompile>
+    <ClCompile Include="LeftTopLabel.cpp">
+      <Filter>chart</Filter>
+    </ClCompile>
+    <ClCompile Include="StockChart.cpp">
+      <Filter>chart</Filter>
+    </ClCompile>
+    <ClCompile Include="VerticalAxis.cpp">
+      <Filter>chart</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogHistorySub02.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogHistorySub01.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawBuySellPanel.cpp">
+      <Filter>BuySellPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawKLineImagePanel.cpp">
+      <Filter>BuySellPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpDataEntry.cpp">
+      <Filter>http</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpDataSource.cpp">
+      <Filter>http</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpHelper.cpp">
+      <Filter>http</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogKeybdQuery.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScreenShot.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogLogin.cpp">
+      <Filter>Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="MrkjSystemDlg.cpp">
+      <Filter>主对话框</Filter>
+    </ClCompile>
+    <ClCompile Include="MrkjSystem.cpp">
+      <Filter>主程序</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogHuShen.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MMListCtrl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogStockFilter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogFilterKind.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MrkjSystem.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\MrkjSystem.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\shot.cur">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\MrkjSystem.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\MainDlgBackgroud.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\About.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\BackgroundBrush.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\icon1.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\1111.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\KindIcon.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\stock.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\kind.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\shot.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap_k.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap_calc.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

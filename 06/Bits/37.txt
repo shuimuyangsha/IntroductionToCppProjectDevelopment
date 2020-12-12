@@ -1,0 +1,7 @@
+void CLitterDlg::OnButstop()
+{
+    GetDlgItem(IDC_BUTBEGIN)->EnableWindow(TRUE);		// 让开始按钮可用
+    GetDlgItem(IDC_BUTSTOP)->EnableWindow(FALSE);		// 让停止按钮不可用
+    BOOL ret = SetEvent(m_hThread);
+    ::TerminateThread(m_hThread, 0);					// 结束线程
+}

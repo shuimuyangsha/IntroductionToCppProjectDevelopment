@@ -1,0 +1,5 @@
+// 四个TabCtrl的子对话框
+CContralDlg     *m_pContralDlg; 				// 控制面板操作模块
+CDiskDlg        *m_pDiskDlg;    				// 磁盘空间整理模块
+CLitterDlg      *m_pLitterDlg;  				// 垃圾文件清理模块
+CTaskDlg        *m_pTaskDlg;    				// 系统任务管理模块

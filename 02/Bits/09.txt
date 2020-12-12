@@ -1,0 +1,7 @@
+{
+    HDC hdc = ::GetDC(GetSafeHwnd());			// 获得本窗口DC
+    Gdiplus::Graphics gh(hdc); 				// 创建一个 Grahpics对象:绘图,写字全靠它
+    gh.DrawImage(bmp, Rect(0, 0, 100, 300)); 	// 绘制图形
+    ::ReleaseDC(GetSafeHwnd(), hdc); 			// 释放DC
+}
+CDialogEx::OnPaint();

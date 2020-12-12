@@ -1,0 +1,79 @@
+void CSysOptimizeDlg::OnNcMouseMove(UINT nHitTest, CPoint point)
+{
+    CRect tempMin, tempMax, tempClose, ClientRect;
+    CWindowDC WindowDC(this); // 获得窗口设备上下文
+    CDC memDC;
+    memDC.CreateCompatibleDC(&WindowDC);  // 创建内存兼容的设备上下文
+    BITMAPINFO bInfo;
+    CBitmap LeftLine;
+    int x, y;
+    GetWindowRect(ClientRect); // 获得客户区域
+    // 设置最小化按钮区域
+    tempMin.CopyRect(CRect(m_MinRect.left + ClientRect.left,
+                           ClientRect.top + m_MinRect.top,
+                           m_MinRect.right + m_MinRect.left + ClientRect.left,
+                           m_MinRect.bottom + m_MinRect.top + ClientRect.top));
+    // 设置关闭按钮区域
+    tempClose.CopyRect(CRect(m_CloseRect.left + ClientRect.left,
+                             ClientRect.top + m_CloseRect.top,
+                             m_CloseRect.right + m_CloseRect.left +
+                             ClientRect.left,
+                             m_CloseRect.bottom + m_CloseRect.top +
+                             ClientRect.top));
+    // 鼠标在最小化按钮上移动时,更改按钮显示的位图
+    if(tempMin.PtInRect(point)) {
+        // 按钮状态不是最小化
+        if(m_ButtonState != bsMin) {
+            // 加载最小化热点位图
+            LeftLine.LoadBitmap(IDB_MINHOTBT);
+            LeftLine.GetObject(sizeof(bInfo), &bInfo);
+ 
+            x = bInfo.bmiHeader.biWidth; // 位图宽度
+            y = bInfo.bmiHeader.biHeight;// 位图高度
+            memDC.SelectObject(&LeftLine);
+            // 绘制最小化按钮热点效果
+            WindowDC.StretchBlt(m_MinRect.left, m_MinRect.top, m_MinRect.right,
+                                m_MinRect.bottom, &memDC, 0, 0, x, y, SRCCOPY);
+            m_IsDrawForm = FALSE;
+            // 设置按钮状态
+            m_ButtonState = bsMin;
+            LeftLine.Detach();
+        }
+    }
+    // 鼠标在关闭按钮上移动时,更改按钮显示的位图
+    else if(tempClose.PtInRect(point)) {
+        if(m_ButtonState != bsClose) {
+// 加载关闭按钮热点位图
+            LeftLine.LoadBitmap(IDB_CLOSEHOTBT); 
+            LeftLine.GetObject(sizeof(bInfo), &bInfo);
+            x = bInfo.bmiHeader.biWidth; // 位图宽度	
+            y = bInfo.bmiHeader.biHeight;// 位图高度
+            memDC.SelectObject(&LeftLine);
+            // 绘制关闭按钮热点效果
+            WindowDC.StretchBlt(m_CloseRect.left, m_CloseRect.top, m_CloseRect.right
+                                , m_CloseRect.bottom, &memDC, 0, 0, x, y, SRCCOPY);
+            m_IsDrawForm = FALSE;
+            m_ButtonState = bsClose;
+            LeftLine.Detach();
+        }
+    }
+    // 鼠标不在标题栏按钮上	
+    else {
+        // 按钮具有热点效果
+        if(m_IsDrawForm == FALSE) {
+            // 是最小化按钮
+            if(m_ButtonState == bsMin) {
+                DrawDialog(fMinButton); // 重绘最小化按钮
+            }
+            // 是关闭按钮
+            else if(m_ButtonState == bsClose) {
+                DrawDialog(fCloseButton);
+            }
+        }
+        m_ButtonState = bsNone;
+    }
+    LeftLine.DeleteObject();
+    ReleaseDC(&memDC);
+    CDialog::OnNcMouseMove(nHitTest, point);
+}
+ 

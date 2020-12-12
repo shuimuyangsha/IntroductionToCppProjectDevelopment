@@ -1,0 +1,30 @@
+
+CString CCreateRegDlg::GetMacAddress()
+{
+    NCB nInfo;
+    memset(&nInfo, 0, sizeof(NCB));  		// 内容清零
+    nInfo.ncb_command  = NCBRESET; 		// 设置命令
+    nInfo.ncb_lana_num = 0;
+    Netbios(&nInfo); 						// 执行
+
+    ADAPTER_INFO AdaINfo;
+    memset(&nInfo, 0, sizeof(NCB)); 		// 初始化NetBIOS,把数组清零
+    nInfo.ncb_command  = NCBASTAT;
+    nInfo.ncb_lana_num = 0;
+    nInfo.ncb_buffer   = (unsigned char *)&AdaINfo;
+    nInfo.ncb_length   = sizeof(ADAPTER_INFO);
+    strncpy((char *)nInfo.ncb_callname, "*", NCBNAMSZ);
+    Netbios(&nInfo);
+ 
+    // 格式化成字符串
+    CString MacAddr;
+    MacAddr.Format("%02X%02X%02X%02X%02X%02X",
+                   AdaINfo.nStatus.adapter_address[0],
+                   AdaINfo.nStatus.adapter_address[1],
+                   AdaINfo.nStatus.adapter_address[2],
+                   AdaINfo.nStatus.adapter_address[3],
+                   AdaINfo.nStatus.adapter_address[4],
+                   AdaINfo.nStatus.adapter_address[5]
+                  );
+    return MacAddr.Mid(4, 4);					// 取中间的一段字符串作为返回值
+}

@@ -1,0 +1,54 @@
+// 登陆服务器
+void CLogin::OnBtLogin()
+{
+    if(m_pMainDlg != NULL) {
+        // 获取界面上输入的值
+        CString csIP, csPort, csUserID, csPassword;
+        m_SvrIP.GetWindowText(csIP);
+        m_SvrPort.GetWindowText(csPort);
+        m_UserID.GetWindowText(csUserID);
+        m_PassWord.GetWindowText(csPassword);
+ 
+        if(!csIP.IsEmpty() && !csPort.IsEmpty() && !csUserID.IsEmpty()
+           && !csPassword.IsEmpty()) {
+            m_pMainDlg->m_bLogined = FALSE;
+ 
+            BOOL bRet = FALSE;
+ 
+            // 连接服务器
+            bRet = m_pMainDlg->m_ClientSock.Connect(csIP, atoi(csPort));
+            int nNum = 0;
+            while(bRet == FALSE) {
+                nNum++;
+                bRet = m_pMainDlg->m_ClientSock.Connect(csIP, atoi(csPort));
+                MSG msg;
+                // 该处为了防止界面卡死，进行分发消息处理
+                if(GetMessage(&msg, m_hWnd, 0, 0)) {
+                    TranslateMessage(&msg);
+                    DispatchMessage(&msg);
+                }
+                if(nNum > 20) {
+                    MessageBox("连接服务器超时!", "提示");
+                    return;
+                }
+            }
+ 
+            // 构造消息内容
+            CMessage cmLoginInfo;
+            strncpy(cmLoginInfo.m_chAccount, csUserID, csUserID.GetLength());
+ 
+            strncpy(cmLoginInfo.m_chPassword, csPassword, csPassword.GetLength());
+            cmLoginInfo.m_nMsgType = MT_FIRSTLOG;
+ 
+            // 把相关值记录下来
+            m_pMainDlg->m_nLoginUser = atoi(csUserID);
+            m_pMainDlg->m_Password = csPassword;
+            m_pMainDlg->m_nPort = atoi(csPort);
+            m_pMainDlg->m_ServerIP = csIP;
+ 
+            // 发送消息
+            m_pMainDlg->m_ClientSock.Send(&cmLoginInfo, sizeof(CMessage));
+        }
+    }
+}
+ 

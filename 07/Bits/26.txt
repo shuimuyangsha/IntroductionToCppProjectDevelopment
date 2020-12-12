@@ -1,0 +1,79 @@
+// 发送文件 按钮事件
+void CSendDlg::OnSendFile()
+{
+    // 首先将文件发送到服务器，再由服务器转发
+    // 文件的发送是通过单独的临时通道实现的
+    // 在文件发送时临时建立连接
+    char chName[MAX_PATH] = {0};
+    gethostname(chName, MAX_PATH);
+    hostent *phost = gethostbyname(chName);
+    char *chIP = inet_ntoa(*(in_addr *)phost->h_addr_list[0]);
+ 
+    m_csSock.ShutDown();
+    m_csSock.Close();
+ 
+    // 选择要发送的文件
+    CFileDialog cfDlg(TRUE);
+    if(cfDlg.DoModal() == IDOK) {
+        BOOL bRet = FALSE;
+        int nPort = 0;
+        m_csFileName = cfDlg.GetFileName();
+        strcpy(chFileName, m_csFileName);
+        m_csFullName = cfDlg.GetPathName();
+ 
+        // 网络消息
+        CMessage Msg;
+        m_csSock.ShutDown();
+        m_csSock.Close();
+ 
+create:
+        nPort = 4000 + rand() % 3000;
+        bRet = m_csSock.Create(nPort);
+ 
+        if(bRet == FALSE) {
+            goto create;
+        }
+        char chDisable = 1;
+ 
+        setsockopt(m_csSock.m_hSocket, IPPROTO_TCP, TCP_NODELAY, &chDisable, 
+                     sizeof(chDisable));
+        int nSize = PACKAGESIZE;
+        // 设置发送和接收缓冲区
+        m_csSock.SetSockOpt(SO_SNDBUF, &nSize, sizeof(nSize));
+        m_csSock.SetSockOpt(SO_RCVBUF, &nSize, sizeof(nSize));
+ 
+        DWORD dwEnable = 1;
+        m_csSock.IOCtl(FIONBIO, &dwEnable);
+ 
+        CECSClientDlg *pDlg = (CECSClientDlg *)AfxGetMainWnd();
+ 
+        // 连接服务器
+connect:
+        bRet = m_csSock.Connect(pDlg->m_ServerIP, 601);
+        if(bRet == FALSE) {
+            goto connect;
+        }
+ 
+        // 首先发送请求信息
+        CString csDesID, csSrcID;
+        m_DesID.GetWindowText(csDesID);
+        m_LocalID.GetWindowText(csSrcID);
+        m_csSock.SetSockOpt(SO_SNDBUF, &nSize, sizeof(nSize));
+        m_csSock.SetSockOpt(SO_RCVBUF, &nSize, sizeof(nSize));
+ 
+        Msg.m_nMsgType = MT_SENDDATA;
+        Msg.m_nSubType = ST_FILEREQUEST;
+        Msg.m_nAccountID[0] = atoi(csDesID);    // 设置目标对象
+ 
+        Msg.m_nSrcID = atoi(csSrcID);
+ 
+        m_csSock.Send(&Msg, sizeof(CMessage));  // 发送请求信息
+ 
+        // 发送文件
+        SendFile (m_csSock, ST_FILE);
+ 
+        // 防止发送窗口中的对象被选中 
+        m_ShowEdit.SetSel(-1, 0);
+        m_ShowEdit.Invalidate();
+    }
+}

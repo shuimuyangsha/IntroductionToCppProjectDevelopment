@@ -1,0 +1,43 @@
+
+BOOL CRegisterDlg::OnInitDialog()
+{
+    // … IDE自动生成代码，略。
+ 
+    // 读取注册表
+    HKEY key;
+    char data[2];
+    DWORD size = 2;
+    DWORD type = REG_SZ;
+    CString skey = "Software\\mingrisoft";
+    long iret = RegOpenKeyEx(HKEY_CURRENT_USER, skey,
+                             REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, &key);
+	// 打开成功
+    if(iret == 0) {
+        CString value;
+		// 读取键值
+        iret = RegQueryValueEx(key, "isreg", 0, &type, (BYTE *)data, &size);
+        if(iret == 0) {
+            if(data[0] == '0') {
+				// 显示选择对话框 
+                CSelectDlg dlg;
+                if(dlg.DoModal() != IDOK) {
+					// 退出
+                    OnCancel();
+                }
+				// 检查标志位
+                if(!Flag) {
+					// 退出
+                    OnCancel();
+                }
+            }
+            else {
+                return TRUE;
+            }
+        }
+        else {
+            RegSetValueEx(key, "isreg", 0, REG_SZ, (BYTE *)"0", 1);
+            OnCancel();
+        }
+    }
+    return TRUE;  // return TRUE  unless you set the focus to a control
+}

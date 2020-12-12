@@ -1,0 +1,19 @@
+#include "stdafx.h"
+#include "GameMenuBackground.h"
+#include "Game.h"
+ 
+ 
+CGameMenuBackground::CGameMenuBackground()
+{
+    m_imgBackground = Image::FromFile(_T("menu_background.png")); 	// 载入背景图
+}
+ 
+CGameMenuBackground::~CGameMenuBackground()
+{
+ 
+}
+ 
+void CGameMenuBackground::Draw(Graphics &gh) const
+{
+    gh.DrawImage(m_imgBackground, m_rect);                          	// 绘制背景图片
+}

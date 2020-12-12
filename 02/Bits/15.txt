@@ -1,0 +1,41 @@
+void CDesktopToysDlg::OnLButtonDown(UINT nFlags, CPoint point)
+{
+    m_pGame->OnLButtonDown (nFlags, point); 		// 转发鼠标消息
+    CDialogEx::OnLButtonDown(nFlags, point);
+}
+ 
+ 
+void CDesktopToysDlg::OnLButtonUp(UINT nFlags, CPoint point)
+{
+    m_pGame->OnLButtonUp(nFlags, point); 			// 转发鼠标消息
+    CDialogEx::OnLButtonUp(nFlags, point);
+}
+ 
+ 
+void CDesktopToysDlg::OnRButtonDown(UINT nFlags, CPoint point)
+{
+    m_pGame->OnRButtonDown(nFlags, point); 		// 转发鼠标消息
+    CDialogEx::OnRButtonDown(nFlags, point);
+}
+ 
+ 
+void CDesktopToysDlg::OnRButtonUp(UINT nFlags, CPoint point)
+{
+    m_pGame->OnRButtonUp (nFlags, point); 			// 转发鼠标消息
+    CDialogEx::OnRButtonUp(nFlags, point);
+}
+ 
+ 
+void CDesktopToysDlg::OnMouseMove(UINT nFlags, CPoint point)
+{
+    m_pGame->OnMouseMove(nFlags, point); 			// 转发鼠标消息
+    CDialogEx::OnMouseMove(nFlags, point);
+}
+ 
+ 
+void CDesktopToysDlg::OnTimer(UINT_PTR nIDEvent)
+{
+    m_pGame->EnterFrame (0); 						// 进入游戏帧
+    CDialogEx::OnTimer(nIDEvent);
+}
+

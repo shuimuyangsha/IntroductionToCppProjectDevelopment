@@ -1,0 +1,129 @@
+// 符助函数 : 判断股票数据是否符合条件
+BOOL CheckStock(VDayDataEntry const &vdd, BOOL bAndOr, std::vector<SFunc> vFuncs)
+{
+    // 是否满足连涨N天条件
+    auto CheckUPN = [](VDayDataEntry const & vdd, int N)->BOOL {
+        if(N <= 1)
+        {
+            return FALSE;
+        }
+        // 至少要有1+N天数据，才能判断是否连涨N天
+        if(vdd.size() <= N)
+        {
+            return FALSE;
+        }
+        // 从最后一天向前判断是面连跌了N天
+        int cnt = 0;
+        for(unsigned i1 = vdd.size() - 1; i1 >= 0; --i1)
+        {
+            unsigned i0 = i1 - 1;
+            // 转换成孚点数，比较大小
+            wstringstream ss0(vdd[i0].close), ss1(vdd[i1].close);
+            float d0, d1;
+            ss0 >> d0, ss1 >> d1;
+            // 如果前一天 >= 第二天，说明没有涨，则不符条件
+            if(d0 >= d1) {
+                // 跳出，不必再继续判断了
+                break;
+            }
+            else {
+                cnt++;
+            }
+            if(cnt >= N) {
+                return TRUE;
+            }
+        }
+        return cnt >= N;
+    };
+    // 是否满足连跌N天条件
+    auto CheckDOWNN = [](VDayDataEntry const & vdd, int N)->BOOL {
+        if(N <= 1)
+        {
+            return FALSE;
+        }
+        // 至少要有1+N天数据，才能判断是否连涨N天
+        if(vdd.size() <= N)
+        {
+            return FALSE;
+        }
+        // 从最后一天向前判断是面连跌了N天
+        int cnt = 0;
+        for(unsigned i1 = vdd.size() - 1; i1 >= 0; --i1)
+        {
+            unsigned i0 = i1 - 1;
+            // 转换成孚点数，比较大小
+            wstringstream ss0(vdd[i0].close), ss1(vdd[i1].close);
+            float d0, d1;
+            ss0 >> d0, ss1 >> d1;
+            // 如果前一天 < 第二天，说明涨了，则不符条件
+            if(d0 < d1) {
+                // 跳出，不必再继续判断了
+                break;
+            }
+            else {
+                cnt++;
+            }
+            if(cnt >= N) {
+                return TRUE;
+            }
+        }
+        return cnt >= N;
+    };
+ 
+    // 如果全部条件与 : 判数是否不符合条件，如果不符合,就提前跳出
+    if(query_condition.bAndOr) {
+        // 对当前股票数据执行过滤消息
+        for(SFunc &fun : query_condition.vFuncs) {
+            if(fun.strFunc == _T("UPN")) {
+                //取得参数,转化为天，该函数表示连涨 N 天
+                wstringstream ss(fun.vParams[0].GetString());
+                int N = 0;
+                ss >> N;
+                TRACE("连涨%d天\r\n", N);
+                if(!CheckUPN(vdd, N)) {
+                    return FALSE;
+                }
+            }
+            else if(fun.strFunc == _T("DOWNN")) {
+                //取得参数,转化为天，该函数表示连跌 N 天
+                wstringstream ss(fun.vParams[0].GetString());
+                int N = 0;
+                ss >> N;
+                TRACE("连跌%d天\r\n", N);
+                if(!CheckDOWNN(vdd, N)) {
+                    return FALSE;
+                }
+            }
+        }
+        return TRUE;
+    }
+    // 全部条件or : 判断是否符合条件，如果符合,就提前跳出
+    else {
+        // 对当前股票数据执行过滤消息
+        for(SFunc &fun : query_condition.vFuncs) {
+            if(fun.strFunc == _T("UPN")) {
+                //取得参数,转化为天，该函数表示连涨 N 天
+                wstringstream ss(fun.vParams[0].GetString());
+                int N = 0;
+                ss >> N;
+                TRACE("连涨%d天\r\n", N);
+                if(CheckUPN(vdd, N)) {
+                    return TRUE;
+                }
+            }
+            else if(fun.strFunc == _T("DOWNN")) {
+                //取得参数,转化为天，该函数表示连跌 N 天
+                wstringstream ss(fun.vParams[0].GetString());
+                int N = 0;
+                ss >> N;
+                TRACE("连跌%d天\r\n", N);
+                if(!CheckDOWNN(vdd, N)) {
+                    return TRUE;
+                }
+            }
+        }
+        return FALSE;
+    }
+ 
+}
+ 

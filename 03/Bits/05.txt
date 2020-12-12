@@ -1,0 +1,7 @@
+// 画点测试
+{
+    HDC hdc = ::GetDC(g_hwnd);							// 获得设备句柄
+    SetPixel(hdc, rand() % WLENTH , rand() % WHIGHT,		// 在随机的位置一个随机颜色的点
+             RGB(rand() % 256, rand() % 256, rand() % 256));
+    ::ReleaseDC(g_hwnd, hdc);								// 释放设备
+}

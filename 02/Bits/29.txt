@@ -1,0 +1,15 @@
+// 合并背景图和不动的素
+if (!m_vMarks.empty ()) {
+    Graphics gh (m_imgBk);
+    for (auto ptr : m_vMarks) {
+        // 不再变化的对象，直接合并入背景图片中，用来提高绘图效率
+        if (!ptr->IsChanging ()) {
+            ptr->Draw (gh);
+        }
+    }
+    // 删除不再变化的的对象
+    m_vMarks.erase (std::remove_if (m_vMarks.begin (),
+        m_vMarks.end (),
+        [](auto & lhs)->bool {return !lhs->IsChanging (); })
+        , m_vMarks.end ());
+}

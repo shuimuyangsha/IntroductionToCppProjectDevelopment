@@ -1,0 +1,10 @@
+HWND m_hWnd;                  // 游戏窗口
+
+/* 游戏绘图处理
+   负责绘画游戏中的对象
+*/
+void GameRunDraw();
+ 
+CGameMenuPanel m_menuSelect; // 开始菜单
+
+CGameMenuBackground m_menu;  // 开始菜单背景图

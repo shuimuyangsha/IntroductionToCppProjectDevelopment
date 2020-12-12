@@ -1,0 +1,57 @@
+// 获取32位进程,并更新到进程列中
+BOOL CDialogProgress::GetProcessList ()
+{
+	// 通过进程快照,遍历进程
+	// 并判断进程是否是32位进程
+	// 如果是32位进程,则加入进程列表m_lst中
+	HANDLE hProcessSnap;
+	PROCESSENTRY32 pe32;
+	hProcessSnap = CreateToolhelp32Snapshot (TH32CS_SNAPPROCESS, 0);
+	if (hProcessSnap == INVALID_HANDLE_VALUE) {
+		// 创建快照失败,返回
+		return(FALSE);
+	}
+	// 获得第一个进程
+	pe32.dwSize = sizeof (PROCESSENTRY32);
+	if (!Process32First (hProcessSnap, &pe32)) {
+		CloseHandle (hProcessSnap);
+		return(FALSE);
+	}
+	do {
+		// 判数是否是32位进程
+		if (hh::Is32BitProcess (pe32.th32ProcessID)) {
+			// 如果获取图标成功, 表示图标在m_imgList中的位置
+			int indexIco = -1;
+			// 获取进程图标,并加入到 m_imgList中
+			{
+				HICON hIco = 0;
+				if (hh::GetProcessIco (pe32.th32ProcessID, hIco)) {
+					// 如果有图标,加入列表
+					indexIco = m_imgList.Add (hIco);
+				}
+			}
+ 
+			// 插入新行
+			{
+				// 进程名
+				int index = m_lst.InsertItem (m_lst.GetItemCount (),
+					pe32.szExeFile, indexIco);
+				//进程ID
+				CString s;
+				s.Format (_T ("%d"), pe32.th32ProcessID);
+				m_lst.SetItemText (index, 1, s);
+				// 设置该行数据
+				m_lst.SetItemData (index, (DWORD_PTR)pe32.th32ProcessID);
+			}
+		}
+		else {
+			// 不是32位进程,什么也不做
+		}
+	}
+	// 获得下一个进程
+	while (Process32Next (hProcessSnap, &pe32));
+ 
+	// 关闭 快照句柄
+	CloseHandle (hProcessSnap);
+	return(TRUE);
+} 

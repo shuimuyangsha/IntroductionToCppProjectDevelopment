@@ -1,0 +1,12 @@
+// 创建要插入的节点
+IXMLDOMNodePtr pInsert = m_pXMLDoc->createNode (_T ("element"), szName, "");
+// 创建属性
+IXMLDOMAttributePtr pAttr = m_pXMLDoc->createAttribute (csAttr);
+VARIANT vrValue = (_variant_t)(_bstr_t)(L"部门组织");
+// 设置值
+pAttr->put_value (vrValue);
+pInsert->attributes->setNamedItem (pAttr);
+//保存根节点
+pInsert->appendChild (pTmp);
+//保存为文件
+m_pXMLDoc->save ((unsigned short*)(_bstr_t)szFileName);

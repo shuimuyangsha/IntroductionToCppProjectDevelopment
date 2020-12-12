@@ -1,0 +1,18 @@
+void GMap::DrawMap(HDC &memDC)
+{
+    HBRUSH hBrush = CreateSolidBrush(color);
+    for(int i = 0; i < MAPLENTH; i++) {
+        for(int j = 0; j < MAPLENTH; j++) {
+            //绘制墙壁
+            if(!mapData[i][j]) {
+                RECT rect;
+                rect.left = j * LD;
+                rect.top = i * LD;
+                rect.right = (j + 1) * LD;
+                rect.bottom = (i + 1) * LD;
+                FillRect(memDC, &rect, hBrush);	// 填充矩型区域，模拟墙体
+            }
+        }
+    }
+    DeleteObject(hBrush);							// 删除画刷对象
+}

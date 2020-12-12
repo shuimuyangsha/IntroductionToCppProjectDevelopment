@@ -1,0 +1,33 @@
+//YellowOne成员定义
+void YellowOne::MakeDecision(bool b)
+{
+    const int DR = this->m_nRow - player->GetRow();
+    const int DA = this->m_nArray - player->GetArray();
+    if(!b) {
+        if(DR * DR > DA * DA) {
+            if(DA > 0) {  		// 玩家在左侧边警戒范围
+                m_cmd = LEFT;  	// 向左移动
+                return;
+            }
+            else if(DA < 0) {  	// 右侧警戒范围
+                m_cmd = RIGHT;	// 向右移动
+                return;
+            }
+        }
+        else {
+            if(DR > 0) {  		// 下方警戒范围
+                m_cmd = UP;		// 向上移动
+                return;
+            }
+            if(DR < 0) {  		// 上方警戒范围
+                m_cmd = DOWN;		// 向下移动
+                return;
+            }
+        }
+    }
+    RedOne::MakeDecision(b);		// 调用红色对象的函数，实现随机移动功能
+}
+void YellowOne::Draw(HDC &hdc)
+{
+    Enermy::Draw(hdc);			// 绘制自身
+}

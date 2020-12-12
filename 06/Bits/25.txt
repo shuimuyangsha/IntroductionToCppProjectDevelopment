@@ -1,0 +1,20 @@
+HBRUSH CSysOptimizeDlg::OnCtlColor(CDC *pDC, CWnd *pWnd, UINT nCtlColor)
+{
+    HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+ 
+    if(nCtlColor == CTLCOLOR_DLG) {                 // 如果是对话框
+        CBrush m_Brush(&m_BKGround);                // 定义一个位图画刷
+        CRect rect;
+        GetClientRect(rect);                        // 获取客户区大小
+        pDC->SelectObject(&m_Brush);                // 选中画刷
+        pDC->FillRect(rect, &m_Brush);              // 填充客户区域
+        return m_Brush;                             // 返回新的画刷
+    }
+    else {
+        hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+    }
+    if(nCtlColor == CTLCOLOR_STATIC) {              // 如果是静态文本控件
+        pDC->SetBkMode(TRANSPARENT);                // 设置背景透明
+    }
+    return hbr;
+}

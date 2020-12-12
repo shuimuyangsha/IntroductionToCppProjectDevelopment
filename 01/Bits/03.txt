@@ -1,0 +1,13 @@
+CWinApp::InitInstance();
+ 
+// 若要创建主窗口，此代码将创建新的框架窗口
+// 对象，然后将其设置为应用程序的主窗口对象
+CMainFrame *pFrame = new CMainFrame;
+if (!pFrame) {
+    return FALSE;
+}
+m_pMainWnd = pFrame;
+ 
+pFrame->ShowWindow(SW_SHOW); // 显示窗口
+pFrame->UpdateWindow();       // 更新窗口
+return TRUE;

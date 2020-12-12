@@ -1,0 +1,27 @@
+void CTaskDlg::OnMenustop()
+{
+    //获得当前列表项索引
+    int pos = m_Grid.GetSelectionMark();
+    CString str = m_Grid.GetItemText(pos, 2);                   //获得进程ID
+    DWORD data = atoi(str.GetString());
+    HANDLE hProcess;
+    // 打开进程
+    hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, data);     // 打开进程 
+    if(hProcess) {
+        if(!TerminateProcess(hProcess, 0)) {                    // 终止进程
+            CString strError;
+            strError.Format("错误号:%d", GetLastError());
+            AfxMessageBox(strError, MB_OK | MB_ICONINFORMATION, NULL);
+        }
+    }
+    else {
+        CString strError;
+        strError.Format("错误号:%d", GetLastError());
+        if(GetLastError() == ERROR_ACCESS_DENIED) {
+            strError = _T("拒绝访问!") + strError;
+        }
+        AfxMessageBox(strError, MB_OK | MB_ICONINFORMATION, NULL);
+    }
+    Sleep(300);                                                 // 设置延时
+    OnMenuref();                                                // 刷新列表
+}

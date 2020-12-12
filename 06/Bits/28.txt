@@ -1,0 +1,36 @@
+BOOL CDiskDlg::OnInitDialog()
+{
+    CDialog::OnInitDialog();
+ 
+    m_Grid.SetExtendedStyle(
+        LVS_EX_FLATSB             // 扁平风格滚动条
+        | LVS_EX_FULLROWSELECT    // 允许整行选中
+        | LVS_EX_HEADERDRAGDROP   // 允许标题拖拽
+        | LVS_EX_ONECLICKACTIVATE // 高亮显示
+        | LVS_EX_GRIDLINES        // 画出网格线
+    );
+    // 插入列表框的列。设置各列文字
+    m_Grid.InsertColumn(0, "清理项目", LVCFMT_LEFT, 190, 0);
+    m_Grid.InsertColumn(1, "项目说明", LVCFMT_LEFT, 332, 1);
+    m_Grid.InsertItem(0, "清空回收站");
+    m_Grid.SetItemText(0, 1, "将系统回收站中的内容彻底删除");
+    m_Grid.InsertItem(1, "清空Internet临时文件");
+    m_Grid.SetItemText(1, 1, "删除使用IE浏览器浏览信息时产生的临时文件");
+    m_Grid.InsertItem(2, "清空Windows临时文件夹");
+    m_Grid.SetItemText(2, 1, "删除在Windows中保存的临时文件 Cookies文件");
+    m_Grid.InsertItem(3, "清空文件打开记录");
+    m_Grid.SetItemText(3, 1, "清空【开始】/【最近打开的文档】中的记录");
+    m_Grid.InsertItem(4, "清空IE地址栏中的记录");
+    m_Grid.SetItemText(4, 1, "清除IE地址栏中访问过的地址");
+    m_Grid.InsertItem(5, "清空运行记录");
+    m_Grid.SetItemText(5, 1, "清空【开始】/【运行】中的历史记录");
+    CFont font;
+    font.CreatePointFont(120, "宋体"); 					// 创建字体
+    m_Grid.SetFont(&font);             					// 设置列表字体
+    m_Text.SetFont(&font);             					// 设置静态文本控件字体
+    m_Text1.SetFont(&font);            					// 设置静态文本控件字体
+    m_Text2.SetFont(&font);            					// 设置静态文本控件字体
+    return TRUE;  // return TRUE unless you set the focus to a control
+    // EXCEPTION: OCX Property Pages should return FALSE
+}
+ 

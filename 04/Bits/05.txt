@@ -1,0 +1,18 @@
+// 写内存
+template<typename T>
+bool Write(DWORD dwAddr, T val)
+{
+    if(::WriteProcessMemory(m_hProcess, (LPVOID)dwAddr, &val, sizeof(val), nullptr)) {
+        return true;
+    }
+    return false;
+}
+ 
+bool Write(DWORD dwAddr, unsigned char code[], size_t len)
+{
+    if(::WriteProcessMemory(m_hProcess, (LPVOID)dwAddr, &code[0], len, nullptr)) {
+        return true;
+    }
+    return false;
+}
+ 

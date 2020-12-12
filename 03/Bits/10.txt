@@ -1,0 +1,126 @@
+        // 综合应用, 画一个大嘴对象
+        {
+            static DWORD dwTime = GetTickCount();
+            // 当距离上绘图的时间大于50豪秒时,才进行本次绘制
+            if(GetTickCount() - dwTime >= 50) {
+                dwTime = GetTickCount();
+            }
+            else {
+                continue;
+            }
+            /* 模拟当前的帧
+                本对象一共5帧,每一帧画不同的图形
+            */
+            static int iFrame = 0;
+            ++iFrame;
+            if(iFrame >= 5) {
+                iFrame = 0;
+            }
+ 
+            // 代表对象的中心位置
+            int x = 300, y = 300;
+ 
+            // 对象的半径
+            int r = 100;
+ 
+            // dc 对象句柄
+            HDC hdc = ::GetDC(g_hwnd);
+            std::shared_ptr<HDC__> dc(::GetDC(g_hwnd), [](HDC hdc) {
+                ::ReleaseDC(g_hwnd, hdc);
+            });
+            // 获取窗口客户区大小
+            RECT rc;
+            GetClientRect(g_hwnd, &rc);
+ 
+            // 创建画刷
+            std::shared_ptr<HBRUSH__> br(
+                ::CreateSolidBrush(RGB(255, 255, 255)),
+            [](HBRUSH hbr) {
+                ::DeleteObject(hbr);
+            });
+ 
+            // 画背景(清除上一帧所画内容
+            FillRect(dc.get(), &rc, br.get());
+ 
+#define PI (3.1415926f) 											// 定义 圆周率的值
+            switch(iFrame) {
+                case 0: {
+                    Ellipse(dc.get(), x - r, y - r, x + r, y + r); 	// 画一个圆
+                    MoveToEx(dc.get(), x - r, y, NULL); 			// 画一个横线
+                    LineTo(dc.get(), x, y);
+                    break;
+                }
+                case 1: {
+                    // 画嘴(两条线与纵轴偏离 PI/4
+                    int x0, y0; 									// 左上角的点
+                    int x1, y1; 									// 左下角的点
+                    x0 = x - static_cast<int>(r * sin(PI * 0.75f));
+                    y0 = y + static_cast<int>(r * cos(PI * 0.75f));
+ 
+                    x1 = x + static_cast<int>(r * sin(PI * 1.25f));
+                    y1 = y - static_cast<int>(r * cos(PI * 1.25f));
+ 
+                    SetPixel(dc.get(), x0, y0, RGB(255, 0, 0));
+                    SetPixel(dc.get(), x1, y1, RGB(0, 255, 0));
+                    SetPixel(dc.get(), x, y, RGB(0, 0, 0));
+                    Arc(dc.get(), x - r, y - r, x + r, y + r 		// 画一个半圆 + 一条坚线
+                        , x1, y1
+                        , x0, y0);
+ 
+                    MoveToEx(dc.get(), x0, y0, NULL); 				// 画坚线
+                    LineTo(dc.get(), x, y);
+ 
+                    MoveToEx(dc.get(), x1, y1, NULL);
+                    LineTo(dc.get(), x, y);
+                    break;
+ 
+                }
+                case 2: {
+                    Arc(dc.get(), x - r, y - r, x + r, y + r 		// 画一个半圆 + 一条坚线
+                        , x, y + r
+                        , x, y - r
+                       );
+                    // 画坚线
+                    MoveToEx(dc.get(), x, y - r, NULL); 			// 从圆弧上面的点开始
+                    LineTo(dc.get(), x, y + r); 					// 到圆弧下面的点结束
+                    break;
+                }
+                case 3: {
+                    // 画嘴(两条线与纵轴偏离 PI/4
+                    int x0, y0; 									// 左上角的点
+                    int x1, y1; 									// 左下角的点
+                    x0 = x - static_cast<int>(r * sin(PI * 0.75f));
+                    y0 = y + static_cast<int>(r * cos(PI * 0.75f));
+ 
+                    x1 = x + static_cast<int>(r * sin(PI * 1.25f));
+                    y1 = y - static_cast<int>(r * cos(PI * 1.25f));
+ 
+                    SetPixel(dc.get(), x0, y0, RGB(255, 0, 0));
+                    SetPixel(dc.get(), x1, y1, RGB(0, 255, 0));
+                    SetPixel(dc.get(), x, y, RGB(0, 0, 0));
+                    // 画一个半圆 + 一条坚线
+                    Arc(dc.get(), x - r, y - r, x + r, y + r
+                        , x1, y1
+                        , x0, y0);
+ 
+                    // 画坚线
+                    MoveToEx(dc.get(), x0, y0, NULL);
+                    LineTo(dc.get(), x, y);
+ 
+                    MoveToEx(dc.get(), x1, y1, NULL);
+                    LineTo(dc.get(), x, y);
+                    break;
+ 
+                }
+                case 4: {
+                    // 画一个圆
+                    Ellipse(dc.get(), x - r, y - r, x + r, y + r);
+                    // 画一个横线
+                    MoveToEx(dc.get(), x - r, y, NULL);
+                    LineTo(dc.get(), x, y);
+                    break;
+                }
+                default:
+                    break;
+            }
+        }

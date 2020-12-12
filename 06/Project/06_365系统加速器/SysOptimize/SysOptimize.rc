@@ -1,0 +1,407 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\SysOptimize.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\SysOptimize.ico"
+
+IDI_ICONINETCPL         ICON                    "res\\internet.ICO"
+
+IDI_ICONMMSYS           ICON                    "res\\mmsys.ICO"
+
+IDI_ICONTIMEDATE        ICON                    "res\\timedate.ICO"
+
+IDI_ICONDESK            ICON                    "res\\desk.ICO"
+
+IDI_ICONACCESS          ICON                    "res\\access.ICO"
+
+IDI_ICONMOUSE           ICON                    "res\\mouse.ICO"
+
+IDI_ICONKEYBOARD        ICON                    "res\\keyboard.ICO"
+
+IDI_ICONINTL            ICON                    "res\\intl.ICO"
+
+IDI_ICONAPPWIZ          ICON                    "res\\appwiz.ICO"
+
+IDI_ICONHDWWIZ          ICON                    "res\\hdwwiz.ICO"
+
+IDI_ICONSYSDM           ICON                    "res\\sysdm.ICO"
+
+IDI_ICONCOMPUTER        ICON                    "res\\Computer.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG 0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 SysOptimize"
+FONT 9, "宋体"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "SysOptimize 1.0 版",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "版权所有 (C) 2008",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_SYSOPTIMIZE_DIALOG DIALOGEX 0, 0, 521, 366
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+EXSTYLE WS_EX_WINDOWEDGE | WS_EX_APPWINDOW
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    CONTROL         IDB_BITSELECT,IDC_STATICSELECT,"Static",SS_BITMAP,14,114,81,17
+    CONTROL         "",IDC_FRAME,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,125,58,392,305
+    CONTROL         "磁盘空间整理",IDC_STADISK,"Static",SS_SIMPLE | SS_NOTIFY | WS_GROUP,29,149,49,8
+    CONTROL         "控制面板操作",IDC_STACONTRAL,"Static",SS_SIMPLE | SS_NOTIFY | WS_GROUP,29,117,49,8
+    CONTROL         "垃圾文件清理",IDC_STALITTER,"Static",SS_SIMPLE | SS_NOTIFY | WS_GROUP,29,181,49,8
+    CONTROL         "系统任务管理",IDC_STATASK,"Static",SS_SIMPLE | SS_NOTIFY | WS_GROUP,29,213,49,8
+END
+
+IDD_CONTRAL_DIALOG DIALOG 0, 0, 386, 300
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体"
+BEGIN
+    CONTROL         "Internet选项",IDC_BUTINTERNET,"Button",BS_OWNERDRAW | WS_TABSTOP,31,44,79,27
+    CONTROL         "声音",IDC_BUTMMSYS,"Button",BS_OWNERDRAW | WS_TABSTOP,154,44,79,27
+    CONTROL         "时间和日期",IDC_BUTTIMEDATE,"Button",BS_OWNERDRAW | WS_TABSTOP,277,44,79,27
+    CONTROL         "显示",IDC_BUTDESK,"Button",BS_OWNERDRAW | WS_TABSTOP,31,107,79,27
+    CONTROL         "辅助选项",IDC_BUTACCESS,"Button",BS_OWNERDRAW | WS_TABSTOP,154,107,79,27
+    CONTROL         "鼠标",IDC_BUTMOUSE,"Button",BS_OWNERDRAW | WS_TABSTOP,277,107,79,27
+    CONTROL         "键盘",IDC_BUTKEYBOARD,"Button",BS_OWNERDRAW | WS_TABSTOP,31,170,79,27
+    CONTROL         "区域",IDC_BUTINTL,"Button",BS_OWNERDRAW | WS_TABSTOP,154,170,79,27
+    CONTROL         "添加/删除程序",IDC_BUTAPPWIZ,"Button",BS_OWNERDRAW | WS_TABSTOP,277,170,79,27
+    CONTROL         "添加硬件",IDC_BUTHDWWIZ,"Button",BS_OWNERDRAW | WS_TABSTOP,31,233,79,27
+    CONTROL         "系统",IDC_BUTSYSDM,"Button",BS_OWNERDRAW | WS_TABSTOP,154,233,79,27
+    CONTROL         "计算机管理",IDC_BUTCOMPUTER,"Button",BS_OWNERDRAW | WS_TABSTOP,277,233,79,27
+END
+
+IDD_DISK_DIALOG DIALOGEX 0, 0, 396, 302
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,38,118,351,86,WS_EX_CLIENTEDGE
+    CONTROL         "Check1",IDC_CHECKLL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,120,9,10
+    CONTROL         "Check2",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,134,9,10
+    CONTROL         "Check3",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,147,9,10
+    CONTROL         "Check4",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,158,9,10
+    CONTROL         "Check5",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,170,9,10
+    CONTROL         "Check6",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,181,9,10
+    CONTROL         "Check7",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,192,9,10
+    CONTROL         "全选",IDC_STATIC,"Static",SS_SIMPLE | WS_GROUP,17,121,17,8
+    CONTROL         "        操作系统使用的时间越长，所积累的垃圾文件也越多，特别是临时文件，",IDC_STATEXT,
+                    "Static",SS_SIMPLE | WS_GROUP,20,32,358,20
+    PUSHBUTTON      "清理",IDC_BUTCLEAR,339,235,50,14,BS_FLAT
+    CONTROL         "多的空间，请在下面选择要清除的项目！",IDC_STATEXT2,"Static",SS_SIMPLE | WS_GROUP,20,78,358,20
+    CONTROL         "积累多了还会影响硬盘的速度，如果有效的清除这些临时文件可以获得更",IDC_STATEXT1,"Static",SS_SIMPLE | WS_GROUP,20,55,358,20
+END
+
+IDD_LITTER_DIALOG DIALOG 0, 0, 386, 286
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体"
+BEGIN
+    CONTROL         "选择驱动器：",IDC_STATIC,"Static",SS_SIMPLE | WS_GROUP,17,33,49,8
+    COMBOBOX        IDC_COMBO1,82,30,76,85,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LIST1,16,60,354,177,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "选项",IDC_BUTSELECT,181,254,50,14,BS_FLAT
+    PUSHBUTTON      "开始",IDC_BUTBEGIN,251,254,50,14,BS_FLAT
+    PUSHBUTTON      "停止",IDC_BUTSTOP,321,254,50,14,BS_FLAT
+END
+
+IDD_TASK_DIALOG DIALOGEX 0, 0, 402, 303
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_AUTOARRANGE | WS_BORDER | WS_TABSTOP,4,28,389,257,WS_EX_CLIENTEDGE
+    CONTROL         "Tab1",IDC_TAB1,"SysTabControl32",0x0,0,12,401,278
+END
+
+IDD_SELECT_DIALOG DIALOG 0, 0, 314, 173
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "选择垃圾文件类型"
+FONT 9, "宋体"
+BEGIN
+    CONTROL         "*.~*",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,23,44,10
+    CONTROL         "*.ALT",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,76,23,44,10
+    CONTROL         "*.FIX",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,137,23,44,10
+    CONTROL         "*.PRV",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,23,44,10
+    CONTROL         "*.SYD",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,259,23,44,10
+    CONTROL         "*.$$$",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,46,44,10
+    CONTROL         "*.CLN",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,76,46,44,10
+    CONTROL         "*.GID",IDC_CHECK8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,137,46,44,10
+    CONTROL         "*.SAV",IDC_CHECK9,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,46,44,10
+    CONTROL         "*.TMP",IDC_CHECK10,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,259,46,36,10
+    CONTROL         "*.?~?",IDC_CHECK11,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,69,44,10
+    CONTROL         "*.CYP",IDC_CHECK12,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,76,69,44,10
+    CONTROL         "*.LOO",IDC_CHECK13,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,137,69,44,10
+    CONTROL         "*.SCO",IDC_CHECK14,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,69,44,10
+    CONTROL         "*.UMB",IDC_CHECK15,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,259,69,44,10
+    CONTROL         "*.B?K",IDC_CHECK16,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,92,44,10
+    CONTROL         "*.ERR",IDC_CHECK17,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,76,92,44,10
+    CONTROL         "*.OLD",IDC_CHECK18,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,137,92,44,10
+    CONTROL         "*.SLK",IDC_CHECK19,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,92,44,10
+    CONTROL         "*.UBK",IDC_CHECK20,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,259,92,36,10
+    CONTROL         "*.ffa",IDC_CHECK21,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,115,44,10
+    CONTROL         "*.ffo",IDC_CHECK22,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,76,115,44,10
+    CONTROL         "*.ffl",IDC_CHECK23,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,137,115,44,10
+    CONTROL         "*.ffx",IDC_CHECK24,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,115,44,10
+    CONTROL         "*.T",IDC_CHECK25,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,259,115,28,10
+    PUSHBUTTON      "确定",IDC_BUTOK,185,145,50,14
+    PUSHBUTTON      "取消",IDC_BUTCANCEL,250,145,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404B0"
+        BEGIN
+            VALUE "FileDescription", "SysOptimize Microsoft 基础类应用程序"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "SysOptimize"
+            VALUE "LegalCopyright", "版权所有 (C) 2008"
+            VALUE "OriginalFilename", "SysOptimize.EXE"
+            VALUE "ProductName", "SysOptimize 应用程序"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_SYSOPTIMIZE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 511
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 358
+    END
+
+    IDD_CONTRAL_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 379
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 293
+    END
+
+    IDD_DISK_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 389
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 295
+    END
+
+    IDD_LITTER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 379
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 279
+    END
+
+    IDD_TASK_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 395
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 296
+    END
+
+    IDD_SELECT_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 307
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 166
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU
+BEGIN
+    POPUP "弹出菜单"
+    BEGIN
+        MENUITEM "刷新",                          ID_MENUREF
+        MENUITEM "结束任务",                        ID_MENUSTOP
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_ITEMBITMAP          BITMAP                  "res\\ITEM.bmp"
+
+IDB_BITBLANK            BITMAP                  "res\\空白.bmp"
+
+IDB_BITSELECT           BITMAP                  "res\\选中.bmp"
+
+IDB_TITLE               BITMAP                  "res\\MidTitle.bmp"
+
+IDB_MINBT               BITMAP                  "res\\minbutton.bmp"
+
+IDB_CLOSEBT             BITMAP                  "res\\closebutton.bmp"
+
+IDB_MINHOTBT            BITMAP                  "res\\minhotbutton.bmp"
+
+IDB_CLOSEHOTBT          BITMAP                  "res\\closehotbutton.bmp"
+
+IDB_WINDOWBK            BITMAP                  "res\\首页.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_SYSOPTIMIZE_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "关于 SysOptimize(&A)..."
+END
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\SysOptimize.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

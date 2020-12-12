@@ -1,0 +1,29 @@
+// 重新加载部门组织结构
+void CDepartmentMng::LoadDepartInfo()
+{
+    if(m_InitSucess) {
+        m_DPList.DeleteAllItems();  // 删除所有节点
+        CString sql = "select * from tb_Department where ParentID = 0";
+        CString dpName;
+        HTREEITEM hRoot, hParent;
+        m_DBMng.m_pRecord = m_DBMng.m_pConnect->Execute(
+                                "select * from tb_Department where ParentID = 0",
+                                0, adCmdText);
+        hRoot = m_DPList.InsertItem("部门组织", 0, 0);
+        while(! m_DBMng.m_pRecord->ADOEOF) {
+            dpName = (TCHAR *)(_bstr_t)m_DBMng.m_pRecord->GetFields()
+                     ->GetItem("DepartName")->Value;
+            hParent = m_DPList.InsertItem(dpName, 0, 0, hRoot);
+            int id = m_DBMng.m_pRecord->GetFields()->GetItem("DepartID")->Value.iVal;
+            // 将每个节点关联一个数据，数据低字节表示当前部门的ID，高字节表示上一级部门的ID
+            DWORD dwData =  MAKELPARAM(id, 0);
+            m_DPList.SetItemData(hParent, dwData);
+ 
+            // 将所有子节点添加到父节点下
+            FindNode(hParent, id);
+            m_DBMng.m_pRecord->MoveNext();
+        }
+        m_DPList.Expand(hRoot, TVE_EXPAND);
+    }
+}
+ 

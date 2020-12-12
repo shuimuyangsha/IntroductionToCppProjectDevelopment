@@ -1,0 +1,19 @@
+/*内容来自MainFrm.cpp文件*/
+
+void CMainFrame::OnTimer(UINT_PTR nIDEvent)
+{
+    switch(nIDEvent) {
+        case ETimerIdGameLoop: { 							// 游戏循环ID
+            static DWORD dwLastUpdate = GetTickCount();		// 记录本次时刻
+            if(GetTickCount() - dwLastUpdate >= 20) { 		// 判断时间隔
+                m_game.EnterFrame(GetTickCount());			// 进入游戏帧处理
+                dwLastUpdate = GetTickCount();				// 记录时间间隔
+            }
+            // 否则什么都不做
+        }
+        default:
+            break;
+    }
+ 
+    CFrameWnd::OnTimer(nIDEvent);
+}

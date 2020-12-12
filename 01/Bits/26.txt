@@ -1,0 +1,7 @@
+// 画入内存
+{
+    m_player01.Draw(gh);             			// 画坦克(玩家一)
+    for(auto &blt : m_lstBullets) { 			// 遍历所有存在于地图上的子弹
+        blt.Draw(gh);							// 调用子弹自身绘制函数，绘制子弹
+    }
+}

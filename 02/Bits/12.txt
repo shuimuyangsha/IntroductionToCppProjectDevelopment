@@ -1,0 +1,9 @@
+// 背景色透明中用到颜色
+#define BACK_GROUND_LAYER RGB(0x00, 0x00, 0x00)
+ 
+#define PI(n) (3.1415926f * n) 						// 定义一个宏,代表圆周率的一个近值
+#define Radian2Degree(r) ((180.0f * (r)) / PI(1.0f)) 	// 弧度->角度
+#define Degree2Radian(a) ((a) * PI(1.0f) / 180.0f) 		// 角度->弧度
+
+#include "Game.h"
+extern CGame* g_game;									// 声明全局的CGame类变量

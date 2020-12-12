@@ -1,0 +1,31 @@
+// 游戏绘图
+void CGame::GameRunDraw()
+{
+    HDC hdc = ::GetDC(m_hWnd);
+    CRect rc; 								// 客户区的大小
+    GetClientRect(m_hWnd, &rc);
+ 
+    CDC *dc = CClientDC::FromHandle(hdc);
+ 
+    CDC m_dcMemory; 							// 双缓冲绘图用
+    CBitmap bmp;
+    bmp.CreateCompatibleBitmap(dc, rc.Width(), rc.Height());
+    m_dcMemory.CreateCompatibleDC(dc);
+    CBitmap *pOldBitmap = m_dcMemory.SelectObject(&bmp);
+ 
+    Graphics gh(m_dcMemory.GetSafeHdc());	// 构造对象
+    gh.Clear(Color::White);				// 清除背景
+    gh.ResetClip();
+ 
+    // 画入内存
+    {
+        m_menu.Draw(gh); 					// 画背景
+
+        m_menuSelect.Draw(gh);			// 画菜单
+    }
+ 
+    // 拷贝到屏幕
+    ::BitBlt(hdc, 0, 0, rc.Width(), rc.Height(), m_dcMemory.GetSafeHdc(), 0, 0, SRCCOPY);
+    dc->DeleteDC();						// 释放
+    return;
+}

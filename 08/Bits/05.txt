@@ -1,0 +1,37 @@
+bool CMRKJDatabase::Connect(const char *host		/*=nullptr*/
+                            , const char *database	/*=nullptr*/
+                            , const char *username	/*=nullptr*/
+                            , const char *password	/*=nullptr*/)
+{
+    using namespace std;
+    try {
+        // 拼接连接字符串
+        std::string connectionString = "driver={SQL Server};Server=" + string(host) +
+                                       ";Database=" + string(database) + ";UID=" +
+                                       string(username) + ";PWD=" +
+                                       string(password) + ";";
+         // 打开数据库
+        HRESULT hr = m_pConnection->Open(connectionString.c_str(), username, password
+                                         , adModeUnknown);
+        // 确保打开成功,如果打开不成功，则弹出错误对话框，点击之后程序退出
+        assert(SUCCEEDED(hr));
+    }
+    catch(_com_error &e) {
+        CTools::MessageBoxFormat(_T("%s"), e.ErrorMessage());
+        return false;
+    }
+    catch(...) {
+        TRACE("发生异常\r\n");
+        return false;
+    }
+    return true;
+}
+ 
+void CMRKJDatabase::Close()
+{
+    if(m_pConnection->State) {					// 如果是打开状态
+        m_pConnection->Close();					// 关闭数据库连接
+    }
+    m_pConnection.Release();						// 释放引计数
+    m_pConnection = nullptr;						// 赋值为空指针，防止后面误用
+} 

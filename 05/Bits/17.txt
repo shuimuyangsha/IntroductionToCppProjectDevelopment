@@ -1,0 +1,9 @@
+
+void CRegisterNumDlg::OnBackoff()
+{
+	// 调用父类的OnOk()方法
+    CDialog::OnOK();
+	// 显示模态对话框:选择试用? or 注册
+    CSelectDlg dlg;
+    dlg.DoModal();
+}

@@ -1,0 +1,7 @@
+// 子弹撞墙处理
+{
+    for(auto &blt : m_lstBullets) { // 子弹是否撞上墙 : 如果撞上了，改变方向等等
+        m_map.HitWallProcess(blt);  //  进行撞墙处理
+        blt.Move();                   // 子弹移动
+    }
+}

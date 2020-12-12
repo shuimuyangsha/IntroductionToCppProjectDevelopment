@@ -1,0 +1,37 @@
+// 三种 敌人
+class RedOne : public Enermy // 随即移动S
+{
+protected:
+    void virtual MakeDecision(bool b);
+public:
+    void Draw(HDC &hdc);
+    RedOne(int x, int y) : Enermy(x, y)
+    {
+        color = RGB(255, 0, 0);
+    }
+};
+ 
+class BlueOne : public RedOne //守卫者
+{
+protected:
+    void virtual MakeDecision(bool b);
+public:
+    void Draw(HDC &hdc);
+    BlueOne(int x, int y) : RedOne(x, y)
+    {
+        color = RGB(0, 0, 255);
+    }
+ 
+};
+ 
+class YellowOne : public RedOne // 扰乱者
+{
+protected:
+    void virtual MakeDecision(bool b);
+public:
+    void Draw(HDC &hdc);
+    YellowOne(int x, int y) : RedOne(x, y)
+    {
+        color = RGB(200, 200, 100);
+    }
+};

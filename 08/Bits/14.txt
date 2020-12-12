@@ -1,0 +1,36 @@
+//代码来自文件：MrkjSystemDlg.cpp
+
+//只显示自己的窗口,其余的隐藏
+void CMrkjSystemDlg::ShowChange(CDialogEx *pDlg)
+{
+    // 查找当前己经显示的窗口
+    for(auto p : m_vDlgPtr) {
+        if(p->IsWindowVisible()) {
+            m_pDlgLastShow = p;
+            break;
+        }
+    }
+    // 更新窗口数据
+    {
+        if(pDlg == m_pDlgDataMaintenance) {
+            m_pDlgDataMaintenance->UpdateKindList();
+        }
+        if(pDlg == m_pDlgHostoryData) {
+            m_pDlgHostoryData->UpdateStockInfoComboBox();
+        }
+        if(pDlg == m_pDlgRealtimeData) {
+            m_pDlgRealtimeData->UpdateStockInfoComboBox();
+        }
+    }
+    // 显示新窗口
+    if(pDlg && pDlg->GetSafeHwnd()) {
+        pDlg->ShowWindow(SW_SHOW);
+    }
+    //隐藏其它窗口
+    for(auto p : m_vDlgPtr) {
+        if(p != pDlg) {
+            p->ShowWindow(SW_HIDE);
+        }
+    }
+    m_statusBar.ShowWindow(SW_SHOW);
+}

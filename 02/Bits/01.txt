@@ -1,0 +1,8 @@
+    // 获得屏幕分辨率
+    int w = GetSystemMetrics(SM_CXSCREEN);
+    int y = GetSystemMetrics(SM_CYSCREEN);
+    // 布满全屏
+    {
+        // 设置本窗口大小, 遮挡整个屏幕
+        MoveWindow(0, 0, w, y);
+    }

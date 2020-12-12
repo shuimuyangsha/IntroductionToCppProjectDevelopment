@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{df238151-797b-49b3-a011-debd62190180}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{5e99313d-3457-4cfb-be31-3b0b633e5c96}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{cbf12f6c-8a3c-4d7e-b669-0a57544d0f67}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ContralDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DiskDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IconBtn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LitterDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SysOptimize.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SysOptimizeDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SysOptimize.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ContralDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DiskDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IconBtn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LitterDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SysOptimize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SysOptimizeDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\access.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\appwiz.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\closebutton.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\closehotbutton.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Computer.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\desk.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\hdwwiz.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\internet.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\intl.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ITEM.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\keyboard.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\MidTitle.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\minbutton.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\minhotbutton.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mmsys.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mouse.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\sysdm.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\SysOptimize.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\telephon.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\timedate.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\空白.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\首页.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\选中.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="res\SysOptimize.rc2">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

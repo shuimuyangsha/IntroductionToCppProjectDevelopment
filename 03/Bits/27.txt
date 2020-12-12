@@ -1,0 +1,18 @@
+class Enermy : public GObject 				// 敌军对象
+{
+protected:
+    void Catch();							// 是否抓住玩家
+    
+    void virtual MakeDecision(bool b) = 0;		// AI实现，确定方向
+    COLORREF color;
+public:
+    static std::shared_ptr<PacMan> player;
+    void virtual  Draw(HDC &hdc);				// 负责绘制自己
+    Enermy(int x, int y) : GObject(x, y)		// 构造函数
+    {
+        this->m_nSpeed = ENERMYSPEED;			// 设置速度
+        m_dir = LEFT;							// 设置朝向
+        m_cmd = UP;							// 设置移动方向
+    }
+    void virtual action();					// 负责行为
+};

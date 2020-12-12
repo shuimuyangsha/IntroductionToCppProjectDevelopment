@@ -1,0 +1,34 @@
+BOOL CAccountDlg::OnInitDialog()
+{
+    CDialog::OnInitDialog();
+ 
+    // 数据库初始化
+    m_InitSucess = m_DBMng.InitDatabase();
+    // 图片列表设置:用于给树控件增加图片
+    m_ImageList.Create(16, 16, ILC_COLOR32 | ILC_MASK, 1, 0);
+    CBitmap bmp;
+    // 部门图片
+    bmp.LoadBitmap(IDB_DEPART);
+    m_ImageList.Add(&bmp, RGB(255, 255, 255));
+    bmp.Detach();
+    // 人员图片:男
+    bmp.LoadBitmap(IDB_MAN);
+    m_ImageList.Add(&bmp, RGB(255, 255, 255));
+    bmp.Detach();
+    // 人员图片:女
+    bmp.LoadBitmap(IDB_WOMAN);
+    m_ImageList.Add(&bmp, RGB(255, 255, 255));
+ 
+    // 把图片列表和树控件关联 
+    m_DPList.SetImageList(&m_ImageList, TVSIL_NORMAL);
+ 
+    // 创建xml指针
+    HRESULT hr;
+    hr = pXMLDoc.CreateInstance(__uuidof(DOMDocument30));
+ 
+    // 载入部门信息
+    LoadDepartInfo();
+    // 载入账户信息
+    LoadAccountInfo();
+    return TRUE;
+}

@@ -1,0 +1,11 @@
+        if(KEYDOWN(VK_UP)) {
+            // 坦克撞墙检测试
+            {
+                if(m_map.IsHitTheWall(m_player01, true)) {
+                    m_player01.ChangeDirection(true);     // 撞墙了，改变方向
+                }
+                else {
+                    m_player01.Forward();                  // 没有撞墙，继续前进
+                }
+            }
+        }

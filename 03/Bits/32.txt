@@ -1,0 +1,41 @@
+//RedOne成员
+ 
+void RedOne::Draw(HDC &hdc)
+{
+    Enermy::Draw(hdc);
+}
+void RedOne::MakeDecision(bool b)
+{
+    //srand(time(0));
+    int i = rand();
+    if(b) {  													// 撞到墙壁,改变方向
+        if(i % 4 == 0) { 											// 逆时针转向
+            m_dir == UP ? m_cmd = LEFT : m_cmd = UP;				// 面向上，向左拐
+        }
+        else if(i % 3 == 0) {
+            m_dir == DOWN ? m_cmd = RIGHT : m_cmd = DOWN;			// 面向下，向右拐
+        }
+        else if(i % 2 == 0) {
+            m_dir == RIGHT ? m_cmd = UP : m_cmd = RIGHT;			// 面向右，向上拐
+        }
+        else {
+            m_dir == LEFT ? m_cmd = DOWN : m_cmd = LEFT;			// 面向左，向下拐
+        }	
+        return;													// 提前结束函数，返回
+    }
+ 
+    // 程序运行到这里，说明没有撞墙，继续处理
+    if(i % 4 == 0) {
+        m_cmd != UP ? m_dir == DOWN : m_cmd == UP;		// 非向上移动则使之面向下，否则面向上
+    }
+    else if(i % 3 == 0) {
+        m_dir != DOWN ? m_cmd = UP : m_cmd = DOWN;		// 非向下移动则使之面向上，否则面向下
+    }
+    else if(i % 2 == 0) {
+        m_dir != RIGHT ? m_cmd = LEFT : m_cmd = RIGHT;	// 非向右移动则使之面向左，否则面向右
+    }
+    else {
+        m_dir != LEFT ? m_cmd = RIGHT : m_cmd = LEFT;	// 非向左移动则使之面向右，否则面向左
+    }
+ 
+}

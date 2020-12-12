@@ -1,0 +1,100 @@
+
+// 画 fps
+void CGame::DrawFps(Graphics &gh)
+{
+    static int fps = 0;						// 定义局部静态变量
+    m_fps++;									// 进入一次该函数值自增一，静态变量可以保持值
+    static DWORD dwLast = GetTickCount();	// 记录上次运行的时间
+    if (GetTickCount() - dwLast >= 1000) {	// 如果时间到达一秒
+        fps = m_fps;							//   记录累积的fps值
+        m_fps = 0;							// 清空静态量的值，以防污染下次的记录
+        dwLast = GetTickCount();				// 记录本次时间
+    }
+ 
+    // 输出fps
+    {
+        CString s;
+        s.Format(_T("FPS:%d"), fps);			// 将整型值格式化为字符串，后面输出时用到
+        SolidBrush brush(Color(0x00, 0x00, 0xFF));		// 定义画刷，主要是颜色属性
+        Gdiplus::Font font(_T("宋体"), 10.0);			// 定义输出的字体、大小
+        CRect rc;
+        ::GetClientRect(m_hWnd, &rc);					// 获取游戏窗口的大小
+        PointF origin(static_cast<float>(rc.right - 50),	// 在右上角显示
+            static_cast<float>(rc.top + 2));
+        gh.DrawString(s.GetString(), -1, &font, origin, &brush); // 输出文字
+    }
+}
+ 
+// 移除超时子弹,并给对应的坦克装弹
+void CGame::RemoveTimeoutBullets()
+{
+    // 定义查找方法
+    auto itRemove = std::remove_if(m_lstBullets.begin(), 
+        m_lstBullets.end(),
+        [](CBullet & blt)->bool {return blt.IsTimeout(); });
+ 
+	// 把子弹移除,并给对应的坦克增加子弹,
+    for (auto it = itRemove; it != m_lstBullets.end(); ++it) {
+        // 设置为无效
+        it->SetActive(false);
+        // 给对应的坦克增加子弹
+        it->GetOwner()->AddBullet(*it);
+    }
+    // 从本地 删除 子弹
+    m_lstBullets.erase(itRemove, m_lstBullets.end());
+}
+ 
+// 子弹运动的维护:撞墙拐弯
+void CGame::ProcessHitBullets()
+{
+    // 子弹是否撞上墙 : 如果撞上了，改变方向等等
+    for (auto &blt : m_lstBullets) {
+        m_map.HitWallProcess(blt);	// 进行撞墙处理,如果撞墙，该函数中会改变子弹方向
+        blt.Move();					// 子弹继续前进
+    }
+}
+ 
+// 维护电脑的自动寻路攻击
+void CGame::AI()
+{
+    // 电脑运动状态态维护
+    static CGameTimer acTimer(-1, 150);
+    if (acTimer.IsTimeval()) {
+        // 获得机器人，玩家 所在的位置
+        int startX, startY, targetX, targetY;
+        if (!m_map.FindObjPosition(m_bot, startX, startY) || 
+			!m_map.FindObjPosition(m_player01, targetX, targetY)) {
+            return;
+        }
+        float fDirNext = 0; //机器人下一步的方向
+        if (!m_map.FindNextDirection(&fDirNext, 
+			startX, startY, 
+			targetX, targetY)) {
+            return;
+        }
+ 		// 获得机器人、地图中空格的中心点
+        PointF ptTankCenter = m_bot.GetCenterPoint();
+        PointF ptAreaCenter = m_map.GetElementAreaCenter(startX, startY);
+        RectF rc(ptAreaCenter.X - 5, ptAreaCenter.Y - 5, 10, 10);
+ 
+ 
+        // 判断 坦克是否己经走到了中心点位置了
+        if (!rc.Contains(ptTankCenter)) {
+            m_bot.Forward(); // 没有到达中心点，继续前进
+            return;
+        }
+        else {
+            m_bot.SetDirection(fDirNext);	// 设置机器人下一步的运行方向
+            float dir;
+             // 判断是否可以打开玩家一
+            if (m_map.IsCanKillTarget(m_bot, m_player01, &dir)) {
+                CBullet blt;
+                if (m_bot.Fire(blt)) {		// 机器人开会，进行主动攻击
+                    m_lstBullets.push_back(blt);
+                }
+                return;
+            }
+            m_bot.Forward();					// 机器人前进
+        }
+    }
+}

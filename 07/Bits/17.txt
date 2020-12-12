@@ -1,0 +1,35 @@
+void CDepartmentMng::FindNode(HTREEITEM hParent, int ParentID)
+{
+    // 声明指针
+    _ConnectionPtr pCon;
+    _RecordsetPtr pRecord;
+ 
+    // 创建实例
+    pCon.CreateInstance("ADODB.connection");
+    pRecord.CreateInstance("ADODB.recordset");
+ 
+    // 设置数据库连接串
+    pCon->ConnectionString = m_DBMng.m_ConnectStr.AllocSysString();
+    pCon->Open("", "", "", -1);
+ 
+    // SQL语句:查询指定ID的部门
+    CString sql;
+    sql.Format("select * from tb_Department where ParentID = %d", ParentID);
+    pRecord = pCon->Execute((_bstr_t)sql, 0, adCmdText);
+    CString dpName;
+    HTREEITEM hTemp;
+    DWORD dwData;
+    // 遍历数据
+    while(! pRecord->ADOEOF) {
+        dpName = (TCHAR *)(_bstr_t) pRecord->GetFields()->GetItem("DepartName")->Value;
+        int id = pRecord->GetFields()->GetItem("DepartID")->Value.iVal;
+        hTemp = m_DPList.InsertItem(dpName, 0, 0, hParent);
+        dwData = MAKELPARAM(id, ParentID);
+        m_DPList.SetItemData(hTemp, dwData);
+        // 递规调用
+        FindNode(hTemp, id);
+        // 移动指针
+        pRecord->MoveNext();
+    }
+}
+ 

@@ -1,0 +1,7 @@
+void CSysOptimizeDlg::OnPaint()
+{
+    // 略
+ 
+    DrawDialog(fAll); // 绘制标题栏
+    m_IsDrawForm = TRUE;
+}

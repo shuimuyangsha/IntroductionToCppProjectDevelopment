@@ -1,0 +1,34 @@
+// 设置 种植物没有CD
+void CDialogMain::OnBnClickedButtonNocd()
+{
+    const DWORD dwBaseAddr  = 0x00488250;
+    const DWORD dwBaseAddr2 = 0x00488688;
+    CString str;
+    GetDlgItemText(IDC_BUTTON_NOCD, str);
+    if(str == _T("无CD")) {
+        // 亮暗控制
+        {
+            const unsigned char code[] = { 0xEB, 0x24 };
+            WriteCode(dwBaseAddr, code, _countof(code));
+        }
+        // 可单击控制
+        {
+            const unsigned char code[] = { 0xE9, 0x7A, 0x01, 0x00, 0x00, 0x90 };
+            WriteCode(dwBaseAddr2, code, _countof(code));
+        }
+        SetDlgItemText(IDC_BUTTON_NOCD, _T("无CD(恢复)"));
+    }
+    else {
+        // 亮暗控制
+        {
+            const unsigned char code[] = { 0x75, 0x24 };
+            WriteCode(dwBaseAddr, code, _countof(code));
+        }
+        // 可单击控制
+        {
+            const unsigned char code[] = { 0x0F, 0x85, 0x79, 0x01, 0x00, 0x00 };
+            WriteCode(dwBaseAddr2, code, _countof(code));
+        }
+        SetDlgItemText(IDC_BUTTON_NOCD, _T("无CD"));
+    }
+}

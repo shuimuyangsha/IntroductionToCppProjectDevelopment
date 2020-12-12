@@ -1,0 +1,5 @@
+private:
+    // 引入 GDIPlus 所需要的变量
+    ULONG_PTR m_tokenGdiplus;
+    Gdiplus::GdiplusStartupInput input;
+    Gdiplus::GdiplusStartupOutput output;

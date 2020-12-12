@@ -1,0 +1,18 @@
+// 写内存:修改代码
+static bool WriteCode(DWORD dwAddr, const unsigned char code[], size_t len)
+{
+    DWORD dwOld;
+	// 修改内存属性，使其可读可写
+    if(!VirtualProtect((LPVOID)dwAddr, len, PAGE_EXECUTE_READWRITE, &dwOld)) {
+        return false;
+    }
+ 	// 拷贝代码到目标地址处
+    memcpy_s((void *)dwAddr, len, code, len);
+ 
+    DWORD dwNew;
+    // 还原内存属性
+    if(VirtualProtect((LPVOID)dwAddr, len, dwOld, &dwNew)) {
+        return true;
+    }
+    return false;
+}

@@ -1,0 +1,13 @@
+void GMap::DrawPeas(HDC &hdc)							// 画豆子函数
+{
+    for(int i = 0; i < MAPLENTH; i++) {				// 遍历整个数组
+        for(int j = 0; j < MAPLENTH; j++) {
+            if(peaMapData[i][j]) {					// 如果该处有豆子
+                
+                Ellipse(hdc, (LD / 2 - PD) + j * LD,	// 画圆：模拟豆子
+                        (LD / 2 - PD) + i * LD,
+                        (LD / 2 + PD) + j * LD,
+                        (LD / 2 + PD) + i * LD);
+            }
+        }
+    }

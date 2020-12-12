@@ -1,0 +1,9 @@
+//游戏绘图处理
+//负责 绘画 游戏中的对象
+void GameRunDraw();
+ 
+// 输出fps
+void DrawFps(Graphics &gh);
+ 
+// 记录 游戏每秒多少帧
+int m_fps{ 0 };

@@ -1,0 +1,2 @@
+//按钮状态
+enum CButtonState {bsNone, bsMin, bsClose};

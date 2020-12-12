@@ -1,0 +1,30 @@
+void CDialogLogin::OnBnClickedButtonLogin()
+{
+    UpdateData(TRUE);
+    // 记录到配置文件
+    RecordInfo();
+    // 到数据库中进行对比
+    if(!DB.CheckUser(m_strUsername, m_strPassword)) {
+        AfxMessageBox(_T("用户名或密码错误"));
+        return;
+    }
+    // 查询数据库中的权限信息
+    if(!DB.QueryUserByUsername(g_loginUser, m_strUsername)) {
+        AfxMessageBox(_T("获取用户信息失败"));
+        return;
+    }
+    // 退出当前对话框
+    OnOK();
+}
+ 
+void CDialogLogin::RecordInfo()
+{
+    // 保存"用户名"到配置文件中
+    CFG.SaveFormat(L"登陆用户", L"用户名", L"%s", m_strUsername.GetString());
+    // 保存"是否记录密码"到配置文件中
+    CFG.SaveFormat(L"登陆用户", L"是否记录密码", L"%d", m_bRecordPass);
+    // 如果 选定了了 "记录登陆密码",则记录密码到配置文件中
+    if(m_bRecordPass) {
+        CFG.SaveFormat(L"登陆用户", L"密码", L"%s", m_strPassword.GetString());
+    }
+}

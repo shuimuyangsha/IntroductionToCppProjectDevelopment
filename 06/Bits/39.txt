@@ -1,0 +1,78 @@
+typedef BOOL (__stdcall *funIsHungAppWindow)(HWND hWnd);
+void CTaskDlg::ShowList(int num)
+{
+    // 显示进程列表
+    if(num == 0) {
+        m_Grid.DeleteAllItems();
+        for(int i = 0; i < 4; i++) {
+            m_Grid.DeleteColumn(0); // 删除列
+        }
+        // 插入四个列
+        m_Grid.InsertColumn(0, "映像名称", LVCFMT_LEFT, 100, 0);
+        m_Grid.InsertColumn(1, "进程ID", 　LVCFMT_LEFT, 100, 1);
+        m_Grid.InsertColumn(2, "线程数量", LVCFMT_LEFT, 100, 2);
+        m_Grid.InsertColumn(3, "优先级别", LVCFMT_LEFT, 100, 3);
+        // 生成快照
+        HANDLE toolhelp = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+        if(toolhelp == NULL) {								// 生成快照失败
+            return ;											// 直接返回，无法再继续
+        }	
+        PROCESSENTRY32 processinfo;
+        int i = 0;
+        CString str;
+        BOOL start = Process32First(toolhelp, &processinfo);    // 获得第一个进程
+        while(start) {
+            m_Grid.InsertItem(i, "");                           // 插入行
+            m_Grid.SetItemText(i, 0, processinfo.szExeFile);    // 获得映像名称
+            str.Format("%d", processinfo.th32ProcessID);        // 获得进程ID
+            m_Grid.SetItemText(i, 1, str);
+            str.Format("%d", processinfo.cntThreads);           // 获得线程数量
+            m_Grid.SetItemText(i, 2, str);
+            str.Format("%d", processinfo.pcPriClassBase);       // 获得优先级别
+            m_Grid.SetItemText(i, 3, str);
+            start = Process32Next(toolhelp, &processinfo);      // 获得下一个进程
+            i++;
+        }
+    }
+    // 显示窗口列表
+    else {
+        m_Grid.DeleteAllItems();
+        for(int i = 0; i < 6; i++) {
+            m_Grid.DeleteColumn(0);                             // 删除列
+        }
+        m_Grid.InsertColumn(0, "窗口", LVCFMT_LEFT, 200);       // 插入四个列
+        m_Grid.InsertColumn(1, "状态", LVCFMT_LEFT, 100);
+        m_Grid.InsertColumn(2, "进程ID", LVCFMT_LEFT, 100);
+        HINSTANCE hInstance = LoadLibrary("user32.dll");        // 加载动态库
+        auto IsHungAppWindow = (funIsHungAppWindow)
+                               GetProcAddress(hInstance, "IsHungAppWindow");
+        CWnd *pWnd = AfxGetMainWnd()->GetWindow(GW_HWNDFIRST);  // 获得窗口句柄
+        int i = 0;
+        CString cstrCap;
+        // 遍历窗口
+        while(pWnd) {                                           // 遍历窗口
+            // 窗口可见,并且是顶层窗口
+            if(pWnd->IsWindowVisible() && !pWnd->GetOwner()) {
+                pWnd->GetWindowText(cstrCap);
+                if(! cstrCap.IsEmpty()) {						// 如果窗口标不是空
+                    m_Grid.InsertItem(i, cstrCap);				// 存放到列表中
+                    if(IsHungAppWindow(pWnd->m_hWnd)) {         // 判断程序是否“无响应”
+                        m_Grid.SetItemText(i, 1, "不响应");
+                    }
+                    else {
+                        m_Grid.SetItemText(i, 1, "正在运行");
+                    }
+                    //或取进程ID
+                    DWORD dwProcessId;
+                    GetWindowThreadProcessId(pWnd->GetSafeHwnd(), &dwProcessId);
+                    CString str;
+                    str.Format(_T("%d"), dwProcessId);
+                    m_Grid.SetItemText(i, 2, str.GetString());
+                    i++;										// 接着处理下一个
+                }
+            }
+            pWnd = pWnd->GetWindow(GW_HWNDNEXT);                // 搜索下一个窗口
+        }
+    }
+}
+ 

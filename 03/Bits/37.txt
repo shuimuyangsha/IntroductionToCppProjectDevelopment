@@ -1,0 +1,35 @@
+// 主消息循环:
+// 玩家没有被抓,并且关卡<3
+while(!g_me->IsOver() && s_n < STAGE_COUNT) {
+    // 判断是否赢得比赛
+    if(g_me->IsWin()) {
+        s_n++;												// 移动到下一关
+        // 重设自己和敌人位置
+        g_me->SetPosition(P_ROW, P_ARRAY);
+        e1->SetPosition(E_ROW, E_ARRAY);					// 设置敌军一的位置
+        e2->SetPosition(E_ROW, E_ARRAY); 					// 设置敌军二的位置
+        e3->SetPosition(E_ROW, E_ARRAY); 					// 设置敌军三的位置
+        e4->SetPosition(E_ROW, E_ARRAY); 					// 设置敌军四的位置
+        // 判断是否完成了3关,如果完成,退出游戏,否则进入下一关
+        if(s_n < 3) {
+            MessageBox(g_hwnd, _T("恭喜过关"), _T("吃豆子提示"), MB_OK);
+            GObject::pStage = MapArray[s_n];				// 
+            RECT screenRect;
+            screenRect.top = 0;
+            screenRect.left = 0;
+            screenRect.right = WLENTH;
+            screenRect.bottom = WHIGHT;
+ 
+            HDC hdc = GetDC(g_hwnd);						// 获取设备
+            std::shared_ptr<HDC__> dc(hdc, [](HDC hdc) {	// 智能指针，自动管理资源
+                ::ReleaseDC(g_hwnd, hdc);
+            });
+            ::FillRect(dc.get(), &screenRect, CreateSolidBrush(RGB(255, 255, 255)));
+            GObject::pStage->DrawMap(hdc);					// 画地图
+            continue; 									// 继续进行循环
+        }
+        else {
+            // 跳出循环
+            break;
+        }
+    }

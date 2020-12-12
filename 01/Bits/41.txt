@@ -1,0 +1,10 @@
+private:
+ 
+    void RemoveTimeoutBullets();				// 移除超时子弹,并给对应的坦克装弹
+
+    void ProcessHitBullets();					// 维护子弹的运行，及撞墙处理
+
+    void AI();								// 维护电脑的自动寻路攻击
+
+    void DrawFps(Graphics &gh); 				// 输出fps
+

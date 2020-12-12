@@ -1,0 +1,95 @@
+#include "stdafx.h"
+#include "DayDataEntry.h"
+ 
+ 
+CDayDataEntry::CDayDataEntry()
+{
+}
+ 
+ 
+CDayDataEntry::~CDayDataEntry()
+{
+}
+ 
+CDayDataEntry::CDayDataEntry(const CDayDataEntry& rhs)
+{
+    if(this != &rhs) {
+        this->code = rhs.code;                      // 股票代码
+        this->date = rhs.date;                      // 日期
+        this->open = rhs.open;                      // 开盘
+        this->max = rhs.max;                        // 最高
+        this->min = rhs.min;                        // 最低
+        this->close = rhs.close;                    // 收盘
+        this->turnover = rhs.turnover;              // 成交量
+        this->tradingVolume = rhs.tradingVolume;    // 成交额
+    }
+}
+ 
+CDayDataEntry& CDayDataEntry::operator= (const CDayDataEntry& rhs)
+{
+    if(this != &rhs) {
+        this->code = rhs.code;                      // 股票代码
+        this->date = rhs.date;                      // 日期
+        this->open = rhs.open;                      // 开盘
+        this->max = rhs.max;                        // 最高
+        this->min = rhs.min;                        // 最低
+        this->close = rhs.close;                    // 收盘
+        this->turnover = rhs.turnover;              // 成交量
+        this->tradingVolume = rhs.tradingVolume;    // 成交额
+    }
+    return *this;
+}
+ 
+static double ToFloat(const std::wstring& strVal)	 // 字符串转换为双精度浮点数
+{
+    using namespace std;							 // 使用标准库命名空间
+    wstringstream s(strVal); 						 // 构造 wstringstream对象
+    double d;
+    s >> d; 										 // 把值输出到 浮点型变量
+    return d;
+}
+static int ToInt(const std::wstring& strVal) 	 	 // 字符串转换为整数		
+{
+    using namespace std; 							 // 使用标准库命名空间
+    wstringstream s(strVal);						 // 构造 wstringstream对象
+    int d;
+    s >> d;										 // 把值输出到 整型变量
+    return d;
+}
+ 
+COleDateTime ToDateTime(const std::wstring& strVal) // 字符串转换为DateTime时间类型
+{
+    std::vector<std::wstring> v;
+    StringHelper::SplitString(v, strVal, L"/");	 // 拆分符串 2011/01/02=>2001 02 02
+    return COleDateTime(ToInt(v[0]), ToInt(v[1]), ToInt(v[2]), 0, 0, 0);// 返回日期对象
+}
+ 
+COleDateTime CDayDataEntry::GetDate() const	 // 日期
+{
+    return ToDateTime(this->date);
+}
+ 
+double CDayDataEntry::GetOpen() const           // 开盘
+{
+    return ToFloat(this->open);
+}
+double CDayDataEntry::GetMax() const            // 最高
+{
+    return ToFloat(this->max);
+}
+double CDayDataEntry::GetMin() const            // 最低
+{
+    return ToFloat(this->min);
+}
+double CDayDataEntry::GetClose() const          // 收盘
+{
+    return ToFloat(this->close);
+}
+double CDayDataEntry::GetTurnover() const       // 成交量
+{
+    return ToFloat(this->turnover);
+}
+double CDayDataEntry::GetTradingVolume() const  // 成交额
+{
+    return ToFloat(this->tradingVolume);
+}

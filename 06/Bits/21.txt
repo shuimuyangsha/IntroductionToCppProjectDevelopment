@@ -1,0 +1,32 @@
+void CSysOptimizeDlg::CreateDialogBox(int num)
+{
+    CRect fRect;
+    m_Frame.GetClientRect(&fRect);               // 获得图片控件的客户区域
+    m_Frame.MapWindowPoints(this, fRect);        // 设置模块的显示位置
+    switch(num) {                                // 判断显示的模块
+        case 1:                                  // 控制面板操作模块
+            m_pContralDlg = new CContralDlg;     // 创建对话框
+            m_pContralDlg->Create(IDD_CONTRAL_DIALOG, this);
+            m_pContralDlg->MoveWindow(fRect);    // 移动位置
+            m_pContralDlg->ShowWindow(SW_SHOW);  // 显示对话框
+            break;
+        case 2:                                  // 磁盘空间整理模块
+            m_pDiskDlg = new CDiskDlg;           // 创建对话框
+            m_pDiskDlg->Create(IDD_DISK_DIALOG, this);
+            m_pDiskDlg->MoveWindow(fRect);       // 移动位置
+            m_pDiskDlg->ShowWindow(SW_SHOW);     // 显示对话框
+            break;
+        case 3:                                  // 垃圾文件整理模块
+            m_pLitterDlg = new CLitterDlg;       // 创建对话框
+            m_pLitterDlg->Create(IDD_LITTER_DIALOG, this);
+            m_pLitterDlg->MoveWindow(fRect);     // 移动位置
+            m_pLitterDlg->ShowWindow(SW_SHOW);   // 显示对话框
+            break;
+        case 4:                                  // 系统任务管理模块
+            m_pTaskDlg->MoveWindow(fRect);       // 移动位置
+            m_pTaskDlg->ShowWindow(SW_SHOW);     // 显示对话框
+            break;
+    }
+    m_Num = num;
+}
+ 

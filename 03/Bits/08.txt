@@ -1,0 +1,11 @@
+// 画圆测试
+{
+    HDC hdc = ::GetDC(g_hwnd);
+    //画圆:后面四个数字，构成一个正方形
+    Ellipse(hdc, 200, 150, 300, 250);
+    //画椭圆
+    Ellipse(hdc, 200, 270, 340, 370);
+    //画椭圆
+    Ellipse(hdc, 100, 100, 200, 150);
+    ::ReleaseDC(g_hwnd, hdc);
+}

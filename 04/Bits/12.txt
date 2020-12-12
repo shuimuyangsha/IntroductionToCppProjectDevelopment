@@ -1,0 +1,43 @@
+
+// 调用种植CALL
+static void _CropCall(DWORD dwType, DWORD dwX, DWORD dwY, DWORD dwIDTarget = 0xFFFFffff)
+{
+    __try {
+        __asm {
+            pushad;					// 保存所有的标志寄存器
+            pushfd;					// 保存所有的通用寄存器
+
+            push dwIDTarget; 			// 如果模访者，则是被模访的植物的ID
+            push dwType;      		// 植物类型
+            push dwX;      			// x坐标
+ 
+            mov eax, 0x006A9EC0;		
+            mov eax, dword ptr[eax];
+            add eax, 0x768;			
+            mov eax, dword ptr[eax];
+            push eax;					// 依照游戏中调用方法，取出该值，并入栈
+ 
+            mov eax, dwY; 			// y坐标
+ 
+            mov esi, 0x0040D120; 		// 调用CALL:这里不能直接写 call 0x0040D120
+            call esi;					// 正至调用CALL
+ 
+            popfd; 					// 还原所有的通用寄存器
+            popad; 					// 还原所有的标志寄存器
+        }
+    }
+    __except(EXCEPTION_EXECUTE_HANDLER) {
+ 
+    }
+}
+static void CropCall(DWORD dwType, DWORD dwX, DWORD dwY, DWORD dwIDTarget = 0xFFFFffff)
+{
+    // 如果是模访者
+    if(dwType == ID_MFZ) {
+        _CropCall(dwType, dwX, dwY, dwIDTarget);
+    }
+    else {
+        _CropCall(dwType, dwX, dwY);
+    }
+}
+ 

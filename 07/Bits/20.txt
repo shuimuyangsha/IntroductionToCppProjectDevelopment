@@ -1,0 +1,37 @@
+BOOL CECSClientDlg::OnInitDialog()
+{
+    // 省略自动生成代码
+ 
+    // 创建图标列表，为账号列表显示图标用
+    m_ImageList.Create(16, 16, ILC_COLOR32 | ILC_MASK, 1, 0);
+    CBitmap bmp;
+    // 部门图标
+    bmp.LoadBitmap(IDB_DEPART);
+    m_ImageList.Add(&bmp, RGB(255, 255, 255));
+    bmp.Detach();
+ 
+    // 图标：男
+    bmp.LoadBitmap(IDB_MAN);
+    m_ImageList.Add(&bmp, RGB(255, 255, 255));
+    bmp.Detach();
+ 
+    // 图标：女
+    bmp.LoadBitmap(IDB_WOMAN);
+    m_ImageList.Add(&bmp, RGB(255, 255, 255));
+    bmp.Detach();
+    
+    // 图标：人
+    bmp.LoadBitmap(IDB_PERSON);
+    m_ImageList.Add(&bmp, RGB(255, 255, 255));
+ 
+    // 与树控件关联
+    m_ACList.SetImageList(&m_ImageList, TVSIL_NORMAL);
+ 
+    // 设置滚动条
+    SkinScrollBar(&m_ACList);
+ 
+    // 启动定时器:检测在线状态
+    SetTimer(1, 2000, NULL);
+ 
+    return TRUE;  // return TRUE  unless you set the focus to a control
+}

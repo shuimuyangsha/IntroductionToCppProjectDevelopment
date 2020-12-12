@@ -1,0 +1,16 @@
+#pragma once
+#include "IDrawable.h"
+/*
+    本类为 所有 标记(喷射，涂抹到屏幕上面的东西及碎裂效果)的父类,
+    是一个抽象类   
+*/
+class IMark :
+    public IDrawable
+{
+public:
+    IMark();
+    virtual ~IMark();
+    // 标记本类当前是否是动态的
+    virtual bool IsChanging() const = 0;
+};
+

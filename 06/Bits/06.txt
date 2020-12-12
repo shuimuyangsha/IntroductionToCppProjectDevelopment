@@ -1,0 +1,95 @@
+// 绘制标题栏及按钮
+void CSysOptimizeDlg::DrawDialog(UINT Flags)
+{
+    CRect WinRC, FactRC;
+    //获得窗口区域
+    GetWindowRect(WinRC);
+    //拷贝区域
+    FactRC.CopyRect(CRect(0, 0, WinRC.Width(), WinRC.Height()));
+    // 获得边框的高
+    m_BorderHeight = GetSystemMetrics(SM_CYBORDER);
+    // 获得边框的宽
+    m_BorderWidth = GetSystemMetrics(SM_CXBORDER);
+    // 获得标题栏的高度
+    m_CaptionHeight = GetSystemMetrics(SM_CYCAPTION);
+    //获取窗口设备上下文
+    CWindowDC WindowDC(this);
+    // 创建内存兼容DC
+    CDC memDC;
+    memDC.CreateCompatibleDC(&WindowDC);
+ 
+    //绘制标题
+    if(Flags & fTitle) {
+        CBitmap bmpTitle, *OldObj;
+        BITMAPINFO bitmapInfo;
+        DeleteObject(bmpTitle);
+        // 载入标题栏文字
+        bmpTitle.LoadBitmap(IDB_TITLE);
+ 
+        //获取位图大小
+        bmpTitle.GetObject(sizeof(bitmapInfo), &bitmapInfo);
+ 
+        // 选中该位图
+        OldObj = memDC.SelectObject(&bmpTitle);
+ 
+        int width = bitmapInfo.bmiHeader.biWidth;
+        int height = bitmapInfo.bmiHeader.biHeight;
+ 
+        m_TitleDrawHeight  = (m_CaptionHeight + 4 > height) ?
+                             m_CaptionHeight + 4 :
+                             height;
+        CRect rr(FactRC.left, 0, FactRC.right, m_TitleDrawHeight);
+        m_TitleRc.CopyRect(rr);
+ 
+        WindowDC.StretchBlt(m_TitleRc.left, m_TitleRc.top,
+                            m_TitleRc.Width(), m_TitleRc.Height(),
+                            &memDC, 0, 0, width, height, SRCCOPY);
+        bmpTitle.Detach();
+        memDC.SelectObject(OldObj);
+    }
+ 
+    // 最小化按钮的大小
+    m_MinRect.CopyRect(CRect(m_TitleRc.right - 70, (m_TitleDrawHeight + 2
+                             *m_BorderHeight - m_ButtonHeight) / 2,
+                             m_ButtonWidth, m_ButtonHeight));
+    // 关闭按钮的大小
+    m_CloseRect.CopyRect(CRect(m_TitleRc.right - 40, (m_TitleDrawHeight + 2
+                               *m_BorderHeight - m_ButtonHeight) / 2,
+                               m_ButtonWidth, m_ButtonHeight));
+    //绘制最小化按钮
+    if(Flags & fMinButton) {
+        CBitmap bitmapMinBtn, *OldObj;
+        BITMAPINFO bitmapInfo;
+        DeleteObject(bitmapMinBtn);
+        bitmapMinBtn.LoadBitmap(IDB_MINBT);
+        //获取位图大小
+        bitmapMinBtn.GetObject(sizeof(bitmapInfo), &bitmapInfo);
+        OldObj = memDC.SelectObject(&bitmapMinBtn);
+        int width = bitmapInfo.bmiHeader.biWidth;
+        int height = bitmapInfo.bmiHeader.biHeight;
+        WindowDC.StretchBlt(m_MinRect.left, m_MinRect.top, m_MinRect.right,
+                            m_MinRect.bottom, &memDC, 0, 0, width, height, SRCCOPY);
+        memDC.SelectObject(OldObj);
+        bitmapMinBtn.Detach();
+    }
+ 
+    //绘制关闭按钮
+    if(Flags & fCloseButton) {
+        CBitmap bitmapCloseBtn, *OldObj;
+        BITMAPINFO bitmapInfo;
+        DeleteObject(bitmapCloseBtn);
+        bitmapCloseBtn.LoadBitmap(IDB_CLOSEBT);
+        //获取位图大小
+        bitmapCloseBtn.GetObject(sizeof(bitmapInfo), &bitmapInfo);
+        OldObj =  memDC.SelectObject(&bitmapCloseBtn);
+        int width = bitmapInfo.bmiHeader.biWidth;
+        int height = bitmapInfo.bmiHeader.biHeight;
+        WindowDC.StretchBlt(m_CloseRect.left, m_CloseRect.top, m_CloseRect.right,
+                            m_CloseRect.bottom, &memDC, 0, 0, width, height, SRCCOPY);
+        memDC.SelectObject(OldObj);
+        bitmapCloseBtn.Detach();
+    }
+ 
+    DrawCaption();
+}
+ 

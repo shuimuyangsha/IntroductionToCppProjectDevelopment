@@ -1,0 +1,4 @@
+#define fTitle          1  //标题
+#define fMinButton      2  //最小化按钮
+#define fCloseButton    4  //关闭按钮
+#define fAll            7  //所有标识

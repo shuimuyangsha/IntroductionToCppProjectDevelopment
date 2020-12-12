@@ -1,0 +1,4 @@
+GetWindowLong(m_hWnd, 0);
+SHEmptyRecycleBin(m_hWnd, NULL, SHERB_NOCONFIRMATION
+                  || SHERB_NOPROGRESSUI
+                  || SHERB_NOSOUND);
